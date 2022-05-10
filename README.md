@@ -1,6 +1,8 @@
-# Avance 1 del proyecto final de Diseño de Compiladores Gpo 2
+Siguientes objetivos:
 
-Hasta el momento se han integrado tokens y reglas de la gramatica
+* Arreglar gramática
+* Cubo semántico
+* Directorio de funciones
 
 Comando para ejecutar: python3 lexyacc.py
 
