@@ -1,7 +1,7 @@
+Cubo semántico implementado.
 Siguientes objetivos:
 
 * Arreglar gramática
-* Cubo semántico
 * Directorio de funciones
 
 Comando para ejecutar: python3 lexyacc.py
