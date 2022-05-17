@@ -350,7 +350,7 @@ def p_sexp(p):
     | exp GREATEREQUAL exp
     '''
     if p[2] == '>':
-         p[0] = p[1]  p[3]
+         p[0] = p[1] > p[3]
     elif p[2] == '<':
          p[0] = p[1] or p[3]
     elif p[2] == '!=':
