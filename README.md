@@ -1,4 +1,5 @@
 Cubo semántico implementado.
+Actualmente trabajando en: Cuádruplos 
 Siguientes objetivos:
 
 * Arreglar gramática

@@ -43,6 +43,13 @@ tokens = [
     'LESSEQUAL', 'GREATEREQUAL', 'EQUALS'
 ] + list(reserved.values())
 
+precedence = (
+     ('nonassoc', 'LESS', 'GREATER', 'LESSEQUAL', 'GREATEREQUAL', 'EQUALS_BOOLEAN'),  # Nonassociative operators
+     ('left', 'PLUS', 'MINUS'),
+     ('left', 'MULTIPLY', 'DIVIDE'),
+     ('right', 'EQUALS')
+)
+
 t_OPENPARENTHESES = r'\('
 t_CLOSEPARENTHESES = r'\)'
 t_SEMICOLON = r'\;'
@@ -292,21 +299,29 @@ def p_nocondicional(p):
 def p_exp(p):
     '''
     exp : termino
-    | termino PLUS exp
-    | termino MINUS exp
+    | exp PLUS termino
+    | exp MINUS termino
     '''
+    if p[2] == '+':
+         p[0] = p[1] + p[3]
+    elif p[2] == '-':
+         p[0] = p[1] - p[3]
 
 def p_termino(p):
     '''
     termino : factor
-    | factor MULTIPLY termino
-    | factor DIVIDE termino
+    | termino MULTIPLY factor
+    | termino DIVIDE factor
     '''
+    if p[2] == '*':
+         p[0] = p[1] * p[3]
+    elif p[2] == '/':
+         p[0] = p[1] / p[3]
 
 
 def p_factor(p):
     '''
-    factor : ID OPENPARENTHESES params CLOSEPARENTHESES
+    factor : ID OPENPARENTHESES exp CLOSEPARENTHESES
     | ID
     | CTEF
     | CTEI
@@ -319,6 +334,10 @@ def p_hexp(p):
     | s_exp AND h_exp
     | s_exp OR h_exp
     '''
+    if p[2] == 'AND':
+         p[0] = p[1] and p[3]
+    elif p[2] == 'OR':
+         p[0] = p[1] or p[3]
 
 def p_sexp(p):
     '''
@@ -330,6 +349,18 @@ def p_sexp(p):
     | exp LESSEQUAL exp
     | exp GREATEREQUAL exp
     '''
+    if p[2] == '>':
+         p[0] = p[1]  p[3]
+    elif p[2] == '<':
+         p[0] = p[1] or p[3]
+    elif p[2] == '!=':
+         p[0] = p[1] not p[3]
+    elif p[2] == '==':
+         p[0] = p[1] == p[3]
+    elif p[2] == '<=':
+         p[0] = p[1] >= p[3]
+    elif p[2] == '>=':
+         p[0] = p[1] <= p[3]
 
 def p_empty(p):
     '''
