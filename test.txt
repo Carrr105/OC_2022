@@ -1,5 +1,8 @@
 program test;
 
+vars int : myfirstvar, mysecondvar;
+vars float: myothervar;
+
 main(){
     
 }

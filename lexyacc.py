@@ -5,6 +5,9 @@ import sys
 import ply.lex as lex
 import ply.yacc as yacc
 import semanticcube
+from DirFunc import DirFunc as df
+
+df = df()
 
 reserved = {
     'program' : 'PROGRAM',
@@ -98,13 +101,16 @@ def t_ID(t):
     t.type = reserved.get(t.value, 'ID')
     return t
 
+ # Error handling rule
 def t_error(t):
-    print("a character not valid was found")
+    print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
 
 lexer = lex.lex()
 
 '#parser'
+
+varstack = []
 
 def p_programa(p):
     '''
@@ -155,8 +161,19 @@ def p_return(p):
 
 def p_vars(p):
     '''
-    vars : VARS tipo TWODOTS params SEMICOLON
+    vars : varsP
+        | varsP vars
     '''
+
+def p_varsP(p):
+    '''
+    varsP : VARS tipo TWODOTS params SEMICOLON
+    '''
+    type_var = p[2]
+    print("type_var is ")
+    print(type_var)
+    df.insert_type(type_var)
+    df.insert()
 
 def p_params(p):
     '''
@@ -165,6 +182,16 @@ def p_params(p):
         | ID OPENBRACKET paramsP CLOSEBRACKET COMMA params
         | ID COMMA params
     '''
+    #type_var = p[-2]
+    #print("type_var here is ")
+    #print(type_var)
+    global varstack
+    varstack.append(p[1])
+    print("printing varstack ...")
+    print (varstack)
+    print (len(varstack))
+    while not len(varstack) == 0:
+        df.insert_name(varstack.pop())
 
 def p_paramsP(p):
     '''
@@ -378,12 +405,17 @@ if __name__ == '__main__':
     try:
         archivo = open('test.txt','r')
         info = archivo.read()
-        for token in info:
-            print (token)
-            #print("xd")
+        lexer.input(info)
+        #tokenize
+        while True:
+            tok = lexer.token()
+            if not tok: 
+                break      # No more input
+            print(tok)
         archivo.close()
         if(yacc.parse(info, tracking=True) == 'PROGRAM COMPILED'):
             print("success")
+            df.print()
         else:
             print("syntax error")
     except EOFError:
