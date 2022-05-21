@@ -22,6 +22,10 @@ class DirFunc:
     def insert_var(self):
         while not len(self.stack_name) == 0:
             self.var_dictionary[self.stack_name.pop()] = {self.current_type : self.scope}
+        ### ligar diccionario de variables a diccionario de funciones
+        ### quizas hacerlo en el main ? hacer un metodo para al final de la compilacion
+        ### llamarlo y agregar al directorio de funciones de las filas que correspondan
+        ### al scope
 
     def insert_type(self, type_):
         self.current_type = type_

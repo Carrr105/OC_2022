@@ -121,7 +121,7 @@ def p_programa(p):
     p[0] = "PROGRAM COMPILED"
     global scopestack
     scopestack.append("global")
-    df.insert_function("global", "void")
+    df.insert_function(p[2], "void")
     df.print_functions()
 
 def p_programaP(p):
@@ -231,7 +231,7 @@ def p_bloque(p):
             | MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE CLOSEBRACE
             | empty
     '''
-    df.insert_function("main", "void")
+    df.insert_function(p[1], "void")
     df.print_functions()
 
 #def p_bloqueP(p):
