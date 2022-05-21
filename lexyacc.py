@@ -178,7 +178,7 @@ def p_varsP(p):
     print("type_var is ")
     print(type_var)
     df.insert_type(type_var)
-    df.insert()
+    df.insert_var()
 
 
 def p_params(p):

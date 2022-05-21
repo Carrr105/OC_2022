@@ -9,14 +9,15 @@
 # nombre | tipo |
 
 class DirFunc:
-    dictionary = dict()
+    var_dictionary = dict()
     current_type = ''
     stack_name = []
     scope = ''
 
-    def insert(self):
+    ######### VAR TABLE
+    def insert_var(self):
         while not len(self.stack_name) == 0:
-            self.dictionary[self.stack_name.pop()] = {self.current_type : self.scope}
+            self.var_dictionary[self.stack_name.pop()] = {self.current_type : self.scope}
 
     def insert_type(self, type_):
         self.current_type = type_
@@ -34,4 +35,4 @@ class DirFunc:
         print(self.scope)
     
     def print(self):
-        print(self.dictionary)
+        print(self.var_dictionary)
