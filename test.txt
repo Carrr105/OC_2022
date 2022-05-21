@@ -4,5 +4,6 @@ vars int : myfirstvar, mysecondvar;
 vars float: myothervar;
 
 main(){
-    
+    vars int: xd;
+    vars float: otherxd;
 }

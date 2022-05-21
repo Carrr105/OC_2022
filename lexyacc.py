@@ -111,12 +111,16 @@ lexer = lex.lex()
 '#parser'
 
 varstack = []
+type_var = ''
+scopestack = []
 
 def p_programa(p):
     '''
     programa : PROGRAM ID SEMICOLON programaP
     '''
     p[0] = "PROGRAM COMPILED"
+    global scopestack
+    scopestack.append("global")
 
 def p_programaP(p):
     '''
@@ -169,11 +173,13 @@ def p_varsP(p):
     '''
     varsP : VARS tipo TWODOTS params SEMICOLON
     '''
+    global type_var
     type_var = p[2]
     print("type_var is ")
     print(type_var)
     df.insert_type(type_var)
     df.insert()
+
 
 def p_params(p):
     '''
@@ -241,8 +247,16 @@ def p_estatuto(p):
         | decision
         | repeticion
         | estatuto
+        | declaracion
         | empty
     '''
+
+def p_declaracion(p):
+    '''
+    declaracion : vars
+    '''
+
+
 def p_decision(p):
     '''
     decision : empty

@@ -12,7 +12,7 @@ class DirFunc:
     dictionary = dict()
     current_type = ''
     stack_name = []
-    scope = 'global'
+    scope = ''
 
     def insert(self):
         while not len(self.stack_name) == 0:
