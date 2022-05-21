@@ -9,10 +9,14 @@
 # nombre | tipo |
 
 class DirFunc:
+    function_dictionary = dict()
     var_dictionary = dict()
     current_type = ''
     stack_name = []
     scope = ''
+
+    def insert_function(self, name, type_):
+        self.function_dictionary[name] = type_
 
     ######### VAR TABLE
     def insert_var(self):
@@ -34,5 +38,8 @@ class DirFunc:
         print("current scope received is ")
         print(self.scope)
     
-    def print(self):
+    def print_var(self):
         print(self.var_dictionary)
+    
+    def print_functions(self):
+        print(self.function_dictionary)

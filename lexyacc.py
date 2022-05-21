@@ -121,6 +121,8 @@ def p_programa(p):
     p[0] = "PROGRAM COMPILED"
     global scopestack
     scopestack.append("global")
+    df.insert_function("global", "void")
+    df.print_functions()
 
 def p_programaP(p):
     '''
@@ -229,6 +231,8 @@ def p_bloque(p):
             | MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE CLOSEBRACE
             | empty
     '''
+    df.insert_function("main", "void")
+    df.print_functions()
 
 #def p_bloqueP(p):
 #    '''
@@ -429,7 +433,7 @@ if __name__ == '__main__':
         archivo.close()
         if(yacc.parse(info, tracking=True) == 'PROGRAM COMPILED'):
             print("success")
-            df.print()
+            df.print_var()
         else:
             print("syntax error")
     except EOFError:
