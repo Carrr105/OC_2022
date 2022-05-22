@@ -111,18 +111,31 @@ lexer = lex.lex()
 '#parser'
 
 varstack = []
-type_var = ''
+type_var = '' # cambiar a stack
 scopestack = []
+resultstack = []
+
+start = 'programa'
+globalname = ''
 
 def p_programa(p):
     '''
-    programa : PROGRAM ID SEMICOLON programaP
+    programa : PROGRAM ID SEMICOLON establishglobalscope programaP
     '''
     p[0] = "PROGRAM COMPILED"
+
+# este tipo de reglas vacias servirán para poder hacer acciones intermedias,
+# ya que PLY no cuenta con un soporte natural para ellas.
+# es una "mexicanada" pero sirve
+def p_establishglobalscope(p):
+    "establishglobalscope :"
     global scopestack
-    scopestack.append("global")
-    df.insert_function(p[2], "void")
+    scopestack.append(p[-2])
+    df.insert_function(p[-2], "void")
     df.print_functions()
+    globalname = p[-2]
+    print("global scope name is ")
+    print(globalname)
 
 def p_programaP(p):
     '''
@@ -173,15 +186,17 @@ def p_vars(p):
 
 def p_varsP(p):
     '''
-    varsP : VARS tipo TWODOTS params SEMICOLON
+    varsP : VARS tipo savetype TWODOTS params SEMICOLON
+    '''
+
+def p_savetype(p):
+    '''
+    savetype : 
     '''
     global type_var
-    type_var = p[2]
+    type_var = p[-1]
     print("type_var is ")
     print(type_var)
-    df.insert_type(type_var)
-    df.insert_var()
-
 
 def p_params(p):
     '''
@@ -190,16 +205,7 @@ def p_params(p):
         | ID OPENBRACKET paramsP CLOSEBRACKET COMMA params
         | ID COMMA params
     '''
-    #type_var = p[-2]
-    #print("type_var here is ")
-    #print(type_var)
-    global varstack
-    varstack.append(p[1])
-    print("printing varstack ...")
-    print (varstack)
-    print (len(varstack))
-    while not len(varstack) == 0:
-        df.insert_name(varstack.pop())
+    df.insert_var(scopestack[-1], p[1], type_var)
 
 def p_paramsP(p):
     '''
@@ -227,19 +233,21 @@ def p_tipo(p):
 
 def p_bloque(p):
     '''
-    bloque : MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE estatuto CLOSEBRACE
+    bloque : MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE establishmainscope estatuto CLOSEBRACE
             | MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE CLOSEBRACE
             | empty
     '''
-    df.insert_function(p[1], "void")
-    df.print_functions()
 
-#def p_bloqueP(p):
-#    '''
-#    bloqueP : estatuto
-#            | estatuto bloqueP
-#            | empty
-#    '''
+# no olvidar dejar el espacio antes de los dos puntos
+def p_establishmainscope(p):
+    '''
+    establishmainscope : 
+    '''
+    global scopestack
+    scopestack.append("main")
+    df.insert_function("main", "void")
+    df.print_functions()
+    print("main has been found")
 
 def p_estatuto(p):
     '''
@@ -292,6 +300,9 @@ def p_asignacion(p):
         | ID OPENBRACKET ID CLOSEBRACKET EQUALS exp SEMICOLON
         | ID OPENBRACKET params_index CLOSEBRACKET EQUALS exp SEMICOLON
     '''
+    # si length = 5, sacar tipo del id y verificar con tipo de expresion
+    #
+    print ("asignación encontrada")
 
 
 def p_escritura(p):
@@ -306,6 +317,7 @@ def p_escrituraP(p):
         | exp COMMA escrituraP
         | QUOTATIONMARK CTESTRING QUOTATIONMARK CLOSEPARENTHESES SEMICOLON
         | exp CLOSEPARENTHESES SEMICOLON
+        | ID CLOSEPARENTHESES SEMICOLON
     '''
 
 def p_condicion(p):
@@ -349,6 +361,7 @@ def p_exp(p):
     '''
     if p[2] == '+':
          p[0] = p[1] + p[3]
+         print ("suma encontrada")
     elif p[2] == '-':
          p[0] = p[1] - p[3]
 
@@ -372,6 +385,8 @@ def p_factor(p):
     | CTEI
     | OPENPARENTHESES h_exp CLOSEPARENTHESES
     '''
+    if (len(p) == 2):
+        resultstack.append(p[2])
 
 def p_hexp(p):
     '''
