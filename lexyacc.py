@@ -139,21 +139,9 @@ def p_establishglobalscope(p):
 
 def p_programaP(p):
     '''
-    programaP : vars clase funcion bloque
-    | vars funcion clase bloque
-    | clase vars funcion bloque
-    | clase funcion vars bloque
-    | funcion vars clase bloque
-    | funcion clase vars bloque
-    | vars funcion bloque
-    | vars clase bloque
-    | clase vars bloque
-    | clase funcion bloque
-    | funcion vars bloque
-    | funcion clase bloque
-    | funcion bloque
-    | clase bloque
-    | vars bloque
+    programaP : vars programaP
+    | clase programaP
+    | funcion programaP
     | bloque
     | empty
     '''
@@ -161,7 +149,6 @@ def p_programaP(p):
 def p_clase(p):
     '''
     clase : CLASS ID OPENBRACE claseP CLOSEBRACE
-            | CLASS ID OPENBRACE claseP CLOSEBRACE clase
     '''
 
 ## cero o más declaraciones de vars. 
@@ -180,7 +167,6 @@ def p_clasePP(p):
 def p_funcion(p):
     '''
     funcion : FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE CLOSEBRACE
-            | FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE CLOSEBRACE funcion
     '''
 
 def p_savefuncscope(p):
@@ -193,8 +179,8 @@ def p_savefuncscope(p):
 
 def p_paramsfunction(p):
     '''
-    paramsfunction : tipo params COMMA paramsfunction
-                    | tipo params
+    paramsfunction : tipo param COMMA paramsfunction
+                    | tipo param
     '''
 
 
@@ -208,19 +194,13 @@ def p_return(p):
 
 def p_vars(p):
     '''
-    vars : varsP
-        | varsP vars
+    vars : VARS tipo savetype TWODOTS varsP
     '''
 
 def p_varsP(p):
     '''
-    varsP : VARS tipo savetype TWODOTS varsPP
-    '''
-
-def p_varsPP(p):
-    '''
-    varsPP : params COMMA varsPP
-            | params SEMICOLON
+    varsP : param COMMA varsP
+            | param SEMICOLON
     '''
 
 def p_savetype(p):
@@ -232,9 +212,9 @@ def p_savetype(p):
     print("type_var is ")
     print(type_var)
 
-def p_params(p):
+def p_param(p):
     '''
-    params : ID
+    param : ID
         | ID OPENBRACKET paramsP CLOSEBRACKET
     '''
     df.insert_var(scopestack[-1], p[1], type_var)
@@ -257,7 +237,6 @@ def p_bloque(p):
     '''
     bloque : MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE establishmainscope estatuto CLOSEBRACE
             | MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE CLOSEBRACE
-            | empty
     '''
 
 # no olvidar dejar el espacio antes de los dos puntos
@@ -291,7 +270,7 @@ def p_declaracion(p):
 
 def p_llamada(p):
     '''
-    llamada : ID OPENPARENTHESES params CLOSEPARENTHESES SEMICOLON
+    llamada : ID OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
         | ID OPENPARENTHESES CLOSEPARENTHESES SEMICOLON
     '''
 
@@ -302,7 +281,7 @@ def p_retorno(p):
 
 def p_lectura(p):
     '''
-    lectura : READ OPENPARENTHESES params CLOSEPARENTHESES SEMICOLON
+    lectura : READ OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
     '''
 
 def p_asignacion(p):
