@@ -186,10 +186,8 @@ def p_paramsfunction(p):
 
 def p_return(p):
     '''
-    return : RETURN ID
-            | RETURN exp
+    return : RETURN exp
             | RETURN
-            | empty
     '''
 
 def p_vars(p):
