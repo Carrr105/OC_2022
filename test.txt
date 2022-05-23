@@ -3,7 +3,16 @@ program test;
 vars int : myfirstvar, mysecondvar;
 vars float: myothervar;
 
+function int : myfunction(int varfunc, float othervarfunc){
+
+}
+
+function float : myotherfunction(int varfunc1, float othervarfunc2){
+
+}
+
 main(){
     vars int: xd;
     vars float: otherxd;
+    write(xd);
 }

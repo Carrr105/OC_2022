@@ -139,9 +139,21 @@ def p_establishglobalscope(p):
 
 def p_programaP(p):
     '''
-    programaP : vars clase bloque
-    | vars bloque
+    programaP : vars clase funcion bloque
+    | vars funcion clase bloque
+    | clase vars funcion bloque
+    | clase funcion vars bloque
+    | funcion vars clase bloque
+    | funcion clase vars bloque
+    | vars funcion bloque
+    | vars clase bloque
+    | clase vars bloque
+    | clase funcion bloque
+    | funcion vars bloque
+    | funcion clase bloque
+    | funcion bloque
     | clase bloque
+    | vars bloque
     | bloque
     | empty
     '''
@@ -149,26 +161,42 @@ def p_programaP(p):
 def p_clase(p):
     '''
     clase : CLASS ID OPENBRACE claseP CLOSEBRACE
+            | CLASS ID OPENBRACE claseP CLOSEBRACE clase
     '''
 
+## cero o más declaraciones de vars. 
 def p_claseP(p):
     '''
-    claseP : VARS TWODOTS vars claseP 
+    claseP : vars clasePP
          | clasePP
     '''
-
+# cero o más funcion
 def p_clasePP(p):
     '''
-    clasePP : funciones clasePP
-            | funciones
+    clasePP : funcion clasePP
             | empty
     '''
 
-def p_funciones(p):
+def p_funcion(p):
     '''
-    funciones : tipo FUNCTION ID OPENPARENTHESES params CLOSEPARENTHESES OPENBRACE SEMICOLON vars estatuto return CLOSEBRACE
-    | empty
+    funcion : FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE CLOSEBRACE
+            | FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE CLOSEBRACE funcion
     '''
+
+def p_savefuncscope(p):
+    '''
+    savefuncscope : 
+    '''
+    global scopestack
+    scopestack.append(p[-1])
+    df.insert_function(p[-1], p[-3])
+
+def p_paramsfunction(p):
+    '''
+    paramsfunction : tipo params COMMA paramsfunction
+                    | tipo params
+    '''
+
 
 def p_return(p):
     '''
@@ -186,7 +214,13 @@ def p_vars(p):
 
 def p_varsP(p):
     '''
-    varsP : VARS tipo savetype TWODOTS params SEMICOLON
+    varsP : VARS tipo savetype TWODOTS varsPP
+    '''
+
+def p_varsPP(p):
+    '''
+    varsPP : params COMMA varsPP
+            | params SEMICOLON
     '''
 
 def p_savetype(p):
@@ -202,25 +236,13 @@ def p_params(p):
     '''
     params : ID
         | ID OPENBRACKET paramsP CLOSEBRACKET
-        | ID OPENBRACKET paramsP CLOSEBRACKET COMMA params
-        | ID COMMA params
     '''
     df.insert_var(scopestack[-1], p[1], type_var)
 
 def p_paramsP(p):
     '''
-    paramsP : CTEI
-        | ID
-        | params_index
-    '''
-
-def p_paramsIndex(p):
-    '''
-    params_index : ID
-        | ID OPENBRACKET CTEI CLOSEBRACKET
-        | ID OPENBRACKET ID CLOSEBRACKET
-        | ID OPENBRACKET params_index CLOSEBRACKET
-        | empty
+    paramsP : exp COMMA paramsP
+            | exp
     '''
 
 def p_tipo(p):
@@ -251,15 +273,14 @@ def p_establishmainscope(p):
 
 def p_estatuto(p):
     '''
-    estatuto : asignacion
-        | llamada
-        | retorno
-        | lectura
-        | escritura
-        | decision
-        | repeticion
-        | estatuto
-        | declaracion
+    estatuto : asignacion estatuto
+        | llamada estatuto
+        | retorno estatuto
+        | lectura estatuto
+        | escritura estatuto
+        | repeticion estatuto
+        | estatuto estatuto
+        | declaracion estatuto
         | empty
     '''
 
@@ -268,56 +289,43 @@ def p_declaracion(p):
     declaracion : vars
     '''
 
-
-def p_decision(p):
-    '''
-    decision : empty
-    '''
-
 def p_llamada(p):
     '''
     llamada : ID OPENPARENTHESES params CLOSEPARENTHESES SEMICOLON
         | ID OPENPARENTHESES CLOSEPARENTHESES SEMICOLON
-        | empty
     '''
 
 def p_retorno(p):
     '''
     retorno : RETURN OPENPARENTHESES exp CLOSEPARENTHESES SEMICOLON
-    | empty
     '''
 
 def p_lectura(p):
     '''
     lectura : READ OPENPARENTHESES params CLOSEPARENTHESES SEMICOLON
-    | empty
     '''
 
 def p_asignacion(p):
     '''
     asignacion : ID EQUALS exp SEMICOLON
-        | ID OPENBRACKET CTEI CLOSEBRACKET EQUALS exp SEMICOLON
-        | ID OPENBRACKET ID CLOSEBRACKET EQUALS exp SEMICOLON
-        | ID OPENBRACKET params_index CLOSEBRACKET EQUALS exp SEMICOLON
+        | ID OPENBRACKET paramsP CLOSEBRACKET EQUALS exp SEMICOLON
     '''
-    # si length = 5, sacar tipo del id y verificar con tipo de expresion
-    #
     print ("asignación encontrada")
 
 
 def p_escritura(p):
     '''
-    escritura : WRITE OPENPARENTHESES escrituraP
-    | empty
+    escritura : WRITE OPENPARENTHESES escrituraP CLOSEPARENTHESES SEMICOLON
     '''
 
 def p_escrituraP(p):
     '''
     escrituraP : QUOTATIONMARK CTESTRING QUOTATIONMARK COMMA escrituraP
         | exp COMMA escrituraP
-        | QUOTATIONMARK CTESTRING QUOTATIONMARK CLOSEPARENTHESES SEMICOLON
-        | exp CLOSEPARENTHESES SEMICOLON
-        | ID CLOSEPARENTHESES SEMICOLON
+        | ID COMMA escrituraP
+        | QUOTATIONMARK CTESTRING QUOTATIONMARK
+        | exp
+        | ID
     '''
 
 def p_condicion(p):
@@ -327,28 +335,24 @@ def p_condicion(p):
           | IF OPENPARENTHESES exp CLOSEPARENTHESES THEN OPENBRACE estatuto CLOSEBRACE ELSE OPENBRACE CLOSEBRACE
           | IF OPENPARENTHESES exp CLOSEPARENTHESES THEN OPENBRACE estatuto CLOSEBRACE
           | IF OPENPARENTHESES exp CLOSEPARENTHESES THEN OPENBRACE CLOSEBRACE
-          | empty
     '''
 
 def p_repeticion(p):
     '''
     repeticion : condicional
         | no_condicional
-        | empty
     '''
 
 def p_condicional(p):
     '''
     condicional : WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE estatuto CLOSEBRACE
         | WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE CLOSEBRACE
-        | empty
     '''
 
 def p_nocondicional(p):
     '''
     no_condicional : FOR ID EQUALS exp TO exp OPENBRACE estatuto CLOSEBRACE
         | FOR ID EQUALS exp TO exp DO OPENBRACE CLOSEBRACE
-        | empty
     '''
 
 
