@@ -77,7 +77,7 @@ class CI:
                 quadruple = Quadruple(operator, None, rightop, result)
             else:
                 quadruple = Quadruple(operator, leftop, rightop, result)
-                self.stOperands.append(result) 
+                self.stOperands.append(result) # generacion del temporal 
             self.listQuadruples.append(quadruple)
         else:
             print("type mismatch!")
