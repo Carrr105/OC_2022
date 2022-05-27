@@ -372,6 +372,8 @@ def p_termino(p):
             #print(p[3])
             ci.stTypes.append("int")
             ci.new_quadruple()
+            # en este momento se genera un temporal que se agrega al stack de 
+            # operandos dentro del archivo de codigo intermedio
             # p[0] = p[1] * p[3]
         elif p[2] == '/':
             p[0] = p[1] / p[3]
