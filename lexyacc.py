@@ -4,10 +4,12 @@
 import sys
 import ply.lex as lex
 import ply.yacc as yacc
-import semanticcube
+import SemanticCube
 from DirFunc import DirFunc as df
+from CodigoIntermedio import CI as ci
 
 df = df()
+ci = ci()
 
 reserved = {
     'program' : 'PROGRAM',
@@ -288,7 +290,11 @@ def p_asignacion(p):
         | ID OPENBRACKET paramsP CLOSEBRACKET EQUALS exp SEMICOLON
     '''
     print ("asignación encontrada")
-
+    if len(p) == 5:
+        ci.stOperators.append(p[2])
+        ci.stOperands.append(p[1])
+        ci.stTypes.append("int")
+        ci.new_quadruple()
 
 def p_escritura(p):
     '''
@@ -340,11 +346,12 @@ def p_exp(p):
     | exp PLUS termino
     | exp MINUS termino
     '''
-    if p[2] == '+':
-         p[0] = p[1] + p[3]
-         print ("suma encontrada")
-    elif p[2] == '-':
-         p[0] = p[1] - p[3]
+    if (len(p)==4):
+        if p[2] == '+':
+            p[0] = p[1] + p[3]
+            print ("suma encontrada")
+        elif p[2] == '-':
+            p[0] = p[1] - p[3]
 
 def p_termino(p):
     '''
@@ -352,10 +359,22 @@ def p_termino(p):
     | termino MULTIPLY factor
     | termino DIVIDE factor
     '''
-    if p[2] == '*':
-         p[0] = p[1] * p[3]
-    elif p[2] == '/':
-         p[0] = p[1] / p[3]
+    if (len(p)==4):
+        if p[2] == '*':
+            #ci.stOperands.append(p[1])
+            #print("p[1]")
+            #print(p[1])
+            ci.stOperators.append(p[2])
+            print("p[2]")
+            print(p[2])
+            #ci.stOperands.append(p[3])
+            #print("p[3]")
+            #print(p[3])
+            ci.stTypes.append("int")
+            ci.new_quadruple()
+            # p[0] = p[1] * p[3]
+        elif p[2] == '/':
+            p[0] = p[1] / p[3]
 
 
 def p_factor(p):
@@ -367,7 +386,11 @@ def p_factor(p):
     | OPENPARENTHESES h_exp CLOSEPARENTHESES
     '''
     if (len(p) == 2):
-        resultstack.append(p[2])
+        ci.stTypes.append("int")
+        ci.stOperands.append(p[1])
+        resultstack.append(p[1])
+        print("p[1]")
+        print(p[1])
 
 def p_hexp(p):
     '''
@@ -430,6 +453,7 @@ if __name__ == '__main__':
         if(yacc.parse(info, tracking=True) == 'PROGRAM COMPILED'):
             print("success")
             df.print_var()
+            ci.new_obj_file()
         else:
             print("syntax error")
     except EOFError:

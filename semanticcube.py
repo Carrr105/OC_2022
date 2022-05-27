@@ -3,7 +3,7 @@ class SemanticCube :
 
   def __init__(self):
     #left op que contiene right op que contiene operador con su resultado
-    semantic = {
+    self.semantic = {
       'int': {
         'int': {
           '+': 'int',
@@ -252,6 +252,6 @@ class SemanticCube :
           }
       }
     }
-
-    def get_type(self, leftop, rightop, op):
-      return semantic[leftop][rightop][op]
+  
+  def get_type(self, leftop, rightop, operator):
+    return self.semantic[leftop][rightop][operator]
