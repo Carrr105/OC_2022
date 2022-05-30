@@ -18,11 +18,12 @@ class CI:
         self.local_base = 10000
         self.ctes_base = 20000
 
-        self.char_start = 0
+        self.char_start = 1
         self.int_start = 3000
         self.float_start = 6000
         self.bool_start = 9000
 
+        self.counter = 1
         self.counter_global = self.counter_local = self.counter_ctes = [0,0,0,0]
 
     def get_address(self, result_type, scope):
@@ -68,15 +69,18 @@ class CI:
         rightop = self.stOperands.pop()
         lefttype = self.stTypes.pop()
         righttype = self.stTypes.pop()
+        
 
         restype = self.semanticcube.get_type(lefttype, righttype, operator)
 
         if restype != "ERROR":
             result = self.get_address(restype, "local")
             if operator == "=":
-                quadruple = Quadruple(operator, None, rightop, result)
+                quadruple = Quadruple(self.counter, operator, None, rightop, result)
+                self.counter = self.counter + 1
             else:
-                quadruple = Quadruple(operator, leftop, rightop, result)
+                quadruple = Quadruple(self.counter, operator, leftop, rightop, result)
+                self.counter = self.counter + 1
                 self.stOperands.append(result) # generacion del temporal 
             self.listQuadruples.append(quadruple)
         else:
@@ -94,7 +98,7 @@ class CI:
     
     def new_obj_file(self):
         newfile = {
-            "Quadruples": [(quad.op, quad.op1, quad.op2, quad.res) for quad in self.listQuadruples]
+            "Quadruples": [(quad.counter, quad.op, quad.op1, quad.op2, quad.res) for quad in self.listQuadruples]
         }
 
         with open ("obj.json", 'w') as f:

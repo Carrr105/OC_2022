@@ -1,6 +1,7 @@
 class Quadruple:
     
-    def __init__(self, op, op1, op2, res):
+    def __init__(self, counter, op, op1, op2, res):
+        self.counter = counter
         self.op  = op
         self.op1 = op1
         self.op2 = op2
