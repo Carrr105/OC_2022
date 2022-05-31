@@ -388,8 +388,9 @@ def p_factor(p):
     | OPENPARENTHESES h_exp CLOSEPARENTHESES
     '''
     if (len(p) == 2):
+        address = ci.get_address("int", "constants", 1, p[1])
         ci.stTypes.append("int")
-        ci.stOperands.append(p[1])
+        ci.stOperands.append(address)
         resultstack.append(p[1])
         print("p[1]")
         print(p[1])

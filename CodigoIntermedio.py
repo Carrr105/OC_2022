@@ -5,6 +5,7 @@ import json
 class CI:
     
     def __init__(self):
+        self.ctes_table = {}
         self.semanticcube = SemanticCube()
         self.listQuadruples = []
         self.stTypes = []
@@ -26,7 +27,7 @@ class CI:
         self.counter = 1
         self.counter_global = self.counter_local = self.counter_ctes = [0,0,0,0]
 
-    def get_address(self, result_type, scope):
+    def get_address(self, result_type, mem_type, value=None, size = 1):
         # count seria la posicion de la lista que se va a modificar
         # char int float bool
         #  0  1  2  3
@@ -50,10 +51,13 @@ class CI:
         else:
             print("type not valid")
         
-        if scope=="local":
+        if mem_type == "local" :
             address = self.local_base + start + self.counter_local[count]
-            size = 1 # por ahora size es 1 pero para arreglos y matrices debe ser diferente
             self.counter_local[count] += size
+        elif mem_type == "constants":
+            address = self.ctes_base + start + self.counter_ctes[count]
+            self.ctes_table[address] = value
+            self.counter_ctes[count] += size
         
         return address
     

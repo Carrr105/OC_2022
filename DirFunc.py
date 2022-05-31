@@ -27,9 +27,9 @@ class DirFunc:
     def insert_function(self, name, type_):
         self.function_dictionary[name] = {
                                             "type" : type_,
-                                            "vars" : [
+                                            "vars" : {
 
-                                            ]
+                                                }
                                             }
 
     ######### VAR TABLE
@@ -39,7 +39,9 @@ class DirFunc:
         #print(self.function_dictionary[currentscope])
         # regresa 
         # {'vars', 'void'}
-        self.function_dictionary[currentscope]["vars"].append({'name':name, 'type':type_})
+        self.function_dictionary[currentscope]["vars"][name] = {
+                                                                'type' : type_
+                                                                }
         print("PROBANDO")
         print(self.function_dictionary)
         print(type(self.function_dictionary))
