@@ -31,23 +31,25 @@ class DirFunc:
 
                                                 }
                                             }
+        self.current_scope = self.function_dictionary[name]
 
     ######### VAR TABLE
-    def insert_var(self, currentscope, name, type_):
+    def insert_var(self, currentscope, name, type_, address):
         currsize = len(self.function_dictionary)
         #print("PROBANDO")
         #print(self.function_dictionary[currentscope])
         # regresa 
         # {'vars', 'void'}
         self.function_dictionary[currentscope]["vars"][name] = {
-                                                                'type' : type_
+                                                                'type' : type_,
+                                                                'address' : address
                                                                 }
         print("PROBANDO")
         print(self.function_dictionary)
         print(type(self.function_dictionary))
         print ("regresando llaves")
-        print (self.function_dictionary["test"].keys())
-        print (type(self.function_dictionary["test"]["vars"]))
+        print (self.function_dictionary["global"].keys())
+        print (type(self.function_dictionary["global"]["vars"]))
         ### ligar diccionario de variables a diccionario de funciones
         ### quizas hacerlo en el main ? hacer un metodo para al final de la compilacion
         ### llamarlo y agregar al directorio de funciones de las filas que correspondan

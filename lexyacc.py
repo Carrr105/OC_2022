@@ -132,10 +132,10 @@ def p_programa(p):
 def p_establishglobalscope(p):
     "establishglobalscope :"
     global scopestack
-    scopestack.append(p[-2])
-    df.insert_function(p[-2], "void")
+    scopestack.append("global")
+    df.insert_function("global", "global")
     df.print_functions()
-    globalname = p[-2]
+    globalname ="global"
     print("global scope name is ")
     print(globalname)
 
@@ -178,6 +178,7 @@ def p_savefuncscope(p):
     global scopestack
     scopestack.append(p[-1])
     df.insert_function(p[-1], p[-3])
+    ci.reset_counters()
 
 def p_paramsfunction(p):
     '''
@@ -217,7 +218,15 @@ def p_param(p):
     param : ID
         | ID OPENBRACKET paramsP CLOSEBRACKET
     '''
-    df.insert_var(scopestack[-1], p[1], type_var)
+    print("....currentscope")
+    print(df.current_scope)
+    print("....xd")
+    print(df.function_dictionary['global'])
+    if df.current_scope is df.function_dictionary['global']:
+        address = ci.get_address(type_var, "global")
+    else:
+        address = ci.get_address(type_var, "local")
+    df.insert_var(scopestack[-1], p[1], type_var, address)
 
 def p_paramsP(p):
     '''
@@ -249,6 +258,7 @@ def p_establishmainscope(p):
     df.insert_function("main", "void")
     df.print_functions()
     print("main has been found")
+    ci.reset_counters()
 
 def p_estatuto(p):
     '''

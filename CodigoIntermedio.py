@@ -51,7 +51,10 @@ class CI:
         else:
             print("type not valid")
         
-        if mem_type == "local" :
+        if mem_type == "global" :
+            address = self.global_base + start + self.counter_global[count]
+            self.counter_global[count] += size
+        elif mem_type == "local" :
             address = self.local_base + start + self.counter_local[count]
             self.counter_local[count] += size
         elif mem_type == "constants":
@@ -60,6 +63,9 @@ class CI:
             self.counter_ctes[count] += size
         
         return address
+    
+    def reset_counters(self):
+        self.counter_global = self.counter_local = self.counter_ctes = [0,0,0,0]
     
     def new_quadruple(self):
         print("stack of operators ")
