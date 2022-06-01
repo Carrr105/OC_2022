@@ -18,14 +18,16 @@ class CI:
         self.global_base = 5000
         self.local_base = 10000
         self.ctes_base = 20000
+        self.temporal_base = 25000
 
         self.char_start = 1
         self.int_start = 3000
         self.float_start = 6000
         self.bool_start = 9000
 
+        self.main_goto_pos = None
         self.counter = 1
-        self.counter_global = self.counter_local = self.counter_ctes = [0,0,0,0]
+        self.counter_global = self.counter_local = self.counter_ctes = self.counter_temporal = [0,0,0,0]
 
     def get_address(self, result_type, mem_type, value=None, size = 1):
         # count seria la posicion de la lista que se va a modificar
@@ -50,6 +52,7 @@ class CI:
             count = 3
         else:
             print("type not valid")
+            return -1
         
         if mem_type == "global" :
             address = self.global_base + start + self.counter_global[count]
@@ -57,6 +60,9 @@ class CI:
         elif mem_type == "local" :
             address = self.local_base + start + self.counter_local[count]
             self.counter_local[count] += size
+        elif mem_type == "temporal" :
+            address = self.temporal_base + start + self.counter_temporal[count]
+            self.counter_temporal[count] += size
         elif mem_type == "constants":
             address = self.ctes_base + start + self.counter_ctes[count]
             self.ctes_table[address] = value
@@ -65,7 +71,10 @@ class CI:
         return address
     
     def reset_counters(self):
-        self.counter_global = self.counter_local = self.counter_ctes = [0,0,0,0]
+        self.counter_global =  [0,0,0,0]
+        self.counter_local =  [0,0,0,0]
+        self.counter_ctes =  [0,0,0,0]
+        self.counter_temporal = [0,0,0,0]
     
     def new_quadruple(self):
         print("stack of operators ")
@@ -84,14 +93,17 @@ class CI:
         restype = self.semanticcube.get_type(lefttype, righttype, operator)
 
         if restype != "ERROR":
-            result = self.get_address(restype, "local")
             if operator == "=":
+                print("igualandoo...")
+                # no se deberia permitir asignar un valor float a una variable int
+                result = leftop
                 quadruple = Quadruple(self.counter, operator, None, rightop, result)
-                self.counter = self.counter + 1
             else:
-                quadruple = Quadruple(self.counter, operator, leftop, rightop, result)
-                self.counter = self.counter + 1
+                result = self.get_address(restype, "temporal")
+                quadruple = Quadruple(self.counter, operator, rightop, leftop, result)
                 self.stOperands.append(result) # generacion del temporal 
+                self.stTypes.append(restype)
+            self.counter = self.counter + 1
             self.listQuadruples.append(quadruple)
         else:
             print("type mismatch!")
@@ -106,10 +118,21 @@ class CI:
     def get_quadruples(self):
         return self.listQuadruples
     
-    def new_obj_file(self):
+    def gen_main_goto(self):
+        quadruple = Quadruple(self.counter, None, None, "GOTO", None )
+        self.listQuadruples.append(quadruple)
+        self.main_goto_pos = self.counter - 1
+        self.counter += 1
+    
+    def fill_main_goto(self):
+        self.listQuadruples[self.main_goto_pos].updateresult(self.counter)
+    
+    def new_obj_file(self, df):
         newfile = {
-            "Quadruples": [(quad.counter, quad.op, quad.op1, quad.op2, quad.res) for quad in self.listQuadruples]
+            "Quadruples": [(quad.counter, quad.op, quad.op1, quad.op2, quad.res) for quad in self.listQuadruples],
+            "Func_dir": df,
+            "ctes_table": [(x, y) for x, y in self.ctes_table.items()]
         }
 
         with open ("obj.json", 'w') as f:
-            json.dump(newfile, f)
+            json.dump(newfile, f, separators=(',', ':'))

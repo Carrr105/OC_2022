@@ -4,7 +4,9 @@ vars int : myfirstvar, mysecondvar;
 vars float: myothervar;
 
 function int : myfunction(int varfunc, float othervarfunc){
-
+    vars int: myfunnyvar, mynegativevar;
+    myfunnyvar = 0;
+    mynegativevar = -1;
 }
 
 function float : myotherfunction(int varfunc1, float othervarfunc2){
@@ -13,7 +15,12 @@ function float : myotherfunction(int varfunc1, float othervarfunc2){
 
 main(){
     vars int: xd;
-    vars float: otherxd;
+    vars bool: mybool;
+    vars float: otherxd, othersumxd, otherparentesisxd, othervartestxd;
     write(xd);
-    xd=1 * 7;
+    xd=1 * 7 * 3;
+    otherxd=5*6/2;
+    othersumxd = 10+20*2;
+    otherparentesisxd = 40*(50+70);
+    othervartestxd = otherparentesisxd + othersumxd;
 }

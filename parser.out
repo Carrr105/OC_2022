@@ -20,7 +20,7 @@ Rule 9     claseP -> vars clasePP
 Rule 10    claseP -> clasePP
 Rule 11    clasePP -> funcion clasePP
 Rule 12    clasePP -> empty
-Rule 13    funcion -> FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE CLOSEBRACE
+Rule 13    funcion -> FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE estatuto CLOSEBRACE
 Rule 14    savefuncscope -> <empty>
 Rule 15    paramsfunction -> tipo param COMMA paramsfunction
 Rule 16    paramsfunction -> tipo param
@@ -37,16 +37,16 @@ Rule 26    paramsP -> exp
 Rule 27    tipo -> INT
 Rule 28    tipo -> FLOAT
 Rule 29    tipo -> CHAR
-Rule 30    bloque -> MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE establishmainscope estatuto CLOSEBRACE
-Rule 31    bloque -> MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE CLOSEBRACE
-Rule 32    establishmainscope -> <empty>
-Rule 33    estatuto -> asignacion estatuto
-Rule 34    estatuto -> llamada estatuto
-Rule 35    estatuto -> retorno estatuto
-Rule 36    estatuto -> lectura estatuto
-Rule 37    estatuto -> escritura estatuto
-Rule 38    estatuto -> repeticion estatuto
-Rule 39    estatuto -> estatuto estatuto
+Rule 30    tipo -> BOOL
+Rule 31    bloque -> MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE establishmainscope estatuto CLOSEBRACE
+Rule 32    bloque -> MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE CLOSEBRACE
+Rule 33    establishmainscope -> <empty>
+Rule 34    estatuto -> asignacion estatuto
+Rule 35    estatuto -> llamada estatuto
+Rule 36    estatuto -> retorno estatuto
+Rule 37    estatuto -> lectura estatuto
+Rule 38    estatuto -> escritura estatuto
+Rule 39    estatuto -> repeticion estatuto
 Rule 40    estatuto -> declaracion estatuto
 Rule 41    estatuto -> empty
 Rule 42    declaracion -> vars
@@ -100,11 +100,12 @@ Rule 88    empty -> <empty>
 Terminals, with rules where they appear
 
 AND                  : 79
+BOOL                 : 30
 CHAR                 : 29
 CLASS                : 8
-CLOSEBRACE           : 8 13 30 31 56 56 57 57 58 58 59 60 63 64 65 66
+CLOSEBRACE           : 8 13 31 32 56 56 57 57 58 58 59 60 63 64 65 66
 CLOSEBRACKET         : 24 48
-CLOSEPARENTHESES     : 13 30 31 43 44 45 46 49 56 57 58 59 60 63 64 73 77
+CLOSEPARENTHESES     : 13 31 32 43 44 45 46 49 56 57 58 59 60 63 64 73 77
 COMMA                : 15 20 25 50 51 52
 CTEF                 : 75
 CTEI                 : 76
@@ -126,12 +127,12 @@ IF                   : 56 57 58 59 60
 INT                  : 27
 LESS                 : 83
 LESSEQUAL            : 86
-MAIN                 : 30 31
+MAIN                 : 31 32
 MINUS                : 69
 MULTIPLY             : 71
-OPENBRACE            : 8 13 30 31 56 56 57 57 58 58 59 60 63 64 65 66
+OPENBRACE            : 8 13 31 32 56 56 57 57 58 58 59 60 63 64 65 66
 OPENBRACKET          : 24 48
-OPENPARENTHESES      : 13 30 31 43 44 45 46 49 56 57 58 59 60 63 64 73 77
+OPENPARENTHESES      : 13 31 32 43 44 45 46 49 56 57 58 59 60 63 64 73 77
 OR                   : 80
 PLUS                 : 68
 PRINT                : 
@@ -150,7 +151,7 @@ error                :
 
 Nonterminals, with rules where they appear
 
-asignacion           : 33
+asignacion           : 34
 bloque               : 6
 clase                : 4
 claseP               : 8
@@ -159,25 +160,25 @@ condicion            :
 condicional          : 61
 declaracion          : 40
 empty                : 7 12 41
-escritura            : 37
+escritura            : 38
 escrituraP           : 49 50 51 52
 establishglobalscope : 1
-establishmainscope   : 30
-estatuto             : 30 33 34 35 36 37 38 39 39 40 56 56 57 58 59 63 65
+establishmainscope   : 31
+estatuto             : 13 31 34 35 36 37 38 39 40 56 56 57 58 59 63 65
 exp                  : 17 25 26 45 47 48 51 54 56 57 58 59 60 63 64 65 65 66 66 68 69 73 81 82 82 83 83 84 84 85 85 86 86 87 87
 factor               : 70 71 72
 funcion              : 5 11
 h_exp                : 77 79 80
-lectura              : 36
-llamada              : 34
+lectura              : 37
+llamada              : 35
 no_condicional       : 62
 param                : 15 16 20 21 43 46
 paramsP              : 24 25 48
 paramsfunction       : 13 15
 programa             : 0
 programaP            : 1 3 4 5
-repeticion           : 38
-retorno              : 35
+repeticion           : 39
+retorno              : 36
 return               : 
 s_exp                : 78 79 80
 savefuncscope        : 13
@@ -241,9 +242,9 @@ state 5
     (7) programaP -> . empty
     (19) vars -> . VARS tipo savetype TWODOTS varsP
     (8) clase -> . CLASS ID OPENBRACE claseP CLOSEBRACE
-    (13) funcion -> . FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE CLOSEBRACE
-    (30) bloque -> . MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE establishmainscope estatuto CLOSEBRACE
-    (31) bloque -> . MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE CLOSEBRACE
+    (13) funcion -> . FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE estatuto CLOSEBRACE
+    (31) bloque -> . MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE establishmainscope estatuto CLOSEBRACE
+    (32) bloque -> . MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE CLOSEBRACE
     (88) empty -> .
 
     VARS            shift and go to state 12
@@ -276,9 +277,9 @@ state 7
     (7) programaP -> . empty
     (19) vars -> . VARS tipo savetype TWODOTS varsP
     (8) clase -> . CLASS ID OPENBRACE claseP CLOSEBRACE
-    (13) funcion -> . FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE CLOSEBRACE
-    (30) bloque -> . MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE establishmainscope estatuto CLOSEBRACE
-    (31) bloque -> . MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE CLOSEBRACE
+    (13) funcion -> . FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE estatuto CLOSEBRACE
+    (31) bloque -> . MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE establishmainscope estatuto CLOSEBRACE
+    (32) bloque -> . MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE CLOSEBRACE
     (88) empty -> .
 
     VARS            shift and go to state 12
@@ -304,9 +305,9 @@ state 8
     (7) programaP -> . empty
     (19) vars -> . VARS tipo savetype TWODOTS varsP
     (8) clase -> . CLASS ID OPENBRACE claseP CLOSEBRACE
-    (13) funcion -> . FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE CLOSEBRACE
-    (30) bloque -> . MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE establishmainscope estatuto CLOSEBRACE
-    (31) bloque -> . MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE CLOSEBRACE
+    (13) funcion -> . FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE estatuto CLOSEBRACE
+    (31) bloque -> . MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE establishmainscope estatuto CLOSEBRACE
+    (32) bloque -> . MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE CLOSEBRACE
     (88) empty -> .
 
     VARS            shift and go to state 12
@@ -332,9 +333,9 @@ state 9
     (7) programaP -> . empty
     (19) vars -> . VARS tipo savetype TWODOTS varsP
     (8) clase -> . CLASS ID OPENBRACE claseP CLOSEBRACE
-    (13) funcion -> . FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE CLOSEBRACE
-    (30) bloque -> . MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE establishmainscope estatuto CLOSEBRACE
-    (31) bloque -> . MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE CLOSEBRACE
+    (13) funcion -> . FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE estatuto CLOSEBRACE
+    (31) bloque -> . MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE establishmainscope estatuto CLOSEBRACE
+    (32) bloque -> . MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE CLOSEBRACE
     (88) empty -> .
 
     VARS            shift and go to state 12
@@ -370,10 +371,12 @@ state 12
     (27) tipo -> . INT
     (28) tipo -> . FLOAT
     (29) tipo -> . CHAR
+    (30) tipo -> . BOOL
 
     INT             shift and go to state 20
     FLOAT           shift and go to state 21
     CHAR            shift and go to state 22
+    BOOL            shift and go to state 23
 
     tipo                           shift and go to state 19
 
@@ -381,28 +384,30 @@ state 13
 
     (8) clase -> CLASS . ID OPENBRACE claseP CLOSEBRACE
 
-    ID              shift and go to state 23
+    ID              shift and go to state 24
 
 
 state 14
 
-    (13) funcion -> FUNCTION . tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE CLOSEBRACE
+    (13) funcion -> FUNCTION . tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE estatuto CLOSEBRACE
     (27) tipo -> . INT
     (28) tipo -> . FLOAT
     (29) tipo -> . CHAR
+    (30) tipo -> . BOOL
 
     INT             shift and go to state 20
     FLOAT           shift and go to state 21
     CHAR            shift and go to state 22
+    BOOL            shift and go to state 23
 
-    tipo                           shift and go to state 24
+    tipo                           shift and go to state 25
 
 state 15
 
-    (30) bloque -> MAIN . OPENPARENTHESES CLOSEPARENTHESES OPENBRACE establishmainscope estatuto CLOSEBRACE
-    (31) bloque -> MAIN . OPENPARENTHESES CLOSEPARENTHESES OPENBRACE CLOSEBRACE
+    (31) bloque -> MAIN . OPENPARENTHESES CLOSEPARENTHESES OPENBRACE establishmainscope estatuto CLOSEBRACE
+    (32) bloque -> MAIN . OPENPARENTHESES CLOSEPARENTHESES OPENBRACE CLOSEBRACE
 
-    OPENPARENTHESES shift and go to state 25
+    OPENPARENTHESES shift and go to state 26
 
 
 state 16
@@ -433,7 +438,7 @@ state 19
 
     TWODOTS         reduce using rule 22 (savetype -> .)
 
-    savetype                       shift and go to state 26
+    savetype                       shift and go to state 27
 
 state 20
 
@@ -461,34 +466,42 @@ state 22
 
 state 23
 
-    (8) clase -> CLASS ID . OPENBRACE claseP CLOSEBRACE
+    (30) tipo -> BOOL .
 
-    OPENBRACE       shift and go to state 27
+    TWODOTS         reduce using rule 30 (tipo -> BOOL .)
+    ID              reduce using rule 30 (tipo -> BOOL .)
 
 
 state 24
 
-    (13) funcion -> FUNCTION tipo . TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE CLOSEBRACE
+    (8) clase -> CLASS ID . OPENBRACE claseP CLOSEBRACE
 
-    TWODOTS         shift and go to state 28
+    OPENBRACE       shift and go to state 28
 
 
 state 25
 
-    (30) bloque -> MAIN OPENPARENTHESES . CLOSEPARENTHESES OPENBRACE establishmainscope estatuto CLOSEBRACE
-    (31) bloque -> MAIN OPENPARENTHESES . CLOSEPARENTHESES OPENBRACE CLOSEBRACE
+    (13) funcion -> FUNCTION tipo . TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE estatuto CLOSEBRACE
 
-    CLOSEPARENTHESES shift and go to state 29
+    TWODOTS         shift and go to state 29
 
 
 state 26
 
-    (19) vars -> VARS tipo savetype . TWODOTS varsP
+    (31) bloque -> MAIN OPENPARENTHESES . CLOSEPARENTHESES OPENBRACE establishmainscope estatuto CLOSEBRACE
+    (32) bloque -> MAIN OPENPARENTHESES . CLOSEPARENTHESES OPENBRACE CLOSEBRACE
 
-    TWODOTS         shift and go to state 30
+    CLOSEPARENTHESES shift and go to state 30
 
 
 state 27
+
+    (19) vars -> VARS tipo savetype . TWODOTS varsP
+
+    TWODOTS         shift and go to state 31
+
+
+state 28
 
     (8) clase -> CLASS ID OPENBRACE . claseP CLOSEBRACE
     (9) claseP -> . vars clasePP
@@ -496,35 +509,35 @@ state 27
     (19) vars -> . VARS tipo savetype TWODOTS varsP
     (11) clasePP -> . funcion clasePP
     (12) clasePP -> . empty
-    (13) funcion -> . FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE CLOSEBRACE
+    (13) funcion -> . FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE estatuto CLOSEBRACE
     (88) empty -> .
 
     VARS            shift and go to state 12
     FUNCTION        shift and go to state 14
     CLOSEBRACE      reduce using rule 88 (empty -> .)
 
-    claseP                         shift and go to state 31
-    vars                           shift and go to state 32
-    clasePP                        shift and go to state 33
-    funcion                        shift and go to state 34
-    empty                          shift and go to state 35
-
-state 28
-
-    (13) funcion -> FUNCTION tipo TWODOTS . ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE CLOSEBRACE
-
-    ID              shift and go to state 36
-
+    claseP                         shift and go to state 32
+    vars                           shift and go to state 33
+    clasePP                        shift and go to state 34
+    funcion                        shift and go to state 35
+    empty                          shift and go to state 36
 
 state 29
 
-    (30) bloque -> MAIN OPENPARENTHESES CLOSEPARENTHESES . OPENBRACE establishmainscope estatuto CLOSEBRACE
-    (31) bloque -> MAIN OPENPARENTHESES CLOSEPARENTHESES . OPENBRACE CLOSEBRACE
+    (13) funcion -> FUNCTION tipo TWODOTS . ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE estatuto CLOSEBRACE
 
-    OPENBRACE       shift and go to state 37
+    ID              shift and go to state 37
 
 
 state 30
+
+    (31) bloque -> MAIN OPENPARENTHESES CLOSEPARENTHESES . OPENBRACE establishmainscope estatuto CLOSEBRACE
+    (32) bloque -> MAIN OPENPARENTHESES CLOSEPARENTHESES . OPENBRACE CLOSEBRACE
+
+    OPENBRACE       shift and go to state 38
+
+
+state 31
 
     (19) vars -> VARS tipo savetype TWODOTS . varsP
     (20) varsP -> . param COMMA varsP
@@ -532,92 +545,92 @@ state 30
     (23) param -> . ID
     (24) param -> . ID OPENBRACKET paramsP CLOSEBRACKET
 
-    ID              shift and go to state 40
+    ID              shift and go to state 41
 
-    varsP                          shift and go to state 38
-    param                          shift and go to state 39
+    varsP                          shift and go to state 39
+    param                          shift and go to state 40
 
-state 31
+state 32
 
     (8) clase -> CLASS ID OPENBRACE claseP . CLOSEBRACE
 
-    CLOSEBRACE      shift and go to state 41
+    CLOSEBRACE      shift and go to state 42
 
 
-state 32
+state 33
 
     (9) claseP -> vars . clasePP
     (11) clasePP -> . funcion clasePP
     (12) clasePP -> . empty
-    (13) funcion -> . FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE CLOSEBRACE
+    (13) funcion -> . FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE estatuto CLOSEBRACE
     (88) empty -> .
 
     FUNCTION        shift and go to state 14
     CLOSEBRACE      reduce using rule 88 (empty -> .)
 
-    clasePP                        shift and go to state 42
-    funcion                        shift and go to state 34
-    empty                          shift and go to state 35
+    clasePP                        shift and go to state 43
+    funcion                        shift and go to state 35
+    empty                          shift and go to state 36
 
-state 33
+state 34
 
     (10) claseP -> clasePP .
 
     CLOSEBRACE      reduce using rule 10 (claseP -> clasePP .)
 
 
-state 34
+state 35
 
     (11) clasePP -> funcion . clasePP
     (11) clasePP -> . funcion clasePP
     (12) clasePP -> . empty
-    (13) funcion -> . FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE CLOSEBRACE
+    (13) funcion -> . FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE estatuto CLOSEBRACE
     (88) empty -> .
 
     FUNCTION        shift and go to state 14
     CLOSEBRACE      reduce using rule 88 (empty -> .)
 
-    funcion                        shift and go to state 34
-    clasePP                        shift and go to state 43
-    empty                          shift and go to state 35
+    funcion                        shift and go to state 35
+    clasePP                        shift and go to state 44
+    empty                          shift and go to state 36
 
-state 35
+state 36
 
     (12) clasePP -> empty .
 
     CLOSEBRACE      reduce using rule 12 (clasePP -> empty .)
 
 
-state 36
+state 37
 
-    (13) funcion -> FUNCTION tipo TWODOTS ID . savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE CLOSEBRACE
+    (13) funcion -> FUNCTION tipo TWODOTS ID . savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE estatuto CLOSEBRACE
     (14) savefuncscope -> .
 
     OPENPARENTHESES reduce using rule 14 (savefuncscope -> .)
 
-    savefuncscope                  shift and go to state 44
-
-state 37
-
-    (30) bloque -> MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE . establishmainscope estatuto CLOSEBRACE
-    (31) bloque -> MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE . CLOSEBRACE
-    (32) establishmainscope -> .
-
-  ! shift/reduce conflict for CLOSEBRACE resolved as shift
-    CLOSEBRACE      shift and go to state 46
-    ID              reduce using rule 32 (establishmainscope -> .)
-    RETURN          reduce using rule 32 (establishmainscope -> .)
-    READ            reduce using rule 32 (establishmainscope -> .)
-    WRITE           reduce using rule 32 (establishmainscope -> .)
-    WHILE           reduce using rule 32 (establishmainscope -> .)
-    FOR             reduce using rule 32 (establishmainscope -> .)
-    VARS            reduce using rule 32 (establishmainscope -> .)
-
-  ! CLOSEBRACE      [ reduce using rule 32 (establishmainscope -> .) ]
-
-    establishmainscope             shift and go to state 45
+    savefuncscope                  shift and go to state 45
 
 state 38
+
+    (31) bloque -> MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE . establishmainscope estatuto CLOSEBRACE
+    (32) bloque -> MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE . CLOSEBRACE
+    (33) establishmainscope -> .
+
+  ! shift/reduce conflict for CLOSEBRACE resolved as shift
+    CLOSEBRACE      shift and go to state 47
+    ID              reduce using rule 33 (establishmainscope -> .)
+    RETURN          reduce using rule 33 (establishmainscope -> .)
+    READ            reduce using rule 33 (establishmainscope -> .)
+    WRITE           reduce using rule 33 (establishmainscope -> .)
+    WHILE           reduce using rule 33 (establishmainscope -> .)
+    FOR             reduce using rule 33 (establishmainscope -> .)
+    VARS            reduce using rule 33 (establishmainscope -> .)
+
+  ! CLOSEBRACE      [ reduce using rule 33 (establishmainscope -> .) ]
+
+    establishmainscope             shift and go to state 46
+
+state 39
 
     (19) vars -> VARS tipo savetype TWODOTS varsP .
 
@@ -635,16 +648,16 @@ state 38
     FOR             reduce using rule 19 (vars -> VARS tipo savetype TWODOTS varsP .)
 
 
-state 39
+state 40
 
     (20) varsP -> param . COMMA varsP
     (21) varsP -> param . SEMICOLON
 
-    COMMA           shift and go to state 47
-    SEMICOLON       shift and go to state 48
+    COMMA           shift and go to state 48
+    SEMICOLON       shift and go to state 49
 
 
-state 40
+state 41
 
     (23) param -> ID .
     (24) param -> ID . OPENBRACKET paramsP CLOSEBRACKET
@@ -652,10 +665,10 @@ state 40
     COMMA           reduce using rule 23 (param -> ID .)
     SEMICOLON       reduce using rule 23 (param -> ID .)
     CLOSEPARENTHESES reduce using rule 23 (param -> ID .)
-    OPENBRACKET     shift and go to state 49
+    OPENBRACKET     shift and go to state 50
 
 
-state 41
+state 42
 
     (8) clase -> CLASS ID OPENBRACE claseP CLOSEBRACE .
 
@@ -666,37 +679,36 @@ state 41
     $end            reduce using rule 8 (clase -> CLASS ID OPENBRACE claseP CLOSEBRACE .)
 
 
-state 42
+state 43
 
     (9) claseP -> vars clasePP .
 
     CLOSEBRACE      reduce using rule 9 (claseP -> vars clasePP .)
 
 
-state 43
+state 44
 
     (11) clasePP -> funcion clasePP .
 
     CLOSEBRACE      reduce using rule 11 (clasePP -> funcion clasePP .)
 
 
-state 44
-
-    (13) funcion -> FUNCTION tipo TWODOTS ID savefuncscope . OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE CLOSEBRACE
-
-    OPENPARENTHESES shift and go to state 50
-
-
 state 45
 
-    (30) bloque -> MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE establishmainscope . estatuto CLOSEBRACE
-    (33) estatuto -> . asignacion estatuto
-    (34) estatuto -> . llamada estatuto
-    (35) estatuto -> . retorno estatuto
-    (36) estatuto -> . lectura estatuto
-    (37) estatuto -> . escritura estatuto
-    (38) estatuto -> . repeticion estatuto
-    (39) estatuto -> . estatuto estatuto
+    (13) funcion -> FUNCTION tipo TWODOTS ID savefuncscope . OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE estatuto CLOSEBRACE
+
+    OPENPARENTHESES shift and go to state 51
+
+
+state 46
+
+    (31) bloque -> MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE establishmainscope . estatuto CLOSEBRACE
+    (34) estatuto -> . asignacion estatuto
+    (35) estatuto -> . llamada estatuto
+    (36) estatuto -> . retorno estatuto
+    (37) estatuto -> . lectura estatuto
+    (38) estatuto -> . escritura estatuto
+    (39) estatuto -> . repeticion estatuto
     (40) estatuto -> . declaracion estatuto
     (41) estatuto -> . empty
     (47) asignacion -> . ID EQUALS exp SEMICOLON
@@ -716,51 +728,36 @@ state 45
     (66) no_condicional -> . FOR ID EQUALS exp TO exp DO OPENBRACE CLOSEBRACE
     (19) vars -> . VARS tipo savetype TWODOTS varsP
 
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for READ resolved as shift
-  ! shift/reduce conflict for WRITE resolved as shift
-  ! shift/reduce conflict for WHILE resolved as shift
-  ! shift/reduce conflict for FOR resolved as shift
-  ! shift/reduce conflict for VARS resolved as shift
-    ID              shift and go to state 60
-    RETURN          shift and go to state 61
-    READ            shift and go to state 62
-    WRITE           shift and go to state 63
+    ID              shift and go to state 61
+    RETURN          shift and go to state 62
+    READ            shift and go to state 63
+    WRITE           shift and go to state 64
     CLOSEBRACE      reduce using rule 88 (empty -> .)
-    WHILE           shift and go to state 67
-    FOR             shift and go to state 68
+    WHILE           shift and go to state 68
+    FOR             shift and go to state 69
     VARS            shift and go to state 12
 
-  ! ID              [ reduce using rule 88 (empty -> .) ]
-  ! RETURN          [ reduce using rule 88 (empty -> .) ]
-  ! READ            [ reduce using rule 88 (empty -> .) ]
-  ! WRITE           [ reduce using rule 88 (empty -> .) ]
-  ! WHILE           [ reduce using rule 88 (empty -> .) ]
-  ! FOR             [ reduce using rule 88 (empty -> .) ]
-  ! VARS            [ reduce using rule 88 (empty -> .) ]
-
-    estatuto                       shift and go to state 51
-    asignacion                     shift and go to state 52
-    llamada                        shift and go to state 53
-    retorno                        shift and go to state 54
-    lectura                        shift and go to state 55
-    escritura                      shift and go to state 56
-    repeticion                     shift and go to state 57
-    declaracion                    shift and go to state 58
-    empty                          shift and go to state 59
-    condicional                    shift and go to state 64
-    no_condicional                 shift and go to state 65
-    vars                           shift and go to state 66
-
-state 46
-
-    (31) bloque -> MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE CLOSEBRACE .
-
-    $end            reduce using rule 31 (bloque -> MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE CLOSEBRACE .)
-
+    estatuto                       shift and go to state 52
+    asignacion                     shift and go to state 53
+    llamada                        shift and go to state 54
+    retorno                        shift and go to state 55
+    lectura                        shift and go to state 56
+    escritura                      shift and go to state 57
+    repeticion                     shift and go to state 58
+    declaracion                    shift and go to state 59
+    empty                          shift and go to state 60
+    condicional                    shift and go to state 65
+    no_condicional                 shift and go to state 66
+    vars                           shift and go to state 67
 
 state 47
+
+    (32) bloque -> MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE CLOSEBRACE .
+
+    $end            reduce using rule 32 (bloque -> MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE CLOSEBRACE .)
+
+
+state 48
 
     (20) varsP -> param COMMA . varsP
     (20) varsP -> . param COMMA varsP
@@ -768,12 +765,12 @@ state 47
     (23) param -> . ID
     (24) param -> . ID OPENBRACKET paramsP CLOSEBRACKET
 
-    ID              shift and go to state 40
+    ID              shift and go to state 41
 
-    param                          shift and go to state 39
-    varsP                          shift and go to state 69
+    param                          shift and go to state 40
+    varsP                          shift and go to state 70
 
-state 48
+state 49
 
     (21) varsP -> param SEMICOLON .
 
@@ -791,7 +788,7 @@ state 48
     FOR             reduce using rule 21 (varsP -> param SEMICOLON .)
 
 
-state 49
+state 50
 
     (24) param -> ID OPENBRACKET . paramsP CLOSEBRACKET
     (25) paramsP -> . exp COMMA paramsP
@@ -808,177 +805,50 @@ state 49
     (76) factor -> . CTEI
     (77) factor -> . OPENPARENTHESES h_exp CLOSEPARENTHESES
 
-    ID              shift and go to state 70
-    CTEF            shift and go to state 76
-    CTEI            shift and go to state 77
-    OPENPARENTHESES shift and go to state 75
+    ID              shift and go to state 71
+    CTEF            shift and go to state 77
+    CTEI            shift and go to state 78
+    OPENPARENTHESES shift and go to state 76
 
-    paramsP                        shift and go to state 71
-    exp                            shift and go to state 72
-    termino                        shift and go to state 73
-    factor                         shift and go to state 74
+    paramsP                        shift and go to state 72
+    exp                            shift and go to state 73
+    termino                        shift and go to state 74
+    factor                         shift and go to state 75
 
-state 50
+state 51
 
-    (13) funcion -> FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES . paramsfunction CLOSEPARENTHESES OPENBRACE CLOSEBRACE
+    (13) funcion -> FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES . paramsfunction CLOSEPARENTHESES OPENBRACE estatuto CLOSEBRACE
     (15) paramsfunction -> . tipo param COMMA paramsfunction
     (16) paramsfunction -> . tipo param
     (27) tipo -> . INT
     (28) tipo -> . FLOAT
     (29) tipo -> . CHAR
+    (30) tipo -> . BOOL
 
     INT             shift and go to state 20
     FLOAT           shift and go to state 21
     CHAR            shift and go to state 22
+    BOOL            shift and go to state 23
 
-    tipo                           shift and go to state 78
-    paramsfunction                 shift and go to state 79
-
-state 51
-
-    (30) bloque -> MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE establishmainscope estatuto . CLOSEBRACE
-    (39) estatuto -> estatuto . estatuto
-    (33) estatuto -> . asignacion estatuto
-    (34) estatuto -> . llamada estatuto
-    (35) estatuto -> . retorno estatuto
-    (36) estatuto -> . lectura estatuto
-    (37) estatuto -> . escritura estatuto
-    (38) estatuto -> . repeticion estatuto
-    (39) estatuto -> . estatuto estatuto
-    (40) estatuto -> . declaracion estatuto
-    (41) estatuto -> . empty
-    (47) asignacion -> . ID EQUALS exp SEMICOLON
-    (48) asignacion -> . ID OPENBRACKET paramsP CLOSEBRACKET EQUALS exp SEMICOLON
-    (43) llamada -> . ID OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
-    (44) llamada -> . ID OPENPARENTHESES CLOSEPARENTHESES SEMICOLON
-    (45) retorno -> . RETURN OPENPARENTHESES exp CLOSEPARENTHESES SEMICOLON
-    (46) lectura -> . READ OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
-    (49) escritura -> . WRITE OPENPARENTHESES escrituraP CLOSEPARENTHESES SEMICOLON
-    (61) repeticion -> . condicional
-    (62) repeticion -> . no_condicional
-    (42) declaracion -> . vars
-    (88) empty -> .
-    (63) condicional -> . WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE estatuto CLOSEBRACE
-    (64) condicional -> . WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE CLOSEBRACE
-    (65) no_condicional -> . FOR ID EQUALS exp TO exp OPENBRACE estatuto CLOSEBRACE
-    (66) no_condicional -> . FOR ID EQUALS exp TO exp DO OPENBRACE CLOSEBRACE
-    (19) vars -> . VARS tipo savetype TWODOTS varsP
-
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for READ resolved as shift
-  ! shift/reduce conflict for WRITE resolved as shift
-  ! shift/reduce conflict for CLOSEBRACE resolved as shift
-  ! shift/reduce conflict for WHILE resolved as shift
-  ! shift/reduce conflict for FOR resolved as shift
-  ! shift/reduce conflict for VARS resolved as shift
-    CLOSEBRACE      shift and go to state 81
-    ID              shift and go to state 60
-    RETURN          shift and go to state 61
-    READ            shift and go to state 62
-    WRITE           shift and go to state 63
-    WHILE           shift and go to state 67
-    FOR             shift and go to state 68
-    VARS            shift and go to state 12
-
-  ! ID              [ reduce using rule 88 (empty -> .) ]
-  ! RETURN          [ reduce using rule 88 (empty -> .) ]
-  ! READ            [ reduce using rule 88 (empty -> .) ]
-  ! WRITE           [ reduce using rule 88 (empty -> .) ]
-  ! WHILE           [ reduce using rule 88 (empty -> .) ]
-  ! FOR             [ reduce using rule 88 (empty -> .) ]
-  ! VARS            [ reduce using rule 88 (empty -> .) ]
-  ! CLOSEBRACE      [ reduce using rule 88 (empty -> .) ]
-
-    estatuto                       shift and go to state 80
-    asignacion                     shift and go to state 52
-    llamada                        shift and go to state 53
-    retorno                        shift and go to state 54
-    lectura                        shift and go to state 55
-    escritura                      shift and go to state 56
-    repeticion                     shift and go to state 57
-    declaracion                    shift and go to state 58
-    empty                          shift and go to state 59
-    condicional                    shift and go to state 64
-    no_condicional                 shift and go to state 65
-    vars                           shift and go to state 66
+    tipo                           shift and go to state 79
+    paramsfunction                 shift and go to state 80
 
 state 52
 
-    (33) estatuto -> asignacion . estatuto
-    (33) estatuto -> . asignacion estatuto
-    (34) estatuto -> . llamada estatuto
-    (35) estatuto -> . retorno estatuto
-    (36) estatuto -> . lectura estatuto
-    (37) estatuto -> . escritura estatuto
-    (38) estatuto -> . repeticion estatuto
-    (39) estatuto -> . estatuto estatuto
-    (40) estatuto -> . declaracion estatuto
-    (41) estatuto -> . empty
-    (47) asignacion -> . ID EQUALS exp SEMICOLON
-    (48) asignacion -> . ID OPENBRACKET paramsP CLOSEBRACKET EQUALS exp SEMICOLON
-    (43) llamada -> . ID OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
-    (44) llamada -> . ID OPENPARENTHESES CLOSEPARENTHESES SEMICOLON
-    (45) retorno -> . RETURN OPENPARENTHESES exp CLOSEPARENTHESES SEMICOLON
-    (46) lectura -> . READ OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
-    (49) escritura -> . WRITE OPENPARENTHESES escrituraP CLOSEPARENTHESES SEMICOLON
-    (61) repeticion -> . condicional
-    (62) repeticion -> . no_condicional
-    (42) declaracion -> . vars
-    (88) empty -> .
-    (63) condicional -> . WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE estatuto CLOSEBRACE
-    (64) condicional -> . WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE CLOSEBRACE
-    (65) no_condicional -> . FOR ID EQUALS exp TO exp OPENBRACE estatuto CLOSEBRACE
-    (66) no_condicional -> . FOR ID EQUALS exp TO exp DO OPENBRACE CLOSEBRACE
-    (19) vars -> . VARS tipo savetype TWODOTS varsP
+    (31) bloque -> MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE establishmainscope estatuto . CLOSEBRACE
 
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for READ resolved as shift
-  ! shift/reduce conflict for WRITE resolved as shift
-  ! shift/reduce conflict for WHILE resolved as shift
-  ! shift/reduce conflict for FOR resolved as shift
-  ! shift/reduce conflict for VARS resolved as shift
-    ID              shift and go to state 60
-    RETURN          shift and go to state 61
-    READ            shift and go to state 62
-    WRITE           shift and go to state 63
-    CLOSEBRACE      reduce using rule 88 (empty -> .)
-    WHILE           shift and go to state 67
-    FOR             shift and go to state 68
-    VARS            shift and go to state 12
+    CLOSEBRACE      shift and go to state 81
 
-  ! ID              [ reduce using rule 88 (empty -> .) ]
-  ! RETURN          [ reduce using rule 88 (empty -> .) ]
-  ! READ            [ reduce using rule 88 (empty -> .) ]
-  ! WRITE           [ reduce using rule 88 (empty -> .) ]
-  ! WHILE           [ reduce using rule 88 (empty -> .) ]
-  ! FOR             [ reduce using rule 88 (empty -> .) ]
-  ! VARS            [ reduce using rule 88 (empty -> .) ]
-
-    asignacion                     shift and go to state 52
-    estatuto                       shift and go to state 82
-    llamada                        shift and go to state 53
-    retorno                        shift and go to state 54
-    lectura                        shift and go to state 55
-    escritura                      shift and go to state 56
-    repeticion                     shift and go to state 57
-    declaracion                    shift and go to state 58
-    empty                          shift and go to state 59
-    condicional                    shift and go to state 64
-    no_condicional                 shift and go to state 65
-    vars                           shift and go to state 66
 
 state 53
 
-    (34) estatuto -> llamada . estatuto
-    (33) estatuto -> . asignacion estatuto
-    (34) estatuto -> . llamada estatuto
-    (35) estatuto -> . retorno estatuto
-    (36) estatuto -> . lectura estatuto
-    (37) estatuto -> . escritura estatuto
-    (38) estatuto -> . repeticion estatuto
-    (39) estatuto -> . estatuto estatuto
+    (34) estatuto -> asignacion . estatuto
+    (34) estatuto -> . asignacion estatuto
+    (35) estatuto -> . llamada estatuto
+    (36) estatuto -> . retorno estatuto
+    (37) estatuto -> . lectura estatuto
+    (38) estatuto -> . escritura estatuto
+    (39) estatuto -> . repeticion estatuto
     (40) estatuto -> . declaracion estatuto
     (41) estatuto -> . empty
     (47) asignacion -> . ID EQUALS exp SEMICOLON
@@ -998,53 +868,37 @@ state 53
     (66) no_condicional -> . FOR ID EQUALS exp TO exp DO OPENBRACE CLOSEBRACE
     (19) vars -> . VARS tipo savetype TWODOTS varsP
 
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for READ resolved as shift
-  ! shift/reduce conflict for WRITE resolved as shift
-  ! shift/reduce conflict for WHILE resolved as shift
-  ! shift/reduce conflict for FOR resolved as shift
-  ! shift/reduce conflict for VARS resolved as shift
-    ID              shift and go to state 60
-    RETURN          shift and go to state 61
-    READ            shift and go to state 62
-    WRITE           shift and go to state 63
+    ID              shift and go to state 61
+    RETURN          shift and go to state 62
+    READ            shift and go to state 63
+    WRITE           shift and go to state 64
     CLOSEBRACE      reduce using rule 88 (empty -> .)
-    WHILE           shift and go to state 67
-    FOR             shift and go to state 68
+    WHILE           shift and go to state 68
+    FOR             shift and go to state 69
     VARS            shift and go to state 12
 
-  ! ID              [ reduce using rule 88 (empty -> .) ]
-  ! RETURN          [ reduce using rule 88 (empty -> .) ]
-  ! READ            [ reduce using rule 88 (empty -> .) ]
-  ! WRITE           [ reduce using rule 88 (empty -> .) ]
-  ! WHILE           [ reduce using rule 88 (empty -> .) ]
-  ! FOR             [ reduce using rule 88 (empty -> .) ]
-  ! VARS            [ reduce using rule 88 (empty -> .) ]
-
-    llamada                        shift and go to state 53
-    estatuto                       shift and go to state 83
-    asignacion                     shift and go to state 52
-    retorno                        shift and go to state 54
-    lectura                        shift and go to state 55
-    escritura                      shift and go to state 56
-    repeticion                     shift and go to state 57
-    declaracion                    shift and go to state 58
-    empty                          shift and go to state 59
-    condicional                    shift and go to state 64
-    no_condicional                 shift and go to state 65
-    vars                           shift and go to state 66
+    asignacion                     shift and go to state 53
+    estatuto                       shift and go to state 82
+    llamada                        shift and go to state 54
+    retorno                        shift and go to state 55
+    lectura                        shift and go to state 56
+    escritura                      shift and go to state 57
+    repeticion                     shift and go to state 58
+    declaracion                    shift and go to state 59
+    empty                          shift and go to state 60
+    condicional                    shift and go to state 65
+    no_condicional                 shift and go to state 66
+    vars                           shift and go to state 67
 
 state 54
 
-    (35) estatuto -> retorno . estatuto
-    (33) estatuto -> . asignacion estatuto
-    (34) estatuto -> . llamada estatuto
-    (35) estatuto -> . retorno estatuto
-    (36) estatuto -> . lectura estatuto
-    (37) estatuto -> . escritura estatuto
-    (38) estatuto -> . repeticion estatuto
-    (39) estatuto -> . estatuto estatuto
+    (35) estatuto -> llamada . estatuto
+    (34) estatuto -> . asignacion estatuto
+    (35) estatuto -> . llamada estatuto
+    (36) estatuto -> . retorno estatuto
+    (37) estatuto -> . lectura estatuto
+    (38) estatuto -> . escritura estatuto
+    (39) estatuto -> . repeticion estatuto
     (40) estatuto -> . declaracion estatuto
     (41) estatuto -> . empty
     (47) asignacion -> . ID EQUALS exp SEMICOLON
@@ -1064,53 +918,37 @@ state 54
     (66) no_condicional -> . FOR ID EQUALS exp TO exp DO OPENBRACE CLOSEBRACE
     (19) vars -> . VARS tipo savetype TWODOTS varsP
 
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for READ resolved as shift
-  ! shift/reduce conflict for WRITE resolved as shift
-  ! shift/reduce conflict for WHILE resolved as shift
-  ! shift/reduce conflict for FOR resolved as shift
-  ! shift/reduce conflict for VARS resolved as shift
-    ID              shift and go to state 60
-    RETURN          shift and go to state 61
-    READ            shift and go to state 62
-    WRITE           shift and go to state 63
+    ID              shift and go to state 61
+    RETURN          shift and go to state 62
+    READ            shift and go to state 63
+    WRITE           shift and go to state 64
     CLOSEBRACE      reduce using rule 88 (empty -> .)
-    WHILE           shift and go to state 67
-    FOR             shift and go to state 68
+    WHILE           shift and go to state 68
+    FOR             shift and go to state 69
     VARS            shift and go to state 12
 
-  ! ID              [ reduce using rule 88 (empty -> .) ]
-  ! RETURN          [ reduce using rule 88 (empty -> .) ]
-  ! READ            [ reduce using rule 88 (empty -> .) ]
-  ! WRITE           [ reduce using rule 88 (empty -> .) ]
-  ! WHILE           [ reduce using rule 88 (empty -> .) ]
-  ! FOR             [ reduce using rule 88 (empty -> .) ]
-  ! VARS            [ reduce using rule 88 (empty -> .) ]
-
-    retorno                        shift and go to state 54
-    estatuto                       shift and go to state 84
-    asignacion                     shift and go to state 52
-    llamada                        shift and go to state 53
-    lectura                        shift and go to state 55
-    escritura                      shift and go to state 56
-    repeticion                     shift and go to state 57
-    declaracion                    shift and go to state 58
-    empty                          shift and go to state 59
-    condicional                    shift and go to state 64
-    no_condicional                 shift and go to state 65
-    vars                           shift and go to state 66
+    llamada                        shift and go to state 54
+    estatuto                       shift and go to state 83
+    asignacion                     shift and go to state 53
+    retorno                        shift and go to state 55
+    lectura                        shift and go to state 56
+    escritura                      shift and go to state 57
+    repeticion                     shift and go to state 58
+    declaracion                    shift and go to state 59
+    empty                          shift and go to state 60
+    condicional                    shift and go to state 65
+    no_condicional                 shift and go to state 66
+    vars                           shift and go to state 67
 
 state 55
 
-    (36) estatuto -> lectura . estatuto
-    (33) estatuto -> . asignacion estatuto
-    (34) estatuto -> . llamada estatuto
-    (35) estatuto -> . retorno estatuto
-    (36) estatuto -> . lectura estatuto
-    (37) estatuto -> . escritura estatuto
-    (38) estatuto -> . repeticion estatuto
-    (39) estatuto -> . estatuto estatuto
+    (36) estatuto -> retorno . estatuto
+    (34) estatuto -> . asignacion estatuto
+    (35) estatuto -> . llamada estatuto
+    (36) estatuto -> . retorno estatuto
+    (37) estatuto -> . lectura estatuto
+    (38) estatuto -> . escritura estatuto
+    (39) estatuto -> . repeticion estatuto
     (40) estatuto -> . declaracion estatuto
     (41) estatuto -> . empty
     (47) asignacion -> . ID EQUALS exp SEMICOLON
@@ -1130,53 +968,37 @@ state 55
     (66) no_condicional -> . FOR ID EQUALS exp TO exp DO OPENBRACE CLOSEBRACE
     (19) vars -> . VARS tipo savetype TWODOTS varsP
 
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for READ resolved as shift
-  ! shift/reduce conflict for WRITE resolved as shift
-  ! shift/reduce conflict for WHILE resolved as shift
-  ! shift/reduce conflict for FOR resolved as shift
-  ! shift/reduce conflict for VARS resolved as shift
-    ID              shift and go to state 60
-    RETURN          shift and go to state 61
-    READ            shift and go to state 62
-    WRITE           shift and go to state 63
+    ID              shift and go to state 61
+    RETURN          shift and go to state 62
+    READ            shift and go to state 63
+    WRITE           shift and go to state 64
     CLOSEBRACE      reduce using rule 88 (empty -> .)
-    WHILE           shift and go to state 67
-    FOR             shift and go to state 68
+    WHILE           shift and go to state 68
+    FOR             shift and go to state 69
     VARS            shift and go to state 12
 
-  ! ID              [ reduce using rule 88 (empty -> .) ]
-  ! RETURN          [ reduce using rule 88 (empty -> .) ]
-  ! READ            [ reduce using rule 88 (empty -> .) ]
-  ! WRITE           [ reduce using rule 88 (empty -> .) ]
-  ! WHILE           [ reduce using rule 88 (empty -> .) ]
-  ! FOR             [ reduce using rule 88 (empty -> .) ]
-  ! VARS            [ reduce using rule 88 (empty -> .) ]
-
-    lectura                        shift and go to state 55
-    estatuto                       shift and go to state 85
-    asignacion                     shift and go to state 52
-    llamada                        shift and go to state 53
-    retorno                        shift and go to state 54
-    escritura                      shift and go to state 56
-    repeticion                     shift and go to state 57
-    declaracion                    shift and go to state 58
-    empty                          shift and go to state 59
-    condicional                    shift and go to state 64
-    no_condicional                 shift and go to state 65
-    vars                           shift and go to state 66
+    retorno                        shift and go to state 55
+    estatuto                       shift and go to state 84
+    asignacion                     shift and go to state 53
+    llamada                        shift and go to state 54
+    lectura                        shift and go to state 56
+    escritura                      shift and go to state 57
+    repeticion                     shift and go to state 58
+    declaracion                    shift and go to state 59
+    empty                          shift and go to state 60
+    condicional                    shift and go to state 65
+    no_condicional                 shift and go to state 66
+    vars                           shift and go to state 67
 
 state 56
 
-    (37) estatuto -> escritura . estatuto
-    (33) estatuto -> . asignacion estatuto
-    (34) estatuto -> . llamada estatuto
-    (35) estatuto -> . retorno estatuto
-    (36) estatuto -> . lectura estatuto
-    (37) estatuto -> . escritura estatuto
-    (38) estatuto -> . repeticion estatuto
-    (39) estatuto -> . estatuto estatuto
+    (37) estatuto -> lectura . estatuto
+    (34) estatuto -> . asignacion estatuto
+    (35) estatuto -> . llamada estatuto
+    (36) estatuto -> . retorno estatuto
+    (37) estatuto -> . lectura estatuto
+    (38) estatuto -> . escritura estatuto
+    (39) estatuto -> . repeticion estatuto
     (40) estatuto -> . declaracion estatuto
     (41) estatuto -> . empty
     (47) asignacion -> . ID EQUALS exp SEMICOLON
@@ -1196,53 +1018,37 @@ state 56
     (66) no_condicional -> . FOR ID EQUALS exp TO exp DO OPENBRACE CLOSEBRACE
     (19) vars -> . VARS tipo savetype TWODOTS varsP
 
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for READ resolved as shift
-  ! shift/reduce conflict for WRITE resolved as shift
-  ! shift/reduce conflict for WHILE resolved as shift
-  ! shift/reduce conflict for FOR resolved as shift
-  ! shift/reduce conflict for VARS resolved as shift
-    ID              shift and go to state 60
-    RETURN          shift and go to state 61
-    READ            shift and go to state 62
-    WRITE           shift and go to state 63
+    ID              shift and go to state 61
+    RETURN          shift and go to state 62
+    READ            shift and go to state 63
+    WRITE           shift and go to state 64
     CLOSEBRACE      reduce using rule 88 (empty -> .)
-    WHILE           shift and go to state 67
-    FOR             shift and go to state 68
+    WHILE           shift and go to state 68
+    FOR             shift and go to state 69
     VARS            shift and go to state 12
 
-  ! ID              [ reduce using rule 88 (empty -> .) ]
-  ! RETURN          [ reduce using rule 88 (empty -> .) ]
-  ! READ            [ reduce using rule 88 (empty -> .) ]
-  ! WRITE           [ reduce using rule 88 (empty -> .) ]
-  ! WHILE           [ reduce using rule 88 (empty -> .) ]
-  ! FOR             [ reduce using rule 88 (empty -> .) ]
-  ! VARS            [ reduce using rule 88 (empty -> .) ]
-
-    escritura                      shift and go to state 56
-    estatuto                       shift and go to state 86
-    asignacion                     shift and go to state 52
-    llamada                        shift and go to state 53
-    retorno                        shift and go to state 54
-    lectura                        shift and go to state 55
-    repeticion                     shift and go to state 57
-    declaracion                    shift and go to state 58
-    empty                          shift and go to state 59
-    condicional                    shift and go to state 64
-    no_condicional                 shift and go to state 65
-    vars                           shift and go to state 66
+    lectura                        shift and go to state 56
+    estatuto                       shift and go to state 85
+    asignacion                     shift and go to state 53
+    llamada                        shift and go to state 54
+    retorno                        shift and go to state 55
+    escritura                      shift and go to state 57
+    repeticion                     shift and go to state 58
+    declaracion                    shift and go to state 59
+    empty                          shift and go to state 60
+    condicional                    shift and go to state 65
+    no_condicional                 shift and go to state 66
+    vars                           shift and go to state 67
 
 state 57
 
-    (38) estatuto -> repeticion . estatuto
-    (33) estatuto -> . asignacion estatuto
-    (34) estatuto -> . llamada estatuto
-    (35) estatuto -> . retorno estatuto
-    (36) estatuto -> . lectura estatuto
-    (37) estatuto -> . escritura estatuto
-    (38) estatuto -> . repeticion estatuto
-    (39) estatuto -> . estatuto estatuto
+    (38) estatuto -> escritura . estatuto
+    (34) estatuto -> . asignacion estatuto
+    (35) estatuto -> . llamada estatuto
+    (36) estatuto -> . retorno estatuto
+    (37) estatuto -> . lectura estatuto
+    (38) estatuto -> . escritura estatuto
+    (39) estatuto -> . repeticion estatuto
     (40) estatuto -> . declaracion estatuto
     (41) estatuto -> . empty
     (47) asignacion -> . ID EQUALS exp SEMICOLON
@@ -1262,53 +1068,37 @@ state 57
     (66) no_condicional -> . FOR ID EQUALS exp TO exp DO OPENBRACE CLOSEBRACE
     (19) vars -> . VARS tipo savetype TWODOTS varsP
 
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for READ resolved as shift
-  ! shift/reduce conflict for WRITE resolved as shift
-  ! shift/reduce conflict for WHILE resolved as shift
-  ! shift/reduce conflict for FOR resolved as shift
-  ! shift/reduce conflict for VARS resolved as shift
-    ID              shift and go to state 60
-    RETURN          shift and go to state 61
-    READ            shift and go to state 62
-    WRITE           shift and go to state 63
+    ID              shift and go to state 61
+    RETURN          shift and go to state 62
+    READ            shift and go to state 63
+    WRITE           shift and go to state 64
     CLOSEBRACE      reduce using rule 88 (empty -> .)
-    WHILE           shift and go to state 67
-    FOR             shift and go to state 68
+    WHILE           shift and go to state 68
+    FOR             shift and go to state 69
     VARS            shift and go to state 12
 
-  ! ID              [ reduce using rule 88 (empty -> .) ]
-  ! RETURN          [ reduce using rule 88 (empty -> .) ]
-  ! READ            [ reduce using rule 88 (empty -> .) ]
-  ! WRITE           [ reduce using rule 88 (empty -> .) ]
-  ! WHILE           [ reduce using rule 88 (empty -> .) ]
-  ! FOR             [ reduce using rule 88 (empty -> .) ]
-  ! VARS            [ reduce using rule 88 (empty -> .) ]
-
-    repeticion                     shift and go to state 57
-    estatuto                       shift and go to state 87
-    asignacion                     shift and go to state 52
-    llamada                        shift and go to state 53
-    retorno                        shift and go to state 54
-    lectura                        shift and go to state 55
-    escritura                      shift and go to state 56
-    declaracion                    shift and go to state 58
-    empty                          shift and go to state 59
-    condicional                    shift and go to state 64
-    no_condicional                 shift and go to state 65
-    vars                           shift and go to state 66
+    escritura                      shift and go to state 57
+    estatuto                       shift and go to state 86
+    asignacion                     shift and go to state 53
+    llamada                        shift and go to state 54
+    retorno                        shift and go to state 55
+    lectura                        shift and go to state 56
+    repeticion                     shift and go to state 58
+    declaracion                    shift and go to state 59
+    empty                          shift and go to state 60
+    condicional                    shift and go to state 65
+    no_condicional                 shift and go to state 66
+    vars                           shift and go to state 67
 
 state 58
 
-    (40) estatuto -> declaracion . estatuto
-    (33) estatuto -> . asignacion estatuto
-    (34) estatuto -> . llamada estatuto
-    (35) estatuto -> . retorno estatuto
-    (36) estatuto -> . lectura estatuto
-    (37) estatuto -> . escritura estatuto
-    (38) estatuto -> . repeticion estatuto
-    (39) estatuto -> . estatuto estatuto
+    (39) estatuto -> repeticion . estatuto
+    (34) estatuto -> . asignacion estatuto
+    (35) estatuto -> . llamada estatuto
+    (36) estatuto -> . retorno estatuto
+    (37) estatuto -> . lectura estatuto
+    (38) estatuto -> . escritura estatuto
+    (39) estatuto -> . repeticion estatuto
     (40) estatuto -> . declaracion estatuto
     (41) estatuto -> . empty
     (47) asignacion -> . ID EQUALS exp SEMICOLON
@@ -1328,58 +1118,86 @@ state 58
     (66) no_condicional -> . FOR ID EQUALS exp TO exp DO OPENBRACE CLOSEBRACE
     (19) vars -> . VARS tipo savetype TWODOTS varsP
 
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for READ resolved as shift
-  ! shift/reduce conflict for WRITE resolved as shift
-  ! shift/reduce conflict for WHILE resolved as shift
-  ! shift/reduce conflict for FOR resolved as shift
-  ! shift/reduce conflict for VARS resolved as shift
-    ID              shift and go to state 60
-    RETURN          shift and go to state 61
-    READ            shift and go to state 62
-    WRITE           shift and go to state 63
+    ID              shift and go to state 61
+    RETURN          shift and go to state 62
+    READ            shift and go to state 63
+    WRITE           shift and go to state 64
     CLOSEBRACE      reduce using rule 88 (empty -> .)
-    WHILE           shift and go to state 67
-    FOR             shift and go to state 68
+    WHILE           shift and go to state 68
+    FOR             shift and go to state 69
     VARS            shift and go to state 12
 
-  ! ID              [ reduce using rule 88 (empty -> .) ]
-  ! RETURN          [ reduce using rule 88 (empty -> .) ]
-  ! READ            [ reduce using rule 88 (empty -> .) ]
-  ! WRITE           [ reduce using rule 88 (empty -> .) ]
-  ! WHILE           [ reduce using rule 88 (empty -> .) ]
-  ! FOR             [ reduce using rule 88 (empty -> .) ]
-  ! VARS            [ reduce using rule 88 (empty -> .) ]
-
-    declaracion                    shift and go to state 58
-    estatuto                       shift and go to state 88
-    asignacion                     shift and go to state 52
-    llamada                        shift and go to state 53
-    retorno                        shift and go to state 54
-    lectura                        shift and go to state 55
-    escritura                      shift and go to state 56
-    repeticion                     shift and go to state 57
-    empty                          shift and go to state 59
-    condicional                    shift and go to state 64
-    no_condicional                 shift and go to state 65
-    vars                           shift and go to state 66
+    repeticion                     shift and go to state 58
+    estatuto                       shift and go to state 87
+    asignacion                     shift and go to state 53
+    llamada                        shift and go to state 54
+    retorno                        shift and go to state 55
+    lectura                        shift and go to state 56
+    escritura                      shift and go to state 57
+    declaracion                    shift and go to state 59
+    empty                          shift and go to state 60
+    condicional                    shift and go to state 65
+    no_condicional                 shift and go to state 66
+    vars                           shift and go to state 67
 
 state 59
+
+    (40) estatuto -> declaracion . estatuto
+    (34) estatuto -> . asignacion estatuto
+    (35) estatuto -> . llamada estatuto
+    (36) estatuto -> . retorno estatuto
+    (37) estatuto -> . lectura estatuto
+    (38) estatuto -> . escritura estatuto
+    (39) estatuto -> . repeticion estatuto
+    (40) estatuto -> . declaracion estatuto
+    (41) estatuto -> . empty
+    (47) asignacion -> . ID EQUALS exp SEMICOLON
+    (48) asignacion -> . ID OPENBRACKET paramsP CLOSEBRACKET EQUALS exp SEMICOLON
+    (43) llamada -> . ID OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
+    (44) llamada -> . ID OPENPARENTHESES CLOSEPARENTHESES SEMICOLON
+    (45) retorno -> . RETURN OPENPARENTHESES exp CLOSEPARENTHESES SEMICOLON
+    (46) lectura -> . READ OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
+    (49) escritura -> . WRITE OPENPARENTHESES escrituraP CLOSEPARENTHESES SEMICOLON
+    (61) repeticion -> . condicional
+    (62) repeticion -> . no_condicional
+    (42) declaracion -> . vars
+    (88) empty -> .
+    (63) condicional -> . WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE estatuto CLOSEBRACE
+    (64) condicional -> . WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE CLOSEBRACE
+    (65) no_condicional -> . FOR ID EQUALS exp TO exp OPENBRACE estatuto CLOSEBRACE
+    (66) no_condicional -> . FOR ID EQUALS exp TO exp DO OPENBRACE CLOSEBRACE
+    (19) vars -> . VARS tipo savetype TWODOTS varsP
+
+    ID              shift and go to state 61
+    RETURN          shift and go to state 62
+    READ            shift and go to state 63
+    WRITE           shift and go to state 64
+    CLOSEBRACE      reduce using rule 88 (empty -> .)
+    WHILE           shift and go to state 68
+    FOR             shift and go to state 69
+    VARS            shift and go to state 12
+
+    declaracion                    shift and go to state 59
+    estatuto                       shift and go to state 88
+    asignacion                     shift and go to state 53
+    llamada                        shift and go to state 54
+    retorno                        shift and go to state 55
+    lectura                        shift and go to state 56
+    escritura                      shift and go to state 57
+    repeticion                     shift and go to state 58
+    empty                          shift and go to state 60
+    condicional                    shift and go to state 65
+    no_condicional                 shift and go to state 66
+    vars                           shift and go to state 67
+
+state 60
 
     (41) estatuto -> empty .
 
     CLOSEBRACE      reduce using rule 41 (estatuto -> empty .)
-    ID              reduce using rule 41 (estatuto -> empty .)
-    RETURN          reduce using rule 41 (estatuto -> empty .)
-    READ            reduce using rule 41 (estatuto -> empty .)
-    WRITE           reduce using rule 41 (estatuto -> empty .)
-    WHILE           reduce using rule 41 (estatuto -> empty .)
-    FOR             reduce using rule 41 (estatuto -> empty .)
-    VARS            reduce using rule 41 (estatuto -> empty .)
 
 
-state 60
+state 61
 
     (47) asignacion -> ID . EQUALS exp SEMICOLON
     (48) asignacion -> ID . OPENBRACKET paramsP CLOSEBRACKET EQUALS exp SEMICOLON
@@ -1391,28 +1209,28 @@ state 60
     OPENPARENTHESES shift and go to state 91
 
 
-state 61
+state 62
 
     (45) retorno -> RETURN . OPENPARENTHESES exp CLOSEPARENTHESES SEMICOLON
 
     OPENPARENTHESES shift and go to state 92
 
 
-state 62
+state 63
 
     (46) lectura -> READ . OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
 
     OPENPARENTHESES shift and go to state 93
 
 
-state 63
+state 64
 
     (49) escritura -> WRITE . OPENPARENTHESES escrituraP CLOSEPARENTHESES SEMICOLON
 
     OPENPARENTHESES shift and go to state 94
 
 
-state 64
+state 65
 
     (61) repeticion -> condicional .
 
@@ -1426,7 +1244,7 @@ state 64
     CLOSEBRACE      reduce using rule 61 (repeticion -> condicional .)
 
 
-state 65
+state 66
 
     (62) repeticion -> no_condicional .
 
@@ -1440,7 +1258,7 @@ state 65
     CLOSEBRACE      reduce using rule 62 (repeticion -> no_condicional .)
 
 
-state 66
+state 67
 
     (42) declaracion -> vars .
 
@@ -1454,7 +1272,7 @@ state 66
     CLOSEBRACE      reduce using rule 42 (declaracion -> vars .)
 
 
-state 67
+state 68
 
     (63) condicional -> WHILE . OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE estatuto CLOSEBRACE
     (64) condicional -> WHILE . OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE CLOSEBRACE
@@ -1462,7 +1280,7 @@ state 67
     OPENPARENTHESES shift and go to state 95
 
 
-state 68
+state 69
 
     (65) no_condicional -> FOR . ID EQUALS exp TO exp OPENBRACE estatuto CLOSEBRACE
     (66) no_condicional -> FOR . ID EQUALS exp TO exp DO OPENBRACE CLOSEBRACE
@@ -1470,7 +1288,7 @@ state 68
     ID              shift and go to state 96
 
 
-state 69
+state 70
 
     (20) varsP -> param COMMA varsP .
 
@@ -1488,7 +1306,7 @@ state 69
     FOR             reduce using rule 20 (varsP -> param COMMA varsP .)
 
 
-state 70
+state 71
 
     (73) factor -> ID . OPENPARENTHESES exp CLOSEPARENTHESES
     (74) factor -> ID .
@@ -1515,14 +1333,14 @@ state 70
     DO              reduce using rule 74 (factor -> ID .)
 
 
-state 71
+state 72
 
     (24) param -> ID OPENBRACKET paramsP . CLOSEBRACKET
 
     CLOSEBRACKET    shift and go to state 98
 
 
-state 72
+state 73
 
     (25) paramsP -> exp . COMMA paramsP
     (26) paramsP -> exp .
@@ -1535,7 +1353,7 @@ state 72
     MINUS           shift and go to state 101
 
 
-state 73
+state 74
 
     (67) exp -> termino .
     (71) termino -> termino . MULTIPLY factor
@@ -1562,7 +1380,7 @@ state 73
     DIVIDE          shift and go to state 103
 
 
-state 74
+state 75
 
     (70) termino -> factor .
 
@@ -1587,7 +1405,7 @@ state 74
     DO              reduce using rule 70 (termino -> factor .)
 
 
-state 75
+state 76
 
     (77) factor -> OPENPARENTHESES . h_exp CLOSEPARENTHESES
     (78) h_exp -> . s_exp
@@ -1612,18 +1430,18 @@ state 75
     (76) factor -> . CTEI
     (77) factor -> . OPENPARENTHESES h_exp CLOSEPARENTHESES
 
-    ID              shift and go to state 70
-    CTEF            shift and go to state 76
-    CTEI            shift and go to state 77
-    OPENPARENTHESES shift and go to state 75
+    ID              shift and go to state 71
+    CTEF            shift and go to state 77
+    CTEI            shift and go to state 78
+    OPENPARENTHESES shift and go to state 76
 
     h_exp                          shift and go to state 104
     s_exp                          shift and go to state 105
     exp                            shift and go to state 106
-    termino                        shift and go to state 73
-    factor                         shift and go to state 74
+    termino                        shift and go to state 74
+    factor                         shift and go to state 75
 
-state 76
+state 77
 
     (75) factor -> CTEF .
 
@@ -1648,7 +1466,7 @@ state 76
     DO              reduce using rule 75 (factor -> CTEF .)
 
 
-state 77
+state 78
 
     (76) factor -> CTEI .
 
@@ -1673,694 +1491,79 @@ state 77
     DO              reduce using rule 76 (factor -> CTEI .)
 
 
-state 78
+state 79
 
     (15) paramsfunction -> tipo . param COMMA paramsfunction
     (16) paramsfunction -> tipo . param
     (23) param -> . ID
     (24) param -> . ID OPENBRACKET paramsP CLOSEBRACKET
 
-    ID              shift and go to state 40
+    ID              shift and go to state 41
 
     param                          shift and go to state 107
 
-state 79
+state 80
 
-    (13) funcion -> FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction . CLOSEPARENTHESES OPENBRACE CLOSEBRACE
+    (13) funcion -> FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction . CLOSEPARENTHESES OPENBRACE estatuto CLOSEBRACE
 
     CLOSEPARENTHESES shift and go to state 108
 
 
-state 80
-
-    (39) estatuto -> estatuto estatuto .
-    (39) estatuto -> estatuto . estatuto
-    (33) estatuto -> . asignacion estatuto
-    (34) estatuto -> . llamada estatuto
-    (35) estatuto -> . retorno estatuto
-    (36) estatuto -> . lectura estatuto
-    (37) estatuto -> . escritura estatuto
-    (38) estatuto -> . repeticion estatuto
-    (39) estatuto -> . estatuto estatuto
-    (40) estatuto -> . declaracion estatuto
-    (41) estatuto -> . empty
-    (47) asignacion -> . ID EQUALS exp SEMICOLON
-    (48) asignacion -> . ID OPENBRACKET paramsP CLOSEBRACKET EQUALS exp SEMICOLON
-    (43) llamada -> . ID OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
-    (44) llamada -> . ID OPENPARENTHESES CLOSEPARENTHESES SEMICOLON
-    (45) retorno -> . RETURN OPENPARENTHESES exp CLOSEPARENTHESES SEMICOLON
-    (46) lectura -> . READ OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
-    (49) escritura -> . WRITE OPENPARENTHESES escrituraP CLOSEPARENTHESES SEMICOLON
-    (61) repeticion -> . condicional
-    (62) repeticion -> . no_condicional
-    (42) declaracion -> . vars
-    (88) empty -> .
-    (63) condicional -> . WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE estatuto CLOSEBRACE
-    (64) condicional -> . WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE CLOSEBRACE
-    (65) no_condicional -> . FOR ID EQUALS exp TO exp OPENBRACE estatuto CLOSEBRACE
-    (66) no_condicional -> . FOR ID EQUALS exp TO exp DO OPENBRACE CLOSEBRACE
-    (19) vars -> . VARS tipo savetype TWODOTS varsP
-
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for READ resolved as shift
-  ! shift/reduce conflict for WRITE resolved as shift
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for READ resolved as shift
-  ! shift/reduce conflict for WRITE resolved as shift
-  ! reduce/reduce conflict for WHILE resolved using rule 39 (estatuto -> estatuto estatuto .)
-  ! reduce/reduce conflict for FOR resolved using rule 39 (estatuto -> estatuto estatuto .)
-  ! reduce/reduce conflict for VARS resolved using rule 39 (estatuto -> estatuto estatuto .)
-  ! reduce/reduce conflict for CLOSEBRACE resolved using rule 39 (estatuto -> estatuto estatuto .)
-  ! shift/reduce conflict for WHILE resolved as shift
-  ! shift/reduce conflict for FOR resolved as shift
-  ! shift/reduce conflict for VARS resolved as shift
-    CLOSEBRACE      reduce using rule 39 (estatuto -> estatuto estatuto .)
-    ID              shift and go to state 60
-    RETURN          shift and go to state 61
-    READ            shift and go to state 62
-    WRITE           shift and go to state 63
-    WHILE           shift and go to state 67
-    FOR             shift and go to state 68
-    VARS            shift and go to state 12
-
-  ! ID              [ reduce using rule 39 (estatuto -> estatuto estatuto .) ]
-  ! RETURN          [ reduce using rule 39 (estatuto -> estatuto estatuto .) ]
-  ! READ            [ reduce using rule 39 (estatuto -> estatuto estatuto .) ]
-  ! WRITE           [ reduce using rule 39 (estatuto -> estatuto estatuto .) ]
-  ! WHILE           [ reduce using rule 39 (estatuto -> estatuto estatuto .) ]
-  ! FOR             [ reduce using rule 39 (estatuto -> estatuto estatuto .) ]
-  ! VARS            [ reduce using rule 39 (estatuto -> estatuto estatuto .) ]
-  ! ID              [ reduce using rule 88 (empty -> .) ]
-  ! RETURN          [ reduce using rule 88 (empty -> .) ]
-  ! READ            [ reduce using rule 88 (empty -> .) ]
-  ! WRITE           [ reduce using rule 88 (empty -> .) ]
-  ! WHILE           [ reduce using rule 88 (empty -> .) ]
-  ! FOR             [ reduce using rule 88 (empty -> .) ]
-  ! VARS            [ reduce using rule 88 (empty -> .) ]
-  ! CLOSEBRACE      [ reduce using rule 88 (empty -> .) ]
-
-    estatuto                       shift and go to state 80
-    asignacion                     shift and go to state 52
-    llamada                        shift and go to state 53
-    retorno                        shift and go to state 54
-    lectura                        shift and go to state 55
-    escritura                      shift and go to state 56
-    repeticion                     shift and go to state 57
-    declaracion                    shift and go to state 58
-    empty                          shift and go to state 59
-    condicional                    shift and go to state 64
-    no_condicional                 shift and go to state 65
-    vars                           shift and go to state 66
-
 state 81
 
-    (30) bloque -> MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE establishmainscope estatuto CLOSEBRACE .
+    (31) bloque -> MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE establishmainscope estatuto CLOSEBRACE .
 
-    $end            reduce using rule 30 (bloque -> MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE establishmainscope estatuto CLOSEBRACE .)
+    $end            reduce using rule 31 (bloque -> MAIN OPENPARENTHESES CLOSEPARENTHESES OPENBRACE establishmainscope estatuto CLOSEBRACE .)
 
 
 state 82
 
-    (33) estatuto -> asignacion estatuto .
-    (39) estatuto -> estatuto . estatuto
-    (33) estatuto -> . asignacion estatuto
-    (34) estatuto -> . llamada estatuto
-    (35) estatuto -> . retorno estatuto
-    (36) estatuto -> . lectura estatuto
-    (37) estatuto -> . escritura estatuto
-    (38) estatuto -> . repeticion estatuto
-    (39) estatuto -> . estatuto estatuto
-    (40) estatuto -> . declaracion estatuto
-    (41) estatuto -> . empty
-    (47) asignacion -> . ID EQUALS exp SEMICOLON
-    (48) asignacion -> . ID OPENBRACKET paramsP CLOSEBRACKET EQUALS exp SEMICOLON
-    (43) llamada -> . ID OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
-    (44) llamada -> . ID OPENPARENTHESES CLOSEPARENTHESES SEMICOLON
-    (45) retorno -> . RETURN OPENPARENTHESES exp CLOSEPARENTHESES SEMICOLON
-    (46) lectura -> . READ OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
-    (49) escritura -> . WRITE OPENPARENTHESES escrituraP CLOSEPARENTHESES SEMICOLON
-    (61) repeticion -> . condicional
-    (62) repeticion -> . no_condicional
-    (42) declaracion -> . vars
-    (88) empty -> .
-    (63) condicional -> . WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE estatuto CLOSEBRACE
-    (64) condicional -> . WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE CLOSEBRACE
-    (65) no_condicional -> . FOR ID EQUALS exp TO exp OPENBRACE estatuto CLOSEBRACE
-    (66) no_condicional -> . FOR ID EQUALS exp TO exp DO OPENBRACE CLOSEBRACE
-    (19) vars -> . VARS tipo savetype TWODOTS varsP
+    (34) estatuto -> asignacion estatuto .
 
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for READ resolved as shift
-  ! shift/reduce conflict for WRITE resolved as shift
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for READ resolved as shift
-  ! shift/reduce conflict for WRITE resolved as shift
-  ! reduce/reduce conflict for WHILE resolved using rule 33 (estatuto -> asignacion estatuto .)
-  ! reduce/reduce conflict for FOR resolved using rule 33 (estatuto -> asignacion estatuto .)
-  ! reduce/reduce conflict for VARS resolved using rule 33 (estatuto -> asignacion estatuto .)
-  ! reduce/reduce conflict for CLOSEBRACE resolved using rule 33 (estatuto -> asignacion estatuto .)
-  ! shift/reduce conflict for WHILE resolved as shift
-  ! shift/reduce conflict for FOR resolved as shift
-  ! shift/reduce conflict for VARS resolved as shift
-    CLOSEBRACE      reduce using rule 33 (estatuto -> asignacion estatuto .)
-    ID              shift and go to state 60
-    RETURN          shift and go to state 61
-    READ            shift and go to state 62
-    WRITE           shift and go to state 63
-    WHILE           shift and go to state 67
-    FOR             shift and go to state 68
-    VARS            shift and go to state 12
+    CLOSEBRACE      reduce using rule 34 (estatuto -> asignacion estatuto .)
 
-  ! ID              [ reduce using rule 33 (estatuto -> asignacion estatuto .) ]
-  ! RETURN          [ reduce using rule 33 (estatuto -> asignacion estatuto .) ]
-  ! READ            [ reduce using rule 33 (estatuto -> asignacion estatuto .) ]
-  ! WRITE           [ reduce using rule 33 (estatuto -> asignacion estatuto .) ]
-  ! WHILE           [ reduce using rule 33 (estatuto -> asignacion estatuto .) ]
-  ! FOR             [ reduce using rule 33 (estatuto -> asignacion estatuto .) ]
-  ! VARS            [ reduce using rule 33 (estatuto -> asignacion estatuto .) ]
-  ! ID              [ reduce using rule 88 (empty -> .) ]
-  ! RETURN          [ reduce using rule 88 (empty -> .) ]
-  ! READ            [ reduce using rule 88 (empty -> .) ]
-  ! WRITE           [ reduce using rule 88 (empty -> .) ]
-  ! WHILE           [ reduce using rule 88 (empty -> .) ]
-  ! FOR             [ reduce using rule 88 (empty -> .) ]
-  ! VARS            [ reduce using rule 88 (empty -> .) ]
-  ! CLOSEBRACE      [ reduce using rule 88 (empty -> .) ]
-
-    asignacion                     shift and go to state 52
-    estatuto                       shift and go to state 80
-    llamada                        shift and go to state 53
-    retorno                        shift and go to state 54
-    lectura                        shift and go to state 55
-    escritura                      shift and go to state 56
-    repeticion                     shift and go to state 57
-    declaracion                    shift and go to state 58
-    empty                          shift and go to state 59
-    condicional                    shift and go to state 64
-    no_condicional                 shift and go to state 65
-    vars                           shift and go to state 66
 
 state 83
 
-    (34) estatuto -> llamada estatuto .
-    (39) estatuto -> estatuto . estatuto
-    (33) estatuto -> . asignacion estatuto
-    (34) estatuto -> . llamada estatuto
-    (35) estatuto -> . retorno estatuto
-    (36) estatuto -> . lectura estatuto
-    (37) estatuto -> . escritura estatuto
-    (38) estatuto -> . repeticion estatuto
-    (39) estatuto -> . estatuto estatuto
-    (40) estatuto -> . declaracion estatuto
-    (41) estatuto -> . empty
-    (47) asignacion -> . ID EQUALS exp SEMICOLON
-    (48) asignacion -> . ID OPENBRACKET paramsP CLOSEBRACKET EQUALS exp SEMICOLON
-    (43) llamada -> . ID OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
-    (44) llamada -> . ID OPENPARENTHESES CLOSEPARENTHESES SEMICOLON
-    (45) retorno -> . RETURN OPENPARENTHESES exp CLOSEPARENTHESES SEMICOLON
-    (46) lectura -> . READ OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
-    (49) escritura -> . WRITE OPENPARENTHESES escrituraP CLOSEPARENTHESES SEMICOLON
-    (61) repeticion -> . condicional
-    (62) repeticion -> . no_condicional
-    (42) declaracion -> . vars
-    (88) empty -> .
-    (63) condicional -> . WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE estatuto CLOSEBRACE
-    (64) condicional -> . WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE CLOSEBRACE
-    (65) no_condicional -> . FOR ID EQUALS exp TO exp OPENBRACE estatuto CLOSEBRACE
-    (66) no_condicional -> . FOR ID EQUALS exp TO exp DO OPENBRACE CLOSEBRACE
-    (19) vars -> . VARS tipo savetype TWODOTS varsP
+    (35) estatuto -> llamada estatuto .
 
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for READ resolved as shift
-  ! shift/reduce conflict for WRITE resolved as shift
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for READ resolved as shift
-  ! shift/reduce conflict for WRITE resolved as shift
-  ! reduce/reduce conflict for WHILE resolved using rule 34 (estatuto -> llamada estatuto .)
-  ! reduce/reduce conflict for FOR resolved using rule 34 (estatuto -> llamada estatuto .)
-  ! reduce/reduce conflict for VARS resolved using rule 34 (estatuto -> llamada estatuto .)
-  ! reduce/reduce conflict for CLOSEBRACE resolved using rule 34 (estatuto -> llamada estatuto .)
-  ! shift/reduce conflict for WHILE resolved as shift
-  ! shift/reduce conflict for FOR resolved as shift
-  ! shift/reduce conflict for VARS resolved as shift
-    CLOSEBRACE      reduce using rule 34 (estatuto -> llamada estatuto .)
-    ID              shift and go to state 60
-    RETURN          shift and go to state 61
-    READ            shift and go to state 62
-    WRITE           shift and go to state 63
-    WHILE           shift and go to state 67
-    FOR             shift and go to state 68
-    VARS            shift and go to state 12
+    CLOSEBRACE      reduce using rule 35 (estatuto -> llamada estatuto .)
 
-  ! ID              [ reduce using rule 34 (estatuto -> llamada estatuto .) ]
-  ! RETURN          [ reduce using rule 34 (estatuto -> llamada estatuto .) ]
-  ! READ            [ reduce using rule 34 (estatuto -> llamada estatuto .) ]
-  ! WRITE           [ reduce using rule 34 (estatuto -> llamada estatuto .) ]
-  ! WHILE           [ reduce using rule 34 (estatuto -> llamada estatuto .) ]
-  ! FOR             [ reduce using rule 34 (estatuto -> llamada estatuto .) ]
-  ! VARS            [ reduce using rule 34 (estatuto -> llamada estatuto .) ]
-  ! ID              [ reduce using rule 88 (empty -> .) ]
-  ! RETURN          [ reduce using rule 88 (empty -> .) ]
-  ! READ            [ reduce using rule 88 (empty -> .) ]
-  ! WRITE           [ reduce using rule 88 (empty -> .) ]
-  ! WHILE           [ reduce using rule 88 (empty -> .) ]
-  ! FOR             [ reduce using rule 88 (empty -> .) ]
-  ! VARS            [ reduce using rule 88 (empty -> .) ]
-  ! CLOSEBRACE      [ reduce using rule 88 (empty -> .) ]
-
-    llamada                        shift and go to state 53
-    estatuto                       shift and go to state 80
-    asignacion                     shift and go to state 52
-    retorno                        shift and go to state 54
-    lectura                        shift and go to state 55
-    escritura                      shift and go to state 56
-    repeticion                     shift and go to state 57
-    declaracion                    shift and go to state 58
-    empty                          shift and go to state 59
-    condicional                    shift and go to state 64
-    no_condicional                 shift and go to state 65
-    vars                           shift and go to state 66
 
 state 84
 
-    (35) estatuto -> retorno estatuto .
-    (39) estatuto -> estatuto . estatuto
-    (33) estatuto -> . asignacion estatuto
-    (34) estatuto -> . llamada estatuto
-    (35) estatuto -> . retorno estatuto
-    (36) estatuto -> . lectura estatuto
-    (37) estatuto -> . escritura estatuto
-    (38) estatuto -> . repeticion estatuto
-    (39) estatuto -> . estatuto estatuto
-    (40) estatuto -> . declaracion estatuto
-    (41) estatuto -> . empty
-    (47) asignacion -> . ID EQUALS exp SEMICOLON
-    (48) asignacion -> . ID OPENBRACKET paramsP CLOSEBRACKET EQUALS exp SEMICOLON
-    (43) llamada -> . ID OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
-    (44) llamada -> . ID OPENPARENTHESES CLOSEPARENTHESES SEMICOLON
-    (45) retorno -> . RETURN OPENPARENTHESES exp CLOSEPARENTHESES SEMICOLON
-    (46) lectura -> . READ OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
-    (49) escritura -> . WRITE OPENPARENTHESES escrituraP CLOSEPARENTHESES SEMICOLON
-    (61) repeticion -> . condicional
-    (62) repeticion -> . no_condicional
-    (42) declaracion -> . vars
-    (88) empty -> .
-    (63) condicional -> . WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE estatuto CLOSEBRACE
-    (64) condicional -> . WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE CLOSEBRACE
-    (65) no_condicional -> . FOR ID EQUALS exp TO exp OPENBRACE estatuto CLOSEBRACE
-    (66) no_condicional -> . FOR ID EQUALS exp TO exp DO OPENBRACE CLOSEBRACE
-    (19) vars -> . VARS tipo savetype TWODOTS varsP
+    (36) estatuto -> retorno estatuto .
 
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for READ resolved as shift
-  ! shift/reduce conflict for WRITE resolved as shift
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for READ resolved as shift
-  ! shift/reduce conflict for WRITE resolved as shift
-  ! reduce/reduce conflict for WHILE resolved using rule 35 (estatuto -> retorno estatuto .)
-  ! reduce/reduce conflict for FOR resolved using rule 35 (estatuto -> retorno estatuto .)
-  ! reduce/reduce conflict for VARS resolved using rule 35 (estatuto -> retorno estatuto .)
-  ! reduce/reduce conflict for CLOSEBRACE resolved using rule 35 (estatuto -> retorno estatuto .)
-  ! shift/reduce conflict for WHILE resolved as shift
-  ! shift/reduce conflict for FOR resolved as shift
-  ! shift/reduce conflict for VARS resolved as shift
-    CLOSEBRACE      reduce using rule 35 (estatuto -> retorno estatuto .)
-    ID              shift and go to state 60
-    RETURN          shift and go to state 61
-    READ            shift and go to state 62
-    WRITE           shift and go to state 63
-    WHILE           shift and go to state 67
-    FOR             shift and go to state 68
-    VARS            shift and go to state 12
+    CLOSEBRACE      reduce using rule 36 (estatuto -> retorno estatuto .)
 
-  ! ID              [ reduce using rule 35 (estatuto -> retorno estatuto .) ]
-  ! RETURN          [ reduce using rule 35 (estatuto -> retorno estatuto .) ]
-  ! READ            [ reduce using rule 35 (estatuto -> retorno estatuto .) ]
-  ! WRITE           [ reduce using rule 35 (estatuto -> retorno estatuto .) ]
-  ! WHILE           [ reduce using rule 35 (estatuto -> retorno estatuto .) ]
-  ! FOR             [ reduce using rule 35 (estatuto -> retorno estatuto .) ]
-  ! VARS            [ reduce using rule 35 (estatuto -> retorno estatuto .) ]
-  ! ID              [ reduce using rule 88 (empty -> .) ]
-  ! RETURN          [ reduce using rule 88 (empty -> .) ]
-  ! READ            [ reduce using rule 88 (empty -> .) ]
-  ! WRITE           [ reduce using rule 88 (empty -> .) ]
-  ! WHILE           [ reduce using rule 88 (empty -> .) ]
-  ! FOR             [ reduce using rule 88 (empty -> .) ]
-  ! VARS            [ reduce using rule 88 (empty -> .) ]
-  ! CLOSEBRACE      [ reduce using rule 88 (empty -> .) ]
-
-    retorno                        shift and go to state 54
-    estatuto                       shift and go to state 80
-    asignacion                     shift and go to state 52
-    llamada                        shift and go to state 53
-    lectura                        shift and go to state 55
-    escritura                      shift and go to state 56
-    repeticion                     shift and go to state 57
-    declaracion                    shift and go to state 58
-    empty                          shift and go to state 59
-    condicional                    shift and go to state 64
-    no_condicional                 shift and go to state 65
-    vars                           shift and go to state 66
 
 state 85
 
-    (36) estatuto -> lectura estatuto .
-    (39) estatuto -> estatuto . estatuto
-    (33) estatuto -> . asignacion estatuto
-    (34) estatuto -> . llamada estatuto
-    (35) estatuto -> . retorno estatuto
-    (36) estatuto -> . lectura estatuto
-    (37) estatuto -> . escritura estatuto
-    (38) estatuto -> . repeticion estatuto
-    (39) estatuto -> . estatuto estatuto
-    (40) estatuto -> . declaracion estatuto
-    (41) estatuto -> . empty
-    (47) asignacion -> . ID EQUALS exp SEMICOLON
-    (48) asignacion -> . ID OPENBRACKET paramsP CLOSEBRACKET EQUALS exp SEMICOLON
-    (43) llamada -> . ID OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
-    (44) llamada -> . ID OPENPARENTHESES CLOSEPARENTHESES SEMICOLON
-    (45) retorno -> . RETURN OPENPARENTHESES exp CLOSEPARENTHESES SEMICOLON
-    (46) lectura -> . READ OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
-    (49) escritura -> . WRITE OPENPARENTHESES escrituraP CLOSEPARENTHESES SEMICOLON
-    (61) repeticion -> . condicional
-    (62) repeticion -> . no_condicional
-    (42) declaracion -> . vars
-    (88) empty -> .
-    (63) condicional -> . WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE estatuto CLOSEBRACE
-    (64) condicional -> . WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE CLOSEBRACE
-    (65) no_condicional -> . FOR ID EQUALS exp TO exp OPENBRACE estatuto CLOSEBRACE
-    (66) no_condicional -> . FOR ID EQUALS exp TO exp DO OPENBRACE CLOSEBRACE
-    (19) vars -> . VARS tipo savetype TWODOTS varsP
+    (37) estatuto -> lectura estatuto .
 
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for READ resolved as shift
-  ! shift/reduce conflict for WRITE resolved as shift
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for READ resolved as shift
-  ! shift/reduce conflict for WRITE resolved as shift
-  ! reduce/reduce conflict for WHILE resolved using rule 36 (estatuto -> lectura estatuto .)
-  ! reduce/reduce conflict for FOR resolved using rule 36 (estatuto -> lectura estatuto .)
-  ! reduce/reduce conflict for VARS resolved using rule 36 (estatuto -> lectura estatuto .)
-  ! reduce/reduce conflict for CLOSEBRACE resolved using rule 36 (estatuto -> lectura estatuto .)
-  ! shift/reduce conflict for WHILE resolved as shift
-  ! shift/reduce conflict for FOR resolved as shift
-  ! shift/reduce conflict for VARS resolved as shift
-    CLOSEBRACE      reduce using rule 36 (estatuto -> lectura estatuto .)
-    ID              shift and go to state 60
-    RETURN          shift and go to state 61
-    READ            shift and go to state 62
-    WRITE           shift and go to state 63
-    WHILE           shift and go to state 67
-    FOR             shift and go to state 68
-    VARS            shift and go to state 12
+    CLOSEBRACE      reduce using rule 37 (estatuto -> lectura estatuto .)
 
-  ! ID              [ reduce using rule 36 (estatuto -> lectura estatuto .) ]
-  ! RETURN          [ reduce using rule 36 (estatuto -> lectura estatuto .) ]
-  ! READ            [ reduce using rule 36 (estatuto -> lectura estatuto .) ]
-  ! WRITE           [ reduce using rule 36 (estatuto -> lectura estatuto .) ]
-  ! WHILE           [ reduce using rule 36 (estatuto -> lectura estatuto .) ]
-  ! FOR             [ reduce using rule 36 (estatuto -> lectura estatuto .) ]
-  ! VARS            [ reduce using rule 36 (estatuto -> lectura estatuto .) ]
-  ! ID              [ reduce using rule 88 (empty -> .) ]
-  ! RETURN          [ reduce using rule 88 (empty -> .) ]
-  ! READ            [ reduce using rule 88 (empty -> .) ]
-  ! WRITE           [ reduce using rule 88 (empty -> .) ]
-  ! WHILE           [ reduce using rule 88 (empty -> .) ]
-  ! FOR             [ reduce using rule 88 (empty -> .) ]
-  ! VARS            [ reduce using rule 88 (empty -> .) ]
-  ! CLOSEBRACE      [ reduce using rule 88 (empty -> .) ]
-
-    lectura                        shift and go to state 55
-    estatuto                       shift and go to state 80
-    asignacion                     shift and go to state 52
-    llamada                        shift and go to state 53
-    retorno                        shift and go to state 54
-    escritura                      shift and go to state 56
-    repeticion                     shift and go to state 57
-    declaracion                    shift and go to state 58
-    empty                          shift and go to state 59
-    condicional                    shift and go to state 64
-    no_condicional                 shift and go to state 65
-    vars                           shift and go to state 66
 
 state 86
 
-    (37) estatuto -> escritura estatuto .
-    (39) estatuto -> estatuto . estatuto
-    (33) estatuto -> . asignacion estatuto
-    (34) estatuto -> . llamada estatuto
-    (35) estatuto -> . retorno estatuto
-    (36) estatuto -> . lectura estatuto
-    (37) estatuto -> . escritura estatuto
-    (38) estatuto -> . repeticion estatuto
-    (39) estatuto -> . estatuto estatuto
-    (40) estatuto -> . declaracion estatuto
-    (41) estatuto -> . empty
-    (47) asignacion -> . ID EQUALS exp SEMICOLON
-    (48) asignacion -> . ID OPENBRACKET paramsP CLOSEBRACKET EQUALS exp SEMICOLON
-    (43) llamada -> . ID OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
-    (44) llamada -> . ID OPENPARENTHESES CLOSEPARENTHESES SEMICOLON
-    (45) retorno -> . RETURN OPENPARENTHESES exp CLOSEPARENTHESES SEMICOLON
-    (46) lectura -> . READ OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
-    (49) escritura -> . WRITE OPENPARENTHESES escrituraP CLOSEPARENTHESES SEMICOLON
-    (61) repeticion -> . condicional
-    (62) repeticion -> . no_condicional
-    (42) declaracion -> . vars
-    (88) empty -> .
-    (63) condicional -> . WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE estatuto CLOSEBRACE
-    (64) condicional -> . WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE CLOSEBRACE
-    (65) no_condicional -> . FOR ID EQUALS exp TO exp OPENBRACE estatuto CLOSEBRACE
-    (66) no_condicional -> . FOR ID EQUALS exp TO exp DO OPENBRACE CLOSEBRACE
-    (19) vars -> . VARS tipo savetype TWODOTS varsP
+    (38) estatuto -> escritura estatuto .
 
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for READ resolved as shift
-  ! shift/reduce conflict for WRITE resolved as shift
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for READ resolved as shift
-  ! shift/reduce conflict for WRITE resolved as shift
-  ! reduce/reduce conflict for WHILE resolved using rule 37 (estatuto -> escritura estatuto .)
-  ! reduce/reduce conflict for FOR resolved using rule 37 (estatuto -> escritura estatuto .)
-  ! reduce/reduce conflict for VARS resolved using rule 37 (estatuto -> escritura estatuto .)
-  ! reduce/reduce conflict for CLOSEBRACE resolved using rule 37 (estatuto -> escritura estatuto .)
-  ! shift/reduce conflict for WHILE resolved as shift
-  ! shift/reduce conflict for FOR resolved as shift
-  ! shift/reduce conflict for VARS resolved as shift
-    CLOSEBRACE      reduce using rule 37 (estatuto -> escritura estatuto .)
-    ID              shift and go to state 60
-    RETURN          shift and go to state 61
-    READ            shift and go to state 62
-    WRITE           shift and go to state 63
-    WHILE           shift and go to state 67
-    FOR             shift and go to state 68
-    VARS            shift and go to state 12
+    CLOSEBRACE      reduce using rule 38 (estatuto -> escritura estatuto .)
 
-  ! ID              [ reduce using rule 37 (estatuto -> escritura estatuto .) ]
-  ! RETURN          [ reduce using rule 37 (estatuto -> escritura estatuto .) ]
-  ! READ            [ reduce using rule 37 (estatuto -> escritura estatuto .) ]
-  ! WRITE           [ reduce using rule 37 (estatuto -> escritura estatuto .) ]
-  ! WHILE           [ reduce using rule 37 (estatuto -> escritura estatuto .) ]
-  ! FOR             [ reduce using rule 37 (estatuto -> escritura estatuto .) ]
-  ! VARS            [ reduce using rule 37 (estatuto -> escritura estatuto .) ]
-  ! ID              [ reduce using rule 88 (empty -> .) ]
-  ! RETURN          [ reduce using rule 88 (empty -> .) ]
-  ! READ            [ reduce using rule 88 (empty -> .) ]
-  ! WRITE           [ reduce using rule 88 (empty -> .) ]
-  ! WHILE           [ reduce using rule 88 (empty -> .) ]
-  ! FOR             [ reduce using rule 88 (empty -> .) ]
-  ! VARS            [ reduce using rule 88 (empty -> .) ]
-  ! CLOSEBRACE      [ reduce using rule 88 (empty -> .) ]
-
-    escritura                      shift and go to state 56
-    estatuto                       shift and go to state 80
-    asignacion                     shift and go to state 52
-    llamada                        shift and go to state 53
-    retorno                        shift and go to state 54
-    lectura                        shift and go to state 55
-    repeticion                     shift and go to state 57
-    declaracion                    shift and go to state 58
-    empty                          shift and go to state 59
-    condicional                    shift and go to state 64
-    no_condicional                 shift and go to state 65
-    vars                           shift and go to state 66
 
 state 87
 
-    (38) estatuto -> repeticion estatuto .
-    (39) estatuto -> estatuto . estatuto
-    (33) estatuto -> . asignacion estatuto
-    (34) estatuto -> . llamada estatuto
-    (35) estatuto -> . retorno estatuto
-    (36) estatuto -> . lectura estatuto
-    (37) estatuto -> . escritura estatuto
-    (38) estatuto -> . repeticion estatuto
-    (39) estatuto -> . estatuto estatuto
-    (40) estatuto -> . declaracion estatuto
-    (41) estatuto -> . empty
-    (47) asignacion -> . ID EQUALS exp SEMICOLON
-    (48) asignacion -> . ID OPENBRACKET paramsP CLOSEBRACKET EQUALS exp SEMICOLON
-    (43) llamada -> . ID OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
-    (44) llamada -> . ID OPENPARENTHESES CLOSEPARENTHESES SEMICOLON
-    (45) retorno -> . RETURN OPENPARENTHESES exp CLOSEPARENTHESES SEMICOLON
-    (46) lectura -> . READ OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
-    (49) escritura -> . WRITE OPENPARENTHESES escrituraP CLOSEPARENTHESES SEMICOLON
-    (61) repeticion -> . condicional
-    (62) repeticion -> . no_condicional
-    (42) declaracion -> . vars
-    (88) empty -> .
-    (63) condicional -> . WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE estatuto CLOSEBRACE
-    (64) condicional -> . WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE CLOSEBRACE
-    (65) no_condicional -> . FOR ID EQUALS exp TO exp OPENBRACE estatuto CLOSEBRACE
-    (66) no_condicional -> . FOR ID EQUALS exp TO exp DO OPENBRACE CLOSEBRACE
-    (19) vars -> . VARS tipo savetype TWODOTS varsP
+    (39) estatuto -> repeticion estatuto .
 
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for READ resolved as shift
-  ! shift/reduce conflict for WRITE resolved as shift
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for READ resolved as shift
-  ! shift/reduce conflict for WRITE resolved as shift
-  ! reduce/reduce conflict for WHILE resolved using rule 38 (estatuto -> repeticion estatuto .)
-  ! reduce/reduce conflict for FOR resolved using rule 38 (estatuto -> repeticion estatuto .)
-  ! reduce/reduce conflict for VARS resolved using rule 38 (estatuto -> repeticion estatuto .)
-  ! reduce/reduce conflict for CLOSEBRACE resolved using rule 38 (estatuto -> repeticion estatuto .)
-  ! shift/reduce conflict for WHILE resolved as shift
-  ! shift/reduce conflict for FOR resolved as shift
-  ! shift/reduce conflict for VARS resolved as shift
-    CLOSEBRACE      reduce using rule 38 (estatuto -> repeticion estatuto .)
-    ID              shift and go to state 60
-    RETURN          shift and go to state 61
-    READ            shift and go to state 62
-    WRITE           shift and go to state 63
-    WHILE           shift and go to state 67
-    FOR             shift and go to state 68
-    VARS            shift and go to state 12
+    CLOSEBRACE      reduce using rule 39 (estatuto -> repeticion estatuto .)
 
-  ! ID              [ reduce using rule 38 (estatuto -> repeticion estatuto .) ]
-  ! RETURN          [ reduce using rule 38 (estatuto -> repeticion estatuto .) ]
-  ! READ            [ reduce using rule 38 (estatuto -> repeticion estatuto .) ]
-  ! WRITE           [ reduce using rule 38 (estatuto -> repeticion estatuto .) ]
-  ! WHILE           [ reduce using rule 38 (estatuto -> repeticion estatuto .) ]
-  ! FOR             [ reduce using rule 38 (estatuto -> repeticion estatuto .) ]
-  ! VARS            [ reduce using rule 38 (estatuto -> repeticion estatuto .) ]
-  ! ID              [ reduce using rule 88 (empty -> .) ]
-  ! RETURN          [ reduce using rule 88 (empty -> .) ]
-  ! READ            [ reduce using rule 88 (empty -> .) ]
-  ! WRITE           [ reduce using rule 88 (empty -> .) ]
-  ! WHILE           [ reduce using rule 88 (empty -> .) ]
-  ! FOR             [ reduce using rule 88 (empty -> .) ]
-  ! VARS            [ reduce using rule 88 (empty -> .) ]
-  ! CLOSEBRACE      [ reduce using rule 88 (empty -> .) ]
-
-    repeticion                     shift and go to state 57
-    estatuto                       shift and go to state 80
-    asignacion                     shift and go to state 52
-    llamada                        shift and go to state 53
-    retorno                        shift and go to state 54
-    lectura                        shift and go to state 55
-    escritura                      shift and go to state 56
-    declaracion                    shift and go to state 58
-    empty                          shift and go to state 59
-    condicional                    shift and go to state 64
-    no_condicional                 shift and go to state 65
-    vars                           shift and go to state 66
 
 state 88
 
     (40) estatuto -> declaracion estatuto .
-    (39) estatuto -> estatuto . estatuto
-    (33) estatuto -> . asignacion estatuto
-    (34) estatuto -> . llamada estatuto
-    (35) estatuto -> . retorno estatuto
-    (36) estatuto -> . lectura estatuto
-    (37) estatuto -> . escritura estatuto
-    (38) estatuto -> . repeticion estatuto
-    (39) estatuto -> . estatuto estatuto
-    (40) estatuto -> . declaracion estatuto
-    (41) estatuto -> . empty
-    (47) asignacion -> . ID EQUALS exp SEMICOLON
-    (48) asignacion -> . ID OPENBRACKET paramsP CLOSEBRACKET EQUALS exp SEMICOLON
-    (43) llamada -> . ID OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
-    (44) llamada -> . ID OPENPARENTHESES CLOSEPARENTHESES SEMICOLON
-    (45) retorno -> . RETURN OPENPARENTHESES exp CLOSEPARENTHESES SEMICOLON
-    (46) lectura -> . READ OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
-    (49) escritura -> . WRITE OPENPARENTHESES escrituraP CLOSEPARENTHESES SEMICOLON
-    (61) repeticion -> . condicional
-    (62) repeticion -> . no_condicional
-    (42) declaracion -> . vars
-    (88) empty -> .
-    (63) condicional -> . WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE estatuto CLOSEBRACE
-    (64) condicional -> . WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE CLOSEBRACE
-    (65) no_condicional -> . FOR ID EQUALS exp TO exp OPENBRACE estatuto CLOSEBRACE
-    (66) no_condicional -> . FOR ID EQUALS exp TO exp DO OPENBRACE CLOSEBRACE
-    (19) vars -> . VARS tipo savetype TWODOTS varsP
 
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for READ resolved as shift
-  ! shift/reduce conflict for WRITE resolved as shift
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for READ resolved as shift
-  ! shift/reduce conflict for WRITE resolved as shift
-  ! reduce/reduce conflict for WHILE resolved using rule 40 (estatuto -> declaracion estatuto .)
-  ! reduce/reduce conflict for FOR resolved using rule 40 (estatuto -> declaracion estatuto .)
-  ! reduce/reduce conflict for VARS resolved using rule 40 (estatuto -> declaracion estatuto .)
-  ! reduce/reduce conflict for CLOSEBRACE resolved using rule 40 (estatuto -> declaracion estatuto .)
-  ! shift/reduce conflict for WHILE resolved as shift
-  ! shift/reduce conflict for FOR resolved as shift
-  ! shift/reduce conflict for VARS resolved as shift
     CLOSEBRACE      reduce using rule 40 (estatuto -> declaracion estatuto .)
-    ID              shift and go to state 60
-    RETURN          shift and go to state 61
-    READ            shift and go to state 62
-    WRITE           shift and go to state 63
-    WHILE           shift and go to state 67
-    FOR             shift and go to state 68
-    VARS            shift and go to state 12
 
-  ! ID              [ reduce using rule 40 (estatuto -> declaracion estatuto .) ]
-  ! RETURN          [ reduce using rule 40 (estatuto -> declaracion estatuto .) ]
-  ! READ            [ reduce using rule 40 (estatuto -> declaracion estatuto .) ]
-  ! WRITE           [ reduce using rule 40 (estatuto -> declaracion estatuto .) ]
-  ! WHILE           [ reduce using rule 40 (estatuto -> declaracion estatuto .) ]
-  ! FOR             [ reduce using rule 40 (estatuto -> declaracion estatuto .) ]
-  ! VARS            [ reduce using rule 40 (estatuto -> declaracion estatuto .) ]
-  ! ID              [ reduce using rule 88 (empty -> .) ]
-  ! RETURN          [ reduce using rule 88 (empty -> .) ]
-  ! READ            [ reduce using rule 88 (empty -> .) ]
-  ! WRITE           [ reduce using rule 88 (empty -> .) ]
-  ! WHILE           [ reduce using rule 88 (empty -> .) ]
-  ! FOR             [ reduce using rule 88 (empty -> .) ]
-  ! VARS            [ reduce using rule 88 (empty -> .) ]
-  ! CLOSEBRACE      [ reduce using rule 88 (empty -> .) ]
-
-    declaracion                    shift and go to state 58
-    estatuto                       shift and go to state 80
-    asignacion                     shift and go to state 52
-    llamada                        shift and go to state 53
-    retorno                        shift and go to state 54
-    lectura                        shift and go to state 55
-    escritura                      shift and go to state 56
-    repeticion                     shift and go to state 57
-    empty                          shift and go to state 59
-    condicional                    shift and go to state 64
-    no_condicional                 shift and go to state 65
-    vars                           shift and go to state 66
 
 state 89
 
@@ -2377,14 +1580,14 @@ state 89
     (76) factor -> . CTEI
     (77) factor -> . OPENPARENTHESES h_exp CLOSEPARENTHESES
 
-    ID              shift and go to state 70
-    CTEF            shift and go to state 76
-    CTEI            shift and go to state 77
-    OPENPARENTHESES shift and go to state 75
+    ID              shift and go to state 71
+    CTEF            shift and go to state 77
+    CTEI            shift and go to state 78
+    OPENPARENTHESES shift and go to state 76
 
     exp                            shift and go to state 109
-    termino                        shift and go to state 73
-    factor                         shift and go to state 74
+    termino                        shift and go to state 74
+    factor                         shift and go to state 75
 
 state 90
 
@@ -2403,15 +1606,15 @@ state 90
     (76) factor -> . CTEI
     (77) factor -> . OPENPARENTHESES h_exp CLOSEPARENTHESES
 
-    ID              shift and go to state 70
-    CTEF            shift and go to state 76
-    CTEI            shift and go to state 77
-    OPENPARENTHESES shift and go to state 75
+    ID              shift and go to state 71
+    CTEF            shift and go to state 77
+    CTEI            shift and go to state 78
+    OPENPARENTHESES shift and go to state 76
 
     paramsP                        shift and go to state 110
-    exp                            shift and go to state 72
-    termino                        shift and go to state 73
-    factor                         shift and go to state 74
+    exp                            shift and go to state 73
+    termino                        shift and go to state 74
+    factor                         shift and go to state 75
 
 state 91
 
@@ -2421,7 +1624,7 @@ state 91
     (24) param -> . ID OPENBRACKET paramsP CLOSEBRACKET
 
     CLOSEPARENTHESES shift and go to state 112
-    ID              shift and go to state 40
+    ID              shift and go to state 41
 
     param                          shift and go to state 111
 
@@ -2440,14 +1643,14 @@ state 92
     (76) factor -> . CTEI
     (77) factor -> . OPENPARENTHESES h_exp CLOSEPARENTHESES
 
-    ID              shift and go to state 70
-    CTEF            shift and go to state 76
-    CTEI            shift and go to state 77
-    OPENPARENTHESES shift and go to state 75
+    ID              shift and go to state 71
+    CTEF            shift and go to state 77
+    CTEI            shift and go to state 78
+    OPENPARENTHESES shift and go to state 76
 
     exp                            shift and go to state 113
-    termino                        shift and go to state 73
-    factor                         shift and go to state 74
+    termino                        shift and go to state 74
+    factor                         shift and go to state 75
 
 state 93
 
@@ -2455,7 +1658,7 @@ state 93
     (23) param -> . ID
     (24) param -> . ID OPENBRACKET paramsP CLOSEBRACKET
 
-    ID              shift and go to state 40
+    ID              shift and go to state 41
 
     param                          shift and go to state 114
 
@@ -2482,14 +1685,14 @@ state 94
 
     QUOTATIONMARK   shift and go to state 116
     ID              shift and go to state 118
-    CTEF            shift and go to state 76
-    CTEI            shift and go to state 77
-    OPENPARENTHESES shift and go to state 75
+    CTEF            shift and go to state 77
+    CTEI            shift and go to state 78
+    OPENPARENTHESES shift and go to state 76
 
     escrituraP                     shift and go to state 115
     exp                            shift and go to state 117
-    termino                        shift and go to state 73
-    factor                         shift and go to state 74
+    termino                        shift and go to state 74
+    factor                         shift and go to state 75
 
 state 95
 
@@ -2507,14 +1710,14 @@ state 95
     (76) factor -> . CTEI
     (77) factor -> . OPENPARENTHESES h_exp CLOSEPARENTHESES
 
-    ID              shift and go to state 70
-    CTEF            shift and go to state 76
-    CTEI            shift and go to state 77
-    OPENPARENTHESES shift and go to state 75
+    ID              shift and go to state 71
+    CTEF            shift and go to state 77
+    CTEI            shift and go to state 78
+    OPENPARENTHESES shift and go to state 76
 
     exp                            shift and go to state 119
-    termino                        shift and go to state 73
-    factor                         shift and go to state 74
+    termino                        shift and go to state 74
+    factor                         shift and go to state 75
 
 state 96
 
@@ -2539,14 +1742,14 @@ state 97
     (76) factor -> . CTEI
     (77) factor -> . OPENPARENTHESES h_exp CLOSEPARENTHESES
 
-    ID              shift and go to state 70
-    CTEF            shift and go to state 76
-    CTEI            shift and go to state 77
-    OPENPARENTHESES shift and go to state 75
+    ID              shift and go to state 71
+    CTEF            shift and go to state 77
+    CTEI            shift and go to state 78
+    OPENPARENTHESES shift and go to state 76
 
     exp                            shift and go to state 121
-    termino                        shift and go to state 73
-    factor                         shift and go to state 74
+    termino                        shift and go to state 74
+    factor                         shift and go to state 75
 
 state 98
 
@@ -2574,15 +1777,15 @@ state 99
     (76) factor -> . CTEI
     (77) factor -> . OPENPARENTHESES h_exp CLOSEPARENTHESES
 
-    ID              shift and go to state 70
-    CTEF            shift and go to state 76
-    CTEI            shift and go to state 77
-    OPENPARENTHESES shift and go to state 75
+    ID              shift and go to state 71
+    CTEF            shift and go to state 77
+    CTEI            shift and go to state 78
+    OPENPARENTHESES shift and go to state 76
 
-    exp                            shift and go to state 72
+    exp                            shift and go to state 73
     paramsP                        shift and go to state 122
-    termino                        shift and go to state 73
-    factor                         shift and go to state 74
+    termino                        shift and go to state 74
+    factor                         shift and go to state 75
 
 state 100
 
@@ -2596,13 +1799,13 @@ state 100
     (76) factor -> . CTEI
     (77) factor -> . OPENPARENTHESES h_exp CLOSEPARENTHESES
 
-    ID              shift and go to state 70
-    CTEF            shift and go to state 76
-    CTEI            shift and go to state 77
-    OPENPARENTHESES shift and go to state 75
+    ID              shift and go to state 71
+    CTEF            shift and go to state 77
+    CTEI            shift and go to state 78
+    OPENPARENTHESES shift and go to state 76
 
     termino                        shift and go to state 123
-    factor                         shift and go to state 74
+    factor                         shift and go to state 75
 
 state 101
 
@@ -2616,13 +1819,13 @@ state 101
     (76) factor -> . CTEI
     (77) factor -> . OPENPARENTHESES h_exp CLOSEPARENTHESES
 
-    ID              shift and go to state 70
-    CTEF            shift and go to state 76
-    CTEI            shift and go to state 77
-    OPENPARENTHESES shift and go to state 75
+    ID              shift and go to state 71
+    CTEF            shift and go to state 77
+    CTEI            shift and go to state 78
+    OPENPARENTHESES shift and go to state 76
 
     termino                        shift and go to state 124
-    factor                         shift and go to state 74
+    factor                         shift and go to state 75
 
 state 102
 
@@ -2633,10 +1836,10 @@ state 102
     (76) factor -> . CTEI
     (77) factor -> . OPENPARENTHESES h_exp CLOSEPARENTHESES
 
-    ID              shift and go to state 70
-    CTEF            shift and go to state 76
-    CTEI            shift and go to state 77
-    OPENPARENTHESES shift and go to state 75
+    ID              shift and go to state 71
+    CTEF            shift and go to state 77
+    CTEI            shift and go to state 78
+    OPENPARENTHESES shift and go to state 76
 
     factor                         shift and go to state 125
 
@@ -2649,10 +1852,10 @@ state 103
     (76) factor -> . CTEI
     (77) factor -> . OPENPARENTHESES h_exp CLOSEPARENTHESES
 
-    ID              shift and go to state 70
-    CTEF            shift and go to state 76
-    CTEI            shift and go to state 77
-    OPENPARENTHESES shift and go to state 75
+    ID              shift and go to state 71
+    CTEF            shift and go to state 77
+    CTEI            shift and go to state 78
+    OPENPARENTHESES shift and go to state 76
 
     factor                         shift and go to state 126
 
@@ -2710,7 +1913,7 @@ state 107
 
 state 108
 
-    (13) funcion -> FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES . OPENBRACE CLOSEBRACE
+    (13) funcion -> FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES . OPENBRACE estatuto CLOSEBRACE
 
     OPENBRACE       shift and go to state 137
 
@@ -2842,14 +2045,14 @@ state 120
     (76) factor -> . CTEI
     (77) factor -> . OPENPARENTHESES h_exp CLOSEPARENTHESES
 
-    ID              shift and go to state 70
-    CTEF            shift and go to state 76
-    CTEI            shift and go to state 77
-    OPENPARENTHESES shift and go to state 75
+    ID              shift and go to state 71
+    CTEF            shift and go to state 77
+    CTEI            shift and go to state 78
+    OPENPARENTHESES shift and go to state 76
 
     exp                            shift and go to state 149
-    termino                        shift and go to state 73
-    factor                         shift and go to state 74
+    termino                        shift and go to state 74
+    factor                         shift and go to state 75
 
 state 121
 
@@ -3023,16 +2226,16 @@ state 128
     (76) factor -> . CTEI
     (77) factor -> . OPENPARENTHESES h_exp CLOSEPARENTHESES
 
-    ID              shift and go to state 70
-    CTEF            shift and go to state 76
-    CTEI            shift and go to state 77
-    OPENPARENTHESES shift and go to state 75
+    ID              shift and go to state 71
+    CTEF            shift and go to state 77
+    CTEI            shift and go to state 78
+    OPENPARENTHESES shift and go to state 76
 
     s_exp                          shift and go to state 105
     h_exp                          shift and go to state 151
     exp                            shift and go to state 106
-    termino                        shift and go to state 73
-    factor                         shift and go to state 74
+    termino                        shift and go to state 74
+    factor                         shift and go to state 75
 
 state 129
 
@@ -3059,16 +2262,16 @@ state 129
     (76) factor -> . CTEI
     (77) factor -> . OPENPARENTHESES h_exp CLOSEPARENTHESES
 
-    ID              shift and go to state 70
-    CTEF            shift and go to state 76
-    CTEI            shift and go to state 77
-    OPENPARENTHESES shift and go to state 75
+    ID              shift and go to state 71
+    CTEF            shift and go to state 77
+    CTEI            shift and go to state 78
+    OPENPARENTHESES shift and go to state 76
 
     s_exp                          shift and go to state 105
     h_exp                          shift and go to state 152
     exp                            shift and go to state 106
-    termino                        shift and go to state 73
-    factor                         shift and go to state 74
+    termino                        shift and go to state 74
+    factor                         shift and go to state 75
 
 state 130
 
@@ -3085,14 +2288,14 @@ state 130
     (76) factor -> . CTEI
     (77) factor -> . OPENPARENTHESES h_exp CLOSEPARENTHESES
 
-    ID              shift and go to state 70
-    CTEF            shift and go to state 76
-    CTEI            shift and go to state 77
-    OPENPARENTHESES shift and go to state 75
+    ID              shift and go to state 71
+    CTEF            shift and go to state 77
+    CTEI            shift and go to state 78
+    OPENPARENTHESES shift and go to state 76
 
     exp                            shift and go to state 153
-    termino                        shift and go to state 73
-    factor                         shift and go to state 74
+    termino                        shift and go to state 74
+    factor                         shift and go to state 75
 
 state 131
 
@@ -3109,14 +2312,14 @@ state 131
     (76) factor -> . CTEI
     (77) factor -> . OPENPARENTHESES h_exp CLOSEPARENTHESES
 
-    ID              shift and go to state 70
-    CTEF            shift and go to state 76
-    CTEI            shift and go to state 77
-    OPENPARENTHESES shift and go to state 75
+    ID              shift and go to state 71
+    CTEF            shift and go to state 77
+    CTEI            shift and go to state 78
+    OPENPARENTHESES shift and go to state 76
 
     exp                            shift and go to state 154
-    termino                        shift and go to state 73
-    factor                         shift and go to state 74
+    termino                        shift and go to state 74
+    factor                         shift and go to state 75
 
 state 132
 
@@ -3133,14 +2336,14 @@ state 132
     (76) factor -> . CTEI
     (77) factor -> . OPENPARENTHESES h_exp CLOSEPARENTHESES
 
-    ID              shift and go to state 70
-    CTEF            shift and go to state 76
-    CTEI            shift and go to state 77
-    OPENPARENTHESES shift and go to state 75
+    ID              shift and go to state 71
+    CTEF            shift and go to state 77
+    CTEI            shift and go to state 78
+    OPENPARENTHESES shift and go to state 76
 
     exp                            shift and go to state 155
-    termino                        shift and go to state 73
-    factor                         shift and go to state 74
+    termino                        shift and go to state 74
+    factor                         shift and go to state 75
 
 state 133
 
@@ -3157,14 +2360,14 @@ state 133
     (76) factor -> . CTEI
     (77) factor -> . OPENPARENTHESES h_exp CLOSEPARENTHESES
 
-    ID              shift and go to state 70
-    CTEF            shift and go to state 76
-    CTEI            shift and go to state 77
-    OPENPARENTHESES shift and go to state 75
+    ID              shift and go to state 71
+    CTEF            shift and go to state 77
+    CTEI            shift and go to state 78
+    OPENPARENTHESES shift and go to state 76
 
     exp                            shift and go to state 156
-    termino                        shift and go to state 73
-    factor                         shift and go to state 74
+    termino                        shift and go to state 74
+    factor                         shift and go to state 75
 
 state 134
 
@@ -3181,14 +2384,14 @@ state 134
     (76) factor -> . CTEI
     (77) factor -> . OPENPARENTHESES h_exp CLOSEPARENTHESES
 
-    ID              shift and go to state 70
-    CTEF            shift and go to state 76
-    CTEI            shift and go to state 77
-    OPENPARENTHESES shift and go to state 75
+    ID              shift and go to state 71
+    CTEF            shift and go to state 77
+    CTEI            shift and go to state 78
+    OPENPARENTHESES shift and go to state 76
 
     exp                            shift and go to state 157
-    termino                        shift and go to state 73
-    factor                         shift and go to state 74
+    termino                        shift and go to state 74
+    factor                         shift and go to state 75
 
 state 135
 
@@ -3205,14 +2408,14 @@ state 135
     (76) factor -> . CTEI
     (77) factor -> . OPENPARENTHESES h_exp CLOSEPARENTHESES
 
-    ID              shift and go to state 70
-    CTEF            shift and go to state 76
-    CTEI            shift and go to state 77
-    OPENPARENTHESES shift and go to state 75
+    ID              shift and go to state 71
+    CTEF            shift and go to state 77
+    CTEI            shift and go to state 78
+    OPENPARENTHESES shift and go to state 76
 
     exp                            shift and go to state 158
-    termino                        shift and go to state 73
-    factor                         shift and go to state 74
+    termino                        shift and go to state 74
+    factor                         shift and go to state 75
 
 state 136
 
@@ -3222,20 +2425,65 @@ state 136
     (27) tipo -> . INT
     (28) tipo -> . FLOAT
     (29) tipo -> . CHAR
+    (30) tipo -> . BOOL
 
     INT             shift and go to state 20
     FLOAT           shift and go to state 21
     CHAR            shift and go to state 22
+    BOOL            shift and go to state 23
 
-    tipo                           shift and go to state 78
+    tipo                           shift and go to state 79
     paramsfunction                 shift and go to state 159
 
 state 137
 
-    (13) funcion -> FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE . CLOSEBRACE
+    (13) funcion -> FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE . estatuto CLOSEBRACE
+    (34) estatuto -> . asignacion estatuto
+    (35) estatuto -> . llamada estatuto
+    (36) estatuto -> . retorno estatuto
+    (37) estatuto -> . lectura estatuto
+    (38) estatuto -> . escritura estatuto
+    (39) estatuto -> . repeticion estatuto
+    (40) estatuto -> . declaracion estatuto
+    (41) estatuto -> . empty
+    (47) asignacion -> . ID EQUALS exp SEMICOLON
+    (48) asignacion -> . ID OPENBRACKET paramsP CLOSEBRACKET EQUALS exp SEMICOLON
+    (43) llamada -> . ID OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
+    (44) llamada -> . ID OPENPARENTHESES CLOSEPARENTHESES SEMICOLON
+    (45) retorno -> . RETURN OPENPARENTHESES exp CLOSEPARENTHESES SEMICOLON
+    (46) lectura -> . READ OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
+    (49) escritura -> . WRITE OPENPARENTHESES escrituraP CLOSEPARENTHESES SEMICOLON
+    (61) repeticion -> . condicional
+    (62) repeticion -> . no_condicional
+    (42) declaracion -> . vars
+    (88) empty -> .
+    (63) condicional -> . WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE estatuto CLOSEBRACE
+    (64) condicional -> . WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE CLOSEBRACE
+    (65) no_condicional -> . FOR ID EQUALS exp TO exp OPENBRACE estatuto CLOSEBRACE
+    (66) no_condicional -> . FOR ID EQUALS exp TO exp DO OPENBRACE CLOSEBRACE
+    (19) vars -> . VARS tipo savetype TWODOTS varsP
 
-    CLOSEBRACE      shift and go to state 160
+    ID              shift and go to state 61
+    RETURN          shift and go to state 62
+    READ            shift and go to state 63
+    WRITE           shift and go to state 64
+    CLOSEBRACE      reduce using rule 88 (empty -> .)
+    WHILE           shift and go to state 68
+    FOR             shift and go to state 69
+    VARS            shift and go to state 12
 
+    estatuto                       shift and go to state 160
+    asignacion                     shift and go to state 53
+    llamada                        shift and go to state 54
+    retorno                        shift and go to state 55
+    lectura                        shift and go to state 56
+    escritura                      shift and go to state 57
+    repeticion                     shift and go to state 58
+    declaracion                    shift and go to state 59
+    empty                          shift and go to state 60
+    condicional                    shift and go to state 65
+    no_condicional                 shift and go to state 66
+    vars                           shift and go to state 67
 
 state 138
 
@@ -3331,14 +2579,14 @@ state 146
 
     QUOTATIONMARK   shift and go to state 116
     ID              shift and go to state 118
-    CTEF            shift and go to state 76
-    CTEI            shift and go to state 77
-    OPENPARENTHESES shift and go to state 75
+    CTEF            shift and go to state 77
+    CTEI            shift and go to state 78
+    OPENPARENTHESES shift and go to state 76
 
     exp                            shift and go to state 117
     escrituraP                     shift and go to state 167
-    termino                        shift and go to state 73
-    factor                         shift and go to state 74
+    termino                        shift and go to state 74
+    factor                         shift and go to state 75
 
 state 147
 
@@ -3363,14 +2611,14 @@ state 147
 
     QUOTATIONMARK   shift and go to state 116
     ID              shift and go to state 118
-    CTEF            shift and go to state 76
-    CTEI            shift and go to state 77
-    OPENPARENTHESES shift and go to state 75
+    CTEF            shift and go to state 77
+    CTEI            shift and go to state 78
+    OPENPARENTHESES shift and go to state 76
 
     escrituraP                     shift and go to state 168
     exp                            shift and go to state 117
-    termino                        shift and go to state 73
-    factor                         shift and go to state 74
+    termino                        shift and go to state 74
+    factor                         shift and go to state 75
 
 state 148
 
@@ -3518,14 +2766,9 @@ state 159
 
 state 160
 
-    (13) funcion -> FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE CLOSEBRACE .
+    (13) funcion -> FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE estatuto . CLOSEBRACE
 
-    VARS            reduce using rule 13 (funcion -> FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE CLOSEBRACE .)
-    CLASS           reduce using rule 13 (funcion -> FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE CLOSEBRACE .)
-    FUNCTION        reduce using rule 13 (funcion -> FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE CLOSEBRACE .)
-    MAIN            reduce using rule 13 (funcion -> FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE CLOSEBRACE .)
-    $end            reduce using rule 13 (funcion -> FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE CLOSEBRACE .)
-    CLOSEBRACE      reduce using rule 13 (funcion -> FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE CLOSEBRACE .)
+    CLOSEBRACE      shift and go to state 171
 
 
 state 161
@@ -3543,14 +2786,14 @@ state 161
     (76) factor -> . CTEI
     (77) factor -> . OPENPARENTHESES h_exp CLOSEPARENTHESES
 
-    ID              shift and go to state 70
-    CTEF            shift and go to state 76
-    CTEI            shift and go to state 77
-    OPENPARENTHESES shift and go to state 75
+    ID              shift and go to state 71
+    CTEF            shift and go to state 77
+    CTEI            shift and go to state 78
+    OPENPARENTHESES shift and go to state 76
 
-    exp                            shift and go to state 171
-    termino                        shift and go to state 73
-    factor                         shift and go to state 74
+    exp                            shift and go to state 172
+    termino                        shift and go to state 74
+    factor                         shift and go to state 75
 
 state 162
 
@@ -3613,7 +2856,7 @@ state 166
     (50) escrituraP -> QUOTATIONMARK CTESTRING QUOTATIONMARK . COMMA escrituraP
     (53) escrituraP -> QUOTATIONMARK CTESTRING QUOTATIONMARK .
 
-    COMMA           shift and go to state 172
+    COMMA           shift and go to state 173
     CLOSEPARENTHESES reduce using rule 53 (escrituraP -> QUOTATIONMARK CTESTRING QUOTATIONMARK .)
 
 
@@ -3636,7 +2879,7 @@ state 169
     (63) condicional -> WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO . OPENBRACE estatuto CLOSEBRACE
     (64) condicional -> WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO . OPENBRACE CLOSEBRACE
 
-    OPENBRACE       shift and go to state 173
+    OPENBRACE       shift and go to state 174
 
 
 state 170
@@ -3655,27 +2898,39 @@ state 170
     (76) factor -> . CTEI
     (77) factor -> . OPENPARENTHESES h_exp CLOSEPARENTHESES
 
-    ID              shift and go to state 70
-    CTEF            shift and go to state 76
-    CTEI            shift and go to state 77
-    OPENPARENTHESES shift and go to state 75
+    ID              shift and go to state 71
+    CTEF            shift and go to state 77
+    CTEI            shift and go to state 78
+    OPENPARENTHESES shift and go to state 76
 
-    exp                            shift and go to state 174
-    termino                        shift and go to state 73
-    factor                         shift and go to state 74
+    exp                            shift and go to state 175
+    termino                        shift and go to state 74
+    factor                         shift and go to state 75
 
 state 171
+
+    (13) funcion -> FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE estatuto CLOSEBRACE .
+
+    VARS            reduce using rule 13 (funcion -> FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE estatuto CLOSEBRACE .)
+    CLASS           reduce using rule 13 (funcion -> FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE estatuto CLOSEBRACE .)
+    FUNCTION        reduce using rule 13 (funcion -> FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE estatuto CLOSEBRACE .)
+    MAIN            reduce using rule 13 (funcion -> FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE estatuto CLOSEBRACE .)
+    $end            reduce using rule 13 (funcion -> FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE estatuto CLOSEBRACE .)
+    CLOSEBRACE      reduce using rule 13 (funcion -> FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE estatuto CLOSEBRACE .)
+
+
+state 172
 
     (48) asignacion -> ID OPENBRACKET paramsP CLOSEBRACKET EQUALS exp . SEMICOLON
     (68) exp -> exp . PLUS termino
     (69) exp -> exp . MINUS termino
 
-    SEMICOLON       shift and go to state 175
+    SEMICOLON       shift and go to state 176
     PLUS            shift and go to state 100
     MINUS           shift and go to state 101
 
 
-state 172
+state 173
 
     (50) escrituraP -> QUOTATIONMARK CTESTRING QUOTATIONMARK COMMA . escrituraP
     (50) escrituraP -> . QUOTATIONMARK CTESTRING QUOTATIONMARK COMMA escrituraP
@@ -3698,26 +2953,25 @@ state 172
 
     QUOTATIONMARK   shift and go to state 116
     ID              shift and go to state 118
-    CTEF            shift and go to state 76
-    CTEI            shift and go to state 77
-    OPENPARENTHESES shift and go to state 75
+    CTEF            shift and go to state 77
+    CTEI            shift and go to state 78
+    OPENPARENTHESES shift and go to state 76
 
-    escrituraP                     shift and go to state 176
+    escrituraP                     shift and go to state 177
     exp                            shift and go to state 117
-    termino                        shift and go to state 73
-    factor                         shift and go to state 74
+    termino                        shift and go to state 74
+    factor                         shift and go to state 75
 
-state 173
+state 174
 
     (63) condicional -> WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE . estatuto CLOSEBRACE
     (64) condicional -> WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE . CLOSEBRACE
-    (33) estatuto -> . asignacion estatuto
-    (34) estatuto -> . llamada estatuto
-    (35) estatuto -> . retorno estatuto
-    (36) estatuto -> . lectura estatuto
-    (37) estatuto -> . escritura estatuto
-    (38) estatuto -> . repeticion estatuto
-    (39) estatuto -> . estatuto estatuto
+    (34) estatuto -> . asignacion estatuto
+    (35) estatuto -> . llamada estatuto
+    (36) estatuto -> . retorno estatuto
+    (37) estatuto -> . lectura estatuto
+    (38) estatuto -> . escritura estatuto
+    (39) estatuto -> . repeticion estatuto
     (40) estatuto -> . declaracion estatuto
     (41) estatuto -> . empty
     (47) asignacion -> . ID EQUALS exp SEMICOLON
@@ -3738,58 +2992,44 @@ state 173
     (19) vars -> . VARS tipo savetype TWODOTS varsP
 
   ! shift/reduce conflict for CLOSEBRACE resolved as shift
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for READ resolved as shift
-  ! shift/reduce conflict for WRITE resolved as shift
-  ! shift/reduce conflict for WHILE resolved as shift
-  ! shift/reduce conflict for FOR resolved as shift
-  ! shift/reduce conflict for VARS resolved as shift
-    CLOSEBRACE      shift and go to state 178
-    ID              shift and go to state 60
-    RETURN          shift and go to state 61
-    READ            shift and go to state 62
-    WRITE           shift and go to state 63
-    WHILE           shift and go to state 67
-    FOR             shift and go to state 68
+    CLOSEBRACE      shift and go to state 179
+    ID              shift and go to state 61
+    RETURN          shift and go to state 62
+    READ            shift and go to state 63
+    WRITE           shift and go to state 64
+    WHILE           shift and go to state 68
+    FOR             shift and go to state 69
     VARS            shift and go to state 12
 
   ! CLOSEBRACE      [ reduce using rule 88 (empty -> .) ]
-  ! ID              [ reduce using rule 88 (empty -> .) ]
-  ! RETURN          [ reduce using rule 88 (empty -> .) ]
-  ! READ            [ reduce using rule 88 (empty -> .) ]
-  ! WRITE           [ reduce using rule 88 (empty -> .) ]
-  ! WHILE           [ reduce using rule 88 (empty -> .) ]
-  ! FOR             [ reduce using rule 88 (empty -> .) ]
-  ! VARS            [ reduce using rule 88 (empty -> .) ]
 
-    estatuto                       shift and go to state 177
-    asignacion                     shift and go to state 52
-    llamada                        shift and go to state 53
-    retorno                        shift and go to state 54
-    lectura                        shift and go to state 55
-    escritura                      shift and go to state 56
-    repeticion                     shift and go to state 57
-    declaracion                    shift and go to state 58
-    empty                          shift and go to state 59
-    condicional                    shift and go to state 64
-    no_condicional                 shift and go to state 65
-    vars                           shift and go to state 66
+    estatuto                       shift and go to state 178
+    asignacion                     shift and go to state 53
+    llamada                        shift and go to state 54
+    retorno                        shift and go to state 55
+    lectura                        shift and go to state 56
+    escritura                      shift and go to state 57
+    repeticion                     shift and go to state 58
+    declaracion                    shift and go to state 59
+    empty                          shift and go to state 60
+    condicional                    shift and go to state 65
+    no_condicional                 shift and go to state 66
+    vars                           shift and go to state 67
 
-state 174
+state 175
 
     (65) no_condicional -> FOR ID EQUALS exp TO exp . OPENBRACE estatuto CLOSEBRACE
     (66) no_condicional -> FOR ID EQUALS exp TO exp . DO OPENBRACE CLOSEBRACE
     (68) exp -> exp . PLUS termino
     (69) exp -> exp . MINUS termino
 
-    OPENBRACE       shift and go to state 179
-    DO              shift and go to state 180
+    OPENBRACE       shift and go to state 180
+    DO              shift and go to state 181
     PLUS            shift and go to state 100
     MINUS           shift and go to state 101
 
 
-state 175
+state 176
 
     (48) asignacion -> ID OPENBRACKET paramsP CLOSEBRACKET EQUALS exp SEMICOLON .
 
@@ -3803,83 +3043,21 @@ state 175
     CLOSEBRACE      reduce using rule 48 (asignacion -> ID OPENBRACKET paramsP CLOSEBRACKET EQUALS exp SEMICOLON .)
 
 
-state 176
+state 177
 
     (50) escrituraP -> QUOTATIONMARK CTESTRING QUOTATIONMARK COMMA escrituraP .
 
     CLOSEPARENTHESES reduce using rule 50 (escrituraP -> QUOTATIONMARK CTESTRING QUOTATIONMARK COMMA escrituraP .)
 
 
-state 177
+state 178
 
     (63) condicional -> WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE estatuto . CLOSEBRACE
-    (39) estatuto -> estatuto . estatuto
-    (33) estatuto -> . asignacion estatuto
-    (34) estatuto -> . llamada estatuto
-    (35) estatuto -> . retorno estatuto
-    (36) estatuto -> . lectura estatuto
-    (37) estatuto -> . escritura estatuto
-    (38) estatuto -> . repeticion estatuto
-    (39) estatuto -> . estatuto estatuto
-    (40) estatuto -> . declaracion estatuto
-    (41) estatuto -> . empty
-    (47) asignacion -> . ID EQUALS exp SEMICOLON
-    (48) asignacion -> . ID OPENBRACKET paramsP CLOSEBRACKET EQUALS exp SEMICOLON
-    (43) llamada -> . ID OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
-    (44) llamada -> . ID OPENPARENTHESES CLOSEPARENTHESES SEMICOLON
-    (45) retorno -> . RETURN OPENPARENTHESES exp CLOSEPARENTHESES SEMICOLON
-    (46) lectura -> . READ OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
-    (49) escritura -> . WRITE OPENPARENTHESES escrituraP CLOSEPARENTHESES SEMICOLON
-    (61) repeticion -> . condicional
-    (62) repeticion -> . no_condicional
-    (42) declaracion -> . vars
-    (88) empty -> .
-    (63) condicional -> . WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE estatuto CLOSEBRACE
-    (64) condicional -> . WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE CLOSEBRACE
-    (65) no_condicional -> . FOR ID EQUALS exp TO exp OPENBRACE estatuto CLOSEBRACE
-    (66) no_condicional -> . FOR ID EQUALS exp TO exp DO OPENBRACE CLOSEBRACE
-    (19) vars -> . VARS tipo savetype TWODOTS varsP
 
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for READ resolved as shift
-  ! shift/reduce conflict for WRITE resolved as shift
-  ! shift/reduce conflict for CLOSEBRACE resolved as shift
-  ! shift/reduce conflict for WHILE resolved as shift
-  ! shift/reduce conflict for FOR resolved as shift
-  ! shift/reduce conflict for VARS resolved as shift
-    CLOSEBRACE      shift and go to state 181
-    ID              shift and go to state 60
-    RETURN          shift and go to state 61
-    READ            shift and go to state 62
-    WRITE           shift and go to state 63
-    WHILE           shift and go to state 67
-    FOR             shift and go to state 68
-    VARS            shift and go to state 12
+    CLOSEBRACE      shift and go to state 182
 
-  ! ID              [ reduce using rule 88 (empty -> .) ]
-  ! RETURN          [ reduce using rule 88 (empty -> .) ]
-  ! READ            [ reduce using rule 88 (empty -> .) ]
-  ! WRITE           [ reduce using rule 88 (empty -> .) ]
-  ! WHILE           [ reduce using rule 88 (empty -> .) ]
-  ! FOR             [ reduce using rule 88 (empty -> .) ]
-  ! VARS            [ reduce using rule 88 (empty -> .) ]
-  ! CLOSEBRACE      [ reduce using rule 88 (empty -> .) ]
 
-    estatuto                       shift and go to state 80
-    asignacion                     shift and go to state 52
-    llamada                        shift and go to state 53
-    retorno                        shift and go to state 54
-    lectura                        shift and go to state 55
-    escritura                      shift and go to state 56
-    repeticion                     shift and go to state 57
-    declaracion                    shift and go to state 58
-    empty                          shift and go to state 59
-    condicional                    shift and go to state 64
-    no_condicional                 shift and go to state 65
-    vars                           shift and go to state 66
-
-state 178
+state 179
 
     (64) condicional -> WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE CLOSEBRACE .
 
@@ -3893,16 +3071,15 @@ state 178
     CLOSEBRACE      reduce using rule 64 (condicional -> WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE CLOSEBRACE .)
 
 
-state 179
+state 180
 
     (65) no_condicional -> FOR ID EQUALS exp TO exp OPENBRACE . estatuto CLOSEBRACE
-    (33) estatuto -> . asignacion estatuto
-    (34) estatuto -> . llamada estatuto
-    (35) estatuto -> . retorno estatuto
-    (36) estatuto -> . lectura estatuto
-    (37) estatuto -> . escritura estatuto
-    (38) estatuto -> . repeticion estatuto
-    (39) estatuto -> . estatuto estatuto
+    (34) estatuto -> . asignacion estatuto
+    (35) estatuto -> . llamada estatuto
+    (36) estatuto -> . retorno estatuto
+    (37) estatuto -> . lectura estatuto
+    (38) estatuto -> . escritura estatuto
+    (39) estatuto -> . repeticion estatuto
     (40) estatuto -> . declaracion estatuto
     (41) estatuto -> . empty
     (47) asignacion -> . ID EQUALS exp SEMICOLON
@@ -3922,51 +3099,36 @@ state 179
     (66) no_condicional -> . FOR ID EQUALS exp TO exp DO OPENBRACE CLOSEBRACE
     (19) vars -> . VARS tipo savetype TWODOTS varsP
 
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for READ resolved as shift
-  ! shift/reduce conflict for WRITE resolved as shift
-  ! shift/reduce conflict for WHILE resolved as shift
-  ! shift/reduce conflict for FOR resolved as shift
-  ! shift/reduce conflict for VARS resolved as shift
-    ID              shift and go to state 60
-    RETURN          shift and go to state 61
-    READ            shift and go to state 62
-    WRITE           shift and go to state 63
+    ID              shift and go to state 61
+    RETURN          shift and go to state 62
+    READ            shift and go to state 63
+    WRITE           shift and go to state 64
     CLOSEBRACE      reduce using rule 88 (empty -> .)
-    WHILE           shift and go to state 67
-    FOR             shift and go to state 68
+    WHILE           shift and go to state 68
+    FOR             shift and go to state 69
     VARS            shift and go to state 12
 
-  ! ID              [ reduce using rule 88 (empty -> .) ]
-  ! RETURN          [ reduce using rule 88 (empty -> .) ]
-  ! READ            [ reduce using rule 88 (empty -> .) ]
-  ! WRITE           [ reduce using rule 88 (empty -> .) ]
-  ! WHILE           [ reduce using rule 88 (empty -> .) ]
-  ! FOR             [ reduce using rule 88 (empty -> .) ]
-  ! VARS            [ reduce using rule 88 (empty -> .) ]
+    estatuto                       shift and go to state 183
+    asignacion                     shift and go to state 53
+    llamada                        shift and go to state 54
+    retorno                        shift and go to state 55
+    lectura                        shift and go to state 56
+    escritura                      shift and go to state 57
+    repeticion                     shift and go to state 58
+    declaracion                    shift and go to state 59
+    empty                          shift and go to state 60
+    condicional                    shift and go to state 65
+    no_condicional                 shift and go to state 66
+    vars                           shift and go to state 67
 
-    estatuto                       shift and go to state 182
-    asignacion                     shift and go to state 52
-    llamada                        shift and go to state 53
-    retorno                        shift and go to state 54
-    lectura                        shift and go to state 55
-    escritura                      shift and go to state 56
-    repeticion                     shift and go to state 57
-    declaracion                    shift and go to state 58
-    empty                          shift and go to state 59
-    condicional                    shift and go to state 64
-    no_condicional                 shift and go to state 65
-    vars                           shift and go to state 66
-
-state 180
+state 181
 
     (66) no_condicional -> FOR ID EQUALS exp TO exp DO . OPENBRACE CLOSEBRACE
 
-    OPENBRACE       shift and go to state 183
+    OPENBRACE       shift and go to state 184
 
 
-state 181
+state 182
 
     (63) condicional -> WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE estatuto CLOSEBRACE .
 
@@ -3980,83 +3142,21 @@ state 181
     CLOSEBRACE      reduce using rule 63 (condicional -> WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE estatuto CLOSEBRACE .)
 
 
-state 182
-
-    (65) no_condicional -> FOR ID EQUALS exp TO exp OPENBRACE estatuto . CLOSEBRACE
-    (39) estatuto -> estatuto . estatuto
-    (33) estatuto -> . asignacion estatuto
-    (34) estatuto -> . llamada estatuto
-    (35) estatuto -> . retorno estatuto
-    (36) estatuto -> . lectura estatuto
-    (37) estatuto -> . escritura estatuto
-    (38) estatuto -> . repeticion estatuto
-    (39) estatuto -> . estatuto estatuto
-    (40) estatuto -> . declaracion estatuto
-    (41) estatuto -> . empty
-    (47) asignacion -> . ID EQUALS exp SEMICOLON
-    (48) asignacion -> . ID OPENBRACKET paramsP CLOSEBRACKET EQUALS exp SEMICOLON
-    (43) llamada -> . ID OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
-    (44) llamada -> . ID OPENPARENTHESES CLOSEPARENTHESES SEMICOLON
-    (45) retorno -> . RETURN OPENPARENTHESES exp CLOSEPARENTHESES SEMICOLON
-    (46) lectura -> . READ OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
-    (49) escritura -> . WRITE OPENPARENTHESES escrituraP CLOSEPARENTHESES SEMICOLON
-    (61) repeticion -> . condicional
-    (62) repeticion -> . no_condicional
-    (42) declaracion -> . vars
-    (88) empty -> .
-    (63) condicional -> . WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE estatuto CLOSEBRACE
-    (64) condicional -> . WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE CLOSEBRACE
-    (65) no_condicional -> . FOR ID EQUALS exp TO exp OPENBRACE estatuto CLOSEBRACE
-    (66) no_condicional -> . FOR ID EQUALS exp TO exp DO OPENBRACE CLOSEBRACE
-    (19) vars -> . VARS tipo savetype TWODOTS varsP
-
-  ! shift/reduce conflict for ID resolved as shift
-  ! shift/reduce conflict for RETURN resolved as shift
-  ! shift/reduce conflict for READ resolved as shift
-  ! shift/reduce conflict for WRITE resolved as shift
-  ! shift/reduce conflict for CLOSEBRACE resolved as shift
-  ! shift/reduce conflict for WHILE resolved as shift
-  ! shift/reduce conflict for FOR resolved as shift
-  ! shift/reduce conflict for VARS resolved as shift
-    CLOSEBRACE      shift and go to state 184
-    ID              shift and go to state 60
-    RETURN          shift and go to state 61
-    READ            shift and go to state 62
-    WRITE           shift and go to state 63
-    WHILE           shift and go to state 67
-    FOR             shift and go to state 68
-    VARS            shift and go to state 12
-
-  ! ID              [ reduce using rule 88 (empty -> .) ]
-  ! RETURN          [ reduce using rule 88 (empty -> .) ]
-  ! READ            [ reduce using rule 88 (empty -> .) ]
-  ! WRITE           [ reduce using rule 88 (empty -> .) ]
-  ! WHILE           [ reduce using rule 88 (empty -> .) ]
-  ! FOR             [ reduce using rule 88 (empty -> .) ]
-  ! VARS            [ reduce using rule 88 (empty -> .) ]
-  ! CLOSEBRACE      [ reduce using rule 88 (empty -> .) ]
-
-    estatuto                       shift and go to state 80
-    asignacion                     shift and go to state 52
-    llamada                        shift and go to state 53
-    retorno                        shift and go to state 54
-    lectura                        shift and go to state 55
-    escritura                      shift and go to state 56
-    repeticion                     shift and go to state 57
-    declaracion                    shift and go to state 58
-    empty                          shift and go to state 59
-    condicional                    shift and go to state 64
-    no_condicional                 shift and go to state 65
-    vars                           shift and go to state 66
-
 state 183
 
-    (66) no_condicional -> FOR ID EQUALS exp TO exp DO OPENBRACE . CLOSEBRACE
+    (65) no_condicional -> FOR ID EQUALS exp TO exp OPENBRACE estatuto . CLOSEBRACE
 
     CLOSEBRACE      shift and go to state 185
 
 
 state 184
+
+    (66) no_condicional -> FOR ID EQUALS exp TO exp DO OPENBRACE . CLOSEBRACE
+
+    CLOSEBRACE      shift and go to state 186
+
+
+state 185
 
     (65) no_condicional -> FOR ID EQUALS exp TO exp OPENBRACE estatuto CLOSEBRACE .
 
@@ -4070,7 +3170,7 @@ state 184
     CLOSEBRACE      reduce using rule 65 (no_condicional -> FOR ID EQUALS exp TO exp OPENBRACE estatuto CLOSEBRACE .)
 
 
-state 185
+state 186
 
     (66) no_condicional -> FOR ID EQUALS exp TO exp DO OPENBRACE CLOSEBRACE .
 
@@ -4086,206 +3186,8 @@ state 185
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for CLOSEBRACE in state 37 resolved as shift
-WARNING: shift/reduce conflict for ID in state 45 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 45 resolved as shift
-WARNING: shift/reduce conflict for READ in state 45 resolved as shift
-WARNING: shift/reduce conflict for WRITE in state 45 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 45 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 45 resolved as shift
-WARNING: shift/reduce conflict for VARS in state 45 resolved as shift
-WARNING: shift/reduce conflict for ID in state 51 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 51 resolved as shift
-WARNING: shift/reduce conflict for READ in state 51 resolved as shift
-WARNING: shift/reduce conflict for WRITE in state 51 resolved as shift
-WARNING: shift/reduce conflict for CLOSEBRACE in state 51 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 51 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 51 resolved as shift
-WARNING: shift/reduce conflict for VARS in state 51 resolved as shift
-WARNING: shift/reduce conflict for ID in state 52 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 52 resolved as shift
-WARNING: shift/reduce conflict for READ in state 52 resolved as shift
-WARNING: shift/reduce conflict for WRITE in state 52 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 52 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 52 resolved as shift
-WARNING: shift/reduce conflict for VARS in state 52 resolved as shift
-WARNING: shift/reduce conflict for ID in state 53 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 53 resolved as shift
-WARNING: shift/reduce conflict for READ in state 53 resolved as shift
-WARNING: shift/reduce conflict for WRITE in state 53 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 53 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 53 resolved as shift
-WARNING: shift/reduce conflict for VARS in state 53 resolved as shift
-WARNING: shift/reduce conflict for ID in state 54 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 54 resolved as shift
-WARNING: shift/reduce conflict for READ in state 54 resolved as shift
-WARNING: shift/reduce conflict for WRITE in state 54 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 54 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 54 resolved as shift
-WARNING: shift/reduce conflict for VARS in state 54 resolved as shift
-WARNING: shift/reduce conflict for ID in state 55 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 55 resolved as shift
-WARNING: shift/reduce conflict for READ in state 55 resolved as shift
-WARNING: shift/reduce conflict for WRITE in state 55 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 55 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 55 resolved as shift
-WARNING: shift/reduce conflict for VARS in state 55 resolved as shift
-WARNING: shift/reduce conflict for ID in state 56 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 56 resolved as shift
-WARNING: shift/reduce conflict for READ in state 56 resolved as shift
-WARNING: shift/reduce conflict for WRITE in state 56 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 56 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 56 resolved as shift
-WARNING: shift/reduce conflict for VARS in state 56 resolved as shift
-WARNING: shift/reduce conflict for ID in state 57 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 57 resolved as shift
-WARNING: shift/reduce conflict for READ in state 57 resolved as shift
-WARNING: shift/reduce conflict for WRITE in state 57 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 57 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 57 resolved as shift
-WARNING: shift/reduce conflict for VARS in state 57 resolved as shift
-WARNING: shift/reduce conflict for ID in state 58 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 58 resolved as shift
-WARNING: shift/reduce conflict for READ in state 58 resolved as shift
-WARNING: shift/reduce conflict for WRITE in state 58 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 58 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 58 resolved as shift
-WARNING: shift/reduce conflict for VARS in state 58 resolved as shift
-WARNING: shift/reduce conflict for ID in state 80 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 80 resolved as shift
-WARNING: shift/reduce conflict for READ in state 80 resolved as shift
-WARNING: shift/reduce conflict for WRITE in state 80 resolved as shift
-WARNING: shift/reduce conflict for ID in state 80 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 80 resolved as shift
-WARNING: shift/reduce conflict for READ in state 80 resolved as shift
-WARNING: shift/reduce conflict for WRITE in state 80 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 80 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 80 resolved as shift
-WARNING: shift/reduce conflict for VARS in state 80 resolved as shift
-WARNING: shift/reduce conflict for ID in state 82 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 82 resolved as shift
-WARNING: shift/reduce conflict for READ in state 82 resolved as shift
-WARNING: shift/reduce conflict for WRITE in state 82 resolved as shift
-WARNING: shift/reduce conflict for ID in state 82 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 82 resolved as shift
-WARNING: shift/reduce conflict for READ in state 82 resolved as shift
-WARNING: shift/reduce conflict for WRITE in state 82 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 82 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 82 resolved as shift
-WARNING: shift/reduce conflict for VARS in state 82 resolved as shift
-WARNING: shift/reduce conflict for ID in state 83 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 83 resolved as shift
-WARNING: shift/reduce conflict for READ in state 83 resolved as shift
-WARNING: shift/reduce conflict for WRITE in state 83 resolved as shift
-WARNING: shift/reduce conflict for ID in state 83 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 83 resolved as shift
-WARNING: shift/reduce conflict for READ in state 83 resolved as shift
-WARNING: shift/reduce conflict for WRITE in state 83 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 83 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 83 resolved as shift
-WARNING: shift/reduce conflict for VARS in state 83 resolved as shift
-WARNING: shift/reduce conflict for ID in state 84 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 84 resolved as shift
-WARNING: shift/reduce conflict for READ in state 84 resolved as shift
-WARNING: shift/reduce conflict for WRITE in state 84 resolved as shift
-WARNING: shift/reduce conflict for ID in state 84 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 84 resolved as shift
-WARNING: shift/reduce conflict for READ in state 84 resolved as shift
-WARNING: shift/reduce conflict for WRITE in state 84 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 84 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 84 resolved as shift
-WARNING: shift/reduce conflict for VARS in state 84 resolved as shift
-WARNING: shift/reduce conflict for ID in state 85 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 85 resolved as shift
-WARNING: shift/reduce conflict for READ in state 85 resolved as shift
-WARNING: shift/reduce conflict for WRITE in state 85 resolved as shift
-WARNING: shift/reduce conflict for ID in state 85 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 85 resolved as shift
-WARNING: shift/reduce conflict for READ in state 85 resolved as shift
-WARNING: shift/reduce conflict for WRITE in state 85 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 85 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 85 resolved as shift
-WARNING: shift/reduce conflict for VARS in state 85 resolved as shift
-WARNING: shift/reduce conflict for ID in state 86 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 86 resolved as shift
-WARNING: shift/reduce conflict for READ in state 86 resolved as shift
-WARNING: shift/reduce conflict for WRITE in state 86 resolved as shift
-WARNING: shift/reduce conflict for ID in state 86 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 86 resolved as shift
-WARNING: shift/reduce conflict for READ in state 86 resolved as shift
-WARNING: shift/reduce conflict for WRITE in state 86 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 86 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 86 resolved as shift
-WARNING: shift/reduce conflict for VARS in state 86 resolved as shift
-WARNING: shift/reduce conflict for ID in state 87 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 87 resolved as shift
-WARNING: shift/reduce conflict for READ in state 87 resolved as shift
-WARNING: shift/reduce conflict for WRITE in state 87 resolved as shift
-WARNING: shift/reduce conflict for ID in state 87 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 87 resolved as shift
-WARNING: shift/reduce conflict for READ in state 87 resolved as shift
-WARNING: shift/reduce conflict for WRITE in state 87 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 87 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 87 resolved as shift
-WARNING: shift/reduce conflict for VARS in state 87 resolved as shift
-WARNING: shift/reduce conflict for ID in state 88 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 88 resolved as shift
-WARNING: shift/reduce conflict for READ in state 88 resolved as shift
-WARNING: shift/reduce conflict for WRITE in state 88 resolved as shift
-WARNING: shift/reduce conflict for ID in state 88 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 88 resolved as shift
-WARNING: shift/reduce conflict for READ in state 88 resolved as shift
-WARNING: shift/reduce conflict for WRITE in state 88 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 88 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 88 resolved as shift
-WARNING: shift/reduce conflict for VARS in state 88 resolved as shift
+WARNING: shift/reduce conflict for CLOSEBRACE in state 38 resolved as shift
 WARNING: shift/reduce conflict for COMMA in state 118 resolved as shift
-WARNING: shift/reduce conflict for CLOSEBRACE in state 173 resolved as shift
-WARNING: shift/reduce conflict for ID in state 173 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 173 resolved as shift
-WARNING: shift/reduce conflict for READ in state 173 resolved as shift
-WARNING: shift/reduce conflict for WRITE in state 173 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 173 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 173 resolved as shift
-WARNING: shift/reduce conflict for VARS in state 173 resolved as shift
-WARNING: shift/reduce conflict for ID in state 177 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 177 resolved as shift
-WARNING: shift/reduce conflict for READ in state 177 resolved as shift
-WARNING: shift/reduce conflict for WRITE in state 177 resolved as shift
-WARNING: shift/reduce conflict for CLOSEBRACE in state 177 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 177 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 177 resolved as shift
-WARNING: shift/reduce conflict for VARS in state 177 resolved as shift
-WARNING: shift/reduce conflict for ID in state 179 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 179 resolved as shift
-WARNING: shift/reduce conflict for READ in state 179 resolved as shift
-WARNING: shift/reduce conflict for WRITE in state 179 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 179 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 179 resolved as shift
-WARNING: shift/reduce conflict for VARS in state 179 resolved as shift
-WARNING: shift/reduce conflict for ID in state 182 resolved as shift
-WARNING: shift/reduce conflict for RETURN in state 182 resolved as shift
-WARNING: shift/reduce conflict for READ in state 182 resolved as shift
-WARNING: shift/reduce conflict for WRITE in state 182 resolved as shift
-WARNING: shift/reduce conflict for CLOSEBRACE in state 182 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 182 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 182 resolved as shift
-WARNING: shift/reduce conflict for VARS in state 182 resolved as shift
-WARNING: reduce/reduce conflict in state 80 resolved using rule (estatuto -> estatuto estatuto)
-WARNING: rejected rule (empty -> <empty>) in state 80
-WARNING: reduce/reduce conflict in state 82 resolved using rule (estatuto -> asignacion estatuto)
-WARNING: rejected rule (empty -> <empty>) in state 82
-WARNING: reduce/reduce conflict in state 83 resolved using rule (estatuto -> llamada estatuto)
-WARNING: rejected rule (empty -> <empty>) in state 83
-WARNING: reduce/reduce conflict in state 84 resolved using rule (estatuto -> retorno estatuto)
-WARNING: rejected rule (empty -> <empty>) in state 84
-WARNING: reduce/reduce conflict in state 85 resolved using rule (estatuto -> lectura estatuto)
-WARNING: rejected rule (empty -> <empty>) in state 85
-WARNING: reduce/reduce conflict in state 86 resolved using rule (estatuto -> escritura estatuto)
-WARNING: rejected rule (empty -> <empty>) in state 86
-WARNING: reduce/reduce conflict in state 87 resolved using rule (estatuto -> repeticion estatuto)
-WARNING: rejected rule (empty -> <empty>) in state 87
-WARNING: reduce/reduce conflict in state 88 resolved using rule (estatuto -> declaracion estatuto)
-WARNING: rejected rule (empty -> <empty>) in state 88
+WARNING: shift/reduce conflict for CLOSEBRACE in state 174 resolved as shift
 WARNING: reduce/reduce conflict in state 118 resolved using rule (escrituraP -> ID)
 WARNING: rejected rule (factor -> ID) in state 118
