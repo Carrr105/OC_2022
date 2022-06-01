@@ -13,7 +13,10 @@ function float : myotherfunction(int varfunc1, float othervarfunc2){
 
 main(){
     vars int: xd;
-    vars float: otherxd;
+    vars float: otherxd, othersumxd, otherparentesisxd;
     write(xd);
-    xd=1 * 7;
+    xd=1 * 7 * 3;
+    otherxd=5*6/2;
+    othersumxd = 10+20*2;
+    otherparentesisxd = 40*(50+70);
 }

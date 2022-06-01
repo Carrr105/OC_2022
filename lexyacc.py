@@ -301,9 +301,11 @@ def p_asignacion(p):
     '''
     print ("asignación encontrada")
     if len(p) == 5:
+        var = df.search(p[1]) 
+        print(var)
         ci.stOperators.append(p[2])
-        ci.stOperands.append(p[1])
-        ci.stTypes.append("int")
+        ci.stOperands.append(var["address"])
+        ci.stTypes.append(var["type"])
         ci.new_quadruple()
 
 def p_escritura(p):
@@ -357,11 +359,24 @@ def p_exp(p):
     | exp MINUS termino
     '''
     if (len(p)==4):
-        if p[2] == '+':
-            p[0] = p[1] + p[3]
-            print ("suma encontrada")
-        elif p[2] == '-':
-            p[0] = p[1] - p[3]
+        #ci.stOperands.append(p[1])
+        #print("p[1]")
+        #print(p[1])
+        ci.stOperators.append(p[2])
+        print("p[2]")
+        print(p[2])
+        #ci.stOperands.append(p[3])
+        #print("p[3]")
+        #print(p[3])
+        #ci.stTypes.append("int")
+        print("_____stacks___")
+        print(ci.stTypes)
+        print(ci.stOperands)
+        print(ci.stOperators)
+        ci.new_quadruple()
+        # en este momento se genera un temporal que se agrega al stack de 
+        # operandos dentro del archivo de codigo intermedio
+        # p[0] = p[1] * p[3]
 
 def p_termino(p):
     '''
@@ -370,23 +385,24 @@ def p_termino(p):
     | termino DIVIDE factor
     '''
     if (len(p)==4):
-        if p[2] == '*':
-            #ci.stOperands.append(p[1])
-            #print("p[1]")
-            #print(p[1])
-            ci.stOperators.append(p[2])
-            print("p[2]")
-            print(p[2])
-            #ci.stOperands.append(p[3])
-            #print("p[3]")
-            #print(p[3])
-            ci.stTypes.append("int")
-            ci.new_quadruple()
-            # en este momento se genera un temporal que se agrega al stack de 
-            # operandos dentro del archivo de codigo intermedio
-            # p[0] = p[1] * p[3]
-        elif p[2] == '/':
-            p[0] = p[1] / p[3]
+        #ci.stOperands.append(p[1])
+        #print("p[1]")
+        #print(p[1])
+        ci.stOperators.append(p[2])
+        print("p[2]")
+        print(p[2])
+        #ci.stOperands.append(p[3])
+        #print("p[3]")
+        #print(p[3])
+        #ci.stTypes.append("int")
+        print("_____stacks___")
+        print(ci.stTypes)
+        print(ci.stOperands)
+        print(ci.stOperators)
+        ci.new_quadruple()
+        # en este momento se genera un temporal que se agrega al stack de 
+        # operandos dentro del archivo de codigo intermedio
+        # p[0] = p[1] * p[3]
 
 
 def p_factor(p):
@@ -398,7 +414,7 @@ def p_factor(p):
     | OPENPARENTHESES h_exp CLOSEPARENTHESES
     '''
     if (len(p) == 2):
-        address = ci.get_address("int", "constants", 1, p[1])
+        address = ci.get_address("int", "constants", p[1])
         ci.stTypes.append("int")
         ci.stOperands.append(address)
         resultstack.append(p[1])
@@ -411,10 +427,6 @@ def p_hexp(p):
     | s_exp AND h_exp
     | s_exp OR h_exp
     '''
-    if p[2] == 'AND':
-         p[0] = p[1] and p[3]
-    elif p[2] == 'OR':
-         p[0] = p[1] or p[3]
 
 def p_sexp(p):
     '''
@@ -426,18 +438,6 @@ def p_sexp(p):
     | exp LESSEQUAL exp
     | exp GREATEREQUAL exp
     '''
-    if p[2] == '>':
-         p[0] = p[1] > p[3]
-    elif p[2] == '<':
-         p[0] = p[1] < p[3]
-    elif p[2] == '!=':
-         p[0] = p[1] != p[3]
-    elif p[2] == '==':
-         p[0] = p[1] == p[3]
-    elif p[2] == '<=':
-         p[0] = p[1] >= p[3]
-    elif p[2] == '>=':
-         p[0] = p[1] <= p[3]
 
 def p_empty(p):
     '''
@@ -466,7 +466,7 @@ if __name__ == '__main__':
         if(yacc.parse(info, tracking=True) == 'PROGRAM COMPILED'):
             print("success")
             df.print_var()
-            ci.new_obj_file()
+            ci.new_obj_file(str(df.function_dictionary))
         else:
             print("syntax error")
     except EOFError:
