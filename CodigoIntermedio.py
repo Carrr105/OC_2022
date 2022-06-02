@@ -64,6 +64,8 @@ class CI:
             address = self.temporal_base + start + self.counter_temporal[count]
             self.counter_temporal[count] += size
         elif mem_type == "constants":
+            if value in self.ctes_table.values():
+                return [key for key, v in self.ctes_table.items() if v == value].pop()
             address = self.ctes_base + start + self.counter_ctes[count]
             self.ctes_table[address] = value
             self.counter_ctes[count] += size
@@ -106,7 +108,8 @@ class CI:
             self.counter = self.counter + 1
             self.listQuadruples.append(quadruple)
         else:
-            print("type mismatch!")
+            #print("type mismatch!")
+            raise TypeError("Type mismatch!")
     
     def print_quadruples(self):
         print("...................")
@@ -124,8 +127,51 @@ class CI:
         self.main_goto_pos = self.counter - 1
         self.counter += 1
     
+    def fill_goto(self):
+        print("self counter is")
+        print(self.counter)
+        self.listQuadruples[self.stJumps.pop()].updateresult(self.counter)
+    
+    def fill_gotof(self):
+        print("self counter is")
+        print(self.counter)
+        self.listQuadruples[self.stJumps.pop()].updateresult(self.counter+1)
+    
     def fill_main_goto(self):
         self.listQuadruples[self.main_goto_pos].updateresult(self.counter)
+    
+    def gen_not_quadruple(self):
+        operand = self.stOperands.pop()
+        operator = self.stOperators.pop()
+        type_ = self.stTypes.pop()
+
+        if type_ != "bool":
+            raise TypeError("not needs a boolean operand")
+        else:
+            res = self.get_address("bool", "temporal")
+            quad = Quadruple(self.counter, operator, None, operand, res)
+            self.listQuadruples.append(quad)
+            self.stOperands.append(res)
+            self.stTypes.append("bool")
+            self.counter += 1
+    
+    def gen_gotoF(self):
+        type_ = self.stTypes.pop()
+
+        if type_ != "bool":
+            raise TypeError("exp needs a boolean operand")
+        else:
+            res = self.stOperands.pop()
+            quad = Quadruple(self.counter, res, None, "GOTOF", None)
+            self.listQuadruples.append(quad)
+            self.stJumps.append(self.counter-1)
+            self.counter += 1
+    
+    def gen_goto(self):
+        quad = Quadruple(self.counter, None, None, "GOTO", None)
+        self.listQuadruples.append(quad)
+        self.stJumps.append(self.counter-1)
+        self.counter += 1
     
     def new_obj_file(self, df):
         newfile = {

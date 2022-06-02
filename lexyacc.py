@@ -33,13 +33,13 @@ reserved = {
     'for' : 'FOR',
     'to' : 'TO',
     'and' : 'AND',
-    'or' : 'OR', 
+    'or' : 'OR',    'not' : 'NOT',
     'return' : 'RETURN'
     
 }
 
 tokens = [
-    'ID', 'CTEI', 'CTEF',
+    'ID', 'CTEI', 'CTEF', 'CTEB', 'CTEC',
     'OPENPARENTHESES', 'CLOSEPARENTHESES',
     'DOT', 'TWODOTS', 'SEMICOLON',
     'OPENBRACE', 'CLOSEBRACE',
@@ -92,6 +92,16 @@ def t_CTEI(t):
 def t_CTEF(t):
     r'-?\d+\.\d+'
     t.value = float(t.value)
+    return t
+
+def t_CTEB(t):
+    r'^(?i)(TRUE|FALSE)$'
+    t.value = bool(t.value)
+    return t
+
+def t_CTEC(t):
+    r'"(.?)"'
+    t.value = str(t.value)
     return t
 
 def t_CTESTRING(t):
@@ -273,6 +283,7 @@ def p_estatuto(p):
         | escritura estatuto
         | repeticion estatuto
         | declaracion estatuto
+        | condicion estatuto
         | empty
     '''
 
@@ -304,6 +315,8 @@ def p_asignacion(p):
     '''
     print ("asignación encontrada")
     if len(p) == 5:
+        print("var to look for")
+        print(p[1])
         var = df.search(p[1]) 
         print(var)
         ci.stOperators.append(p[2])
@@ -328,11 +341,40 @@ def p_escrituraP(p):
 
 def p_condicion(p):
     '''
-    condicion : IF OPENPARENTHESES exp CLOSEPARENTHESES THEN OPENBRACE estatuto CLOSEBRACE ELSE OPENBRACE estatuto CLOSEBRACE
-          | IF OPENPARENTHESES exp CLOSEPARENTHESES THEN OPENBRACE CLOSEBRACE ELSE OPENBRACE estatuto CLOSEBRACE
-          | IF OPENPARENTHESES exp CLOSEPARENTHESES THEN OPENBRACE estatuto CLOSEBRACE ELSE OPENBRACE CLOSEBRACE
-          | IF OPENPARENTHESES exp CLOSEPARENTHESES THEN OPENBRACE estatuto CLOSEBRACE
-          | IF OPENPARENTHESES exp CLOSEPARENTHESES THEN OPENBRACE CLOSEBRACE
+    condicion : IF OPENPARENTHESES exp CLOSEPARENTHESES OPENBRACE gen_gotof condicionp fill_goto
+    '''
+
+def p_gen_gotof(p):
+    '''
+    gen_gotof : 
+    '''
+    ci.gen_gotoF()
+    
+
+def p_fill_gotof(p):
+    '''
+    fill_gotof : 
+    '''
+    ci.fill_gotof()
+
+def p_gen_goto(p):
+    '''
+    gen_goto : 
+    '''
+    ci.gen_goto()
+
+def p_fill_goto(p):
+    '''
+    fill_goto : 
+    '''
+    ci.fill_goto()
+
+def p_condicionp(p):
+    # soporta if, if else, if else if, if else if else
+    '''
+    condicionp : estatuto fill_gotof gen_goto CLOSEBRACE ELSE OPENBRACE estatuto CLOSEBRACE
+          | estatuto fill_gotof gen_goto CLOSEBRACE ELSE condicion
+          | estatuto fill_gotof gen_goto CLOSEBRACE
     '''
 
 def p_repeticion(p):
@@ -353,13 +395,73 @@ def p_nocondicional(p):
         | FOR ID EQUALS exp TO exp DO OPENBRACE CLOSEBRACE
     '''
 
-
-
 def p_exp(p):
     '''
-    exp : termino
-    | exp PLUS termino
-    | exp MINUS termino
+    exp : iexp
+        | NOT iexp
+    '''
+    if (len(p)==3):
+        ci.stOperators.append(p[1])
+        ci.gen_not_quadruple()
+
+
+
+def p_iexp(p):
+    '''
+    iexp : nexp
+        | iexp AND nexp
+        | iexp OR nexp
+    '''
+    if (len(p)==4):
+        #ci.stOperands.append(p[1])
+        #print("p[1]")
+        #print(p[1])
+        ci.stOperators.append(p[2])
+        print("p[2]")
+        print(p[2])
+        #ci.stOperands.append(p[3])
+        #print("p[3]")
+        #print(p[3])
+        #ci.stTypes.append("int")
+        print("_____stacks___")
+        print(ci.stTypes)
+        print(ci.stOperands)
+        print(ci.stOperators)
+        ci.new_quadruple()
+
+def p_nexp(p):
+    '''
+    nexp : pexp
+        | nexp GREATER pexp
+        | nexp LESS pexp
+        | nexp DIFFERENT pexp
+        | nexp EQUALS_BOOLEAN pexp
+        | nexp LESSEQUAL pexp
+        | nexp GREATEREQUAL pexp
+    '''
+    if (len(p)==4):
+        #ci.stOperands.append(p[1])
+        #print("p[1]")
+        #print(p[1])
+        ci.stOperators.append(p[2])
+        print("p[2]")
+        print(p[2])
+        #ci.stOperands.append(p[3])
+        #print("p[3]")
+        #print(p[3])
+        #ci.stTypes.append("int")
+        print("_____stacks___")
+        print(ci.stTypes)
+        print(ci.stOperands)
+        print(ci.stOperators)
+        ci.new_quadruple()
+
+
+def p_pexp(p):
+    '''
+    pexp : termino
+        | pexp PLUS termino
+        | pexp MINUS termino
     '''
     if (len(p)==4):
         #ci.stOperands.append(p[1])
@@ -409,12 +511,14 @@ def p_termino(p):
 
 
 def p_factor(p):
+    # falta meter ids con dimensiones
     '''
-    factor : ID OPENPARENTHESES exp CLOSEPARENTHESES
-    | ID
-    | CTEF
-    | CTEI
-    | OPENPARENTHESES h_exp CLOSEPARENTHESES
+    factor : CTEB
+        | ID
+        | CTEF
+        | CTEI
+        | CTEC
+        | OPENPARENTHESES exp CLOSEPARENTHESES
     '''
     if (len(p) == 2):
         if bool(re.match("-?\d+\.\d+", str(p[1]))):
@@ -428,32 +532,24 @@ def p_factor(p):
             address = ci.get_address("int", "constants", p[1])
             ci.stTypes.append("int")
             ci.stOperands.append(address)
+        elif bool(re.match("^(?i)(TRUE|FALSE)$", str(p[1]))):
+            print("CTE BOOL found!")
+            print(str(p[1]))
+            address = ci.get_address("bool", "constants", p[1])
+            ci.stTypes.append("bool")
+            ci.stOperands.append(address)
         elif bool(re.match("[a-zA-Z][a-zA-Z_0-9]*", str(p[1]))):
             print("ID found!")
             #print(parser.token().type)
             var = df.search(p[1])
             ci.stTypes.append(var["type"])
             ci.stOperands.append(var["address"])
-
-
-def p_hexp(p):
-    '''
-    h_exp : s_exp
-    | s_exp AND h_exp
-    | s_exp OR h_exp
-    '''
-
-def p_sexp(p):
-    '''
-    s_exp : exp
-    | exp GREATER exp
-    | exp LESS exp
-    | exp DIFFERENT exp
-    | exp EQUALS_BOOLEAN exp
-    | exp LESSEQUAL exp
-    | exp GREATEREQUAL exp
-    '''
-
+        elif bool(re.match('"(.?)"', str(p[1]))):
+            print ("CTE CHAR found!")
+            address = ci.get_address("char", "constants", p[1])
+            ci.stTypes.append("char")
+            ci.stOperands.append(address)
+        
 def p_empty(p):
     '''
     empty :
