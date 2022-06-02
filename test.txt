@@ -1,9 +1,9 @@
 program test;
 
 vars int : myfirstvar, mysecondvar;
-vars float: myothervar;
+vars bool: myothervar;
 
-function int : myfunction(int varfunc, float othervarfunc){
+function int : myfunction(float varfunc, float othervarfunc){
     vars int: myfunnyvar, mynegativevar;
     myfunnyvar = 0;
     mynegativevar = -1;
@@ -19,6 +19,7 @@ main(){
     vars bool: myotherbool, myadvancedbool;
     vars char: mychar;
     vars int: iftest;
+    vars float: whiletest;
     mychar="a";
     vars float: otherxd, othersumxd, otherparentesisxd, othervartestxd;
     write(xd);
@@ -31,11 +32,27 @@ main(){
     otherparentesisxd = 40*(50+70);
     othervartestxd = otherparentesisxd + othersumxd;
 
+    if(true or false){
+        
+    }
+
     if(mybool){
         iftest = 5;
     } else if (true){
-        iftest = 7;
+
     } else {
         iftest = 0;
+    }
+
+    while(true){
+        whiletest = 0;
+    }
+
+    while(true or false){
+        whiletest = 7;
+    }
+    
+    while(true){
+
     }
 }

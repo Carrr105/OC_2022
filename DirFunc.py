@@ -10,11 +10,7 @@
 import json
 
 class DirFunc:
-    function_dictionary = dict()
-    var_dictionary = dict()
-    current_type = ''
-    stack_name = []
-    scope = ''
+    #currentscope=""
     # antes {'test': 'void', 'main': 'void'}
     # ahora {'test': {'void'}, 'main': {'void'}}
     # mas antes {'test': 'void', 'main': 'void'}
@@ -25,14 +21,34 @@ class DirFunc:
     # ahora de nuevo
     # {'test': {'void'}, 'main': {'void'}}
 
+    def __init__(self):
+        self.function_dictionary = dict()
+        self.var_dictionary = dict()
+        self.current_type = ''
+        self.stack_name = []
+        self.scope = ''
+
+
+
     def insert_function(self, name, type_):
         self.function_dictionary[name] = {
                                             "type" : type_,
+                                            "params" : [],
                                             "vars" : {
 
                                                 }
                                             }
         self.current_scope = self.function_dictionary[name]
+    
+    def insert_param_types(self, currentscope, paramstack):
+        print("PARAMS ORDER1: ")
+        print(paramstack)
+        print("ordered too")
+        print(self.function_dictionary[currentscope])
+        for i in range(len(paramstack)):
+            self.function_dictionary[currentscope]["params"].append(paramstack[i])
+        print("nownow10")
+        print(self.function_dictionary[currentscope])
 
     ######### VAR TABLE
     def insert_var(self, currentscope, name, type_, address):

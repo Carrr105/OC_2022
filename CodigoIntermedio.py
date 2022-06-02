@@ -132,10 +132,27 @@ class CI:
         print(self.counter)
         self.listQuadruples[self.stJumps.pop()].updateresult(self.counter)
     
+    def fill_goto_while(self):
+        print("self counter is")
+        print(self.counter)
+        self.listQuadruples[len(self.listQuadruples)-1].updateresult(self.stJumps.pop())
+    
     def fill_gotof(self):
         print("self counter is")
         print(self.counter)
-        self.listQuadruples[self.stJumps.pop()].updateresult(self.counter+1)
+        self.listQuadruples[self.stJumps.pop()-1].updateresult(self.counter)
+    
+    def fill_gotof_while(self):
+        print("self counter1 is")
+        print(self.counter)
+        print(self.stJumps)
+        self.listQuadruples[self.stJumps.pop()-1].updateresult(self.counter+1)
+    
+    def fill_gotoF_if(self):
+        print("self counter1 is")
+        print(self.counter)
+        print(self.stJumps)
+        self.listQuadruples[self.stJumps.pop()-1].updateresult(self.counter+1)
     
     def fill_main_goto(self):
         self.listQuadruples[self.main_goto_pos].updateresult(self.counter)
@@ -164,7 +181,7 @@ class CI:
             res = self.stOperands.pop()
             quad = Quadruple(self.counter, res, None, "GOTOF", None)
             self.listQuadruples.append(quad)
-            self.stJumps.append(self.counter-1)
+            self.stJumps.append(self.counter)
             self.counter += 1
     
     def gen_goto(self):
@@ -172,6 +189,30 @@ class CI:
         self.listQuadruples.append(quad)
         self.stJumps.append(self.counter-1)
         self.counter += 1
+    
+    def gen_fill_goto(self):
+        quad = Quadruple(self.counter, None, None, "GOTO", self.stJumps[-1]+1)
+        self.listQuadruples.append(quad)
+        self.counter += 1
+    
+    def gen_goto_while(self):
+        quad = Quadruple(self.counter, None, None, "GOTO", None)
+        self.listQuadruples.append(quad)
+        self.stJumps.append(self.counter-1)
+        self.counter += 1
+    
+    def gen_end_quad(self):
+        quad = Quadruple(self.counter, None, None, "ENDPROGRAM", None)
+        self.listQuadruples.append(quad)
+        #self.counter += 1
+    
+    def migaja(self):
+        self.stJumps.append(self.counter)
+    
+    def gen_goto_migaja(self):
+        quad = Quadruple(self.counter, None, None, "GOTO", self.stJumps.pop())
+        self.listQuadruples.append(quad)
+        self.counter+=1
     
     def new_obj_file(self, df):
         newfile = {

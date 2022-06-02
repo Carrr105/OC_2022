@@ -127,6 +127,7 @@ varstack = []
 type_var = '' # cambiar a stack
 scopestack = []
 resultstack = []
+paramstack = [] 
 
 start = 'programa'
 globalname = ''
@@ -136,6 +137,7 @@ def p_programa(p):
     programa : PROGRAM ID SEMICOLON establishglobalscope programaP
     '''
     p[0] = "PROGRAM COMPILED"
+    ci.gen_end_quad()
 
 # este tipo de reglas vacias servirán para poder hacer acciones intermedias,
 # ya que PLY no cuenta con un soporte natural para ellas.
@@ -180,7 +182,7 @@ def p_clasePP(p):
 
 def p_funcion(p):
     '''
-    funcion : FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction CLOSEPARENTHESES OPENBRACE estatuto CLOSEBRACE
+    funcion : FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction savesequence CLOSEPARENTHESES OPENBRACE estatuto CLOSEBRACE
     '''
 
 def p_savefuncscope(p):
@@ -194,9 +196,35 @@ def p_savefuncscope(p):
 
 def p_paramsfunction(p):
     '''
-    paramsfunction : tipo param COMMA paramsfunction
-                    | tipo param
+    paramsfunction : tipo savetipo param COMMA paramsfunction
+                    | tipo savetipo param
     '''
+
+def p_savetipo(p):
+    '''
+    savetipo : 
+    '''
+    global type_var
+    type_var = p[-1]
+    global paramstack
+    print("appending")
+    print(p[-1])
+    paramstack.append(p[-1])
+    print("n0w")
+    print(paramstack)
+
+def p_savesequence(p):
+    '''
+    savesequence : 
+    '''
+    global paramstack
+    print("insertin2 sequence...")
+    print(paramstack)
+    print (scopestack[-1])
+    df.insert_param_types(scopestack[-1], paramstack)
+    paramstack.clear()
+    print("func state")
+    print(df.function_dictionary)
 
 
 def p_return(p):
@@ -230,6 +258,7 @@ def p_param(p):
     param : ID
         | ID OPENBRACKET paramsP CLOSEBRACKET
     '''
+    global type_var
     print("....currentscope")
     print(df.current_scope)
     print("....xd")
@@ -369,12 +398,18 @@ def p_fill_goto(p):
     '''
     ci.fill_goto()
 
+def p_fill_gotof_if(p):
+    '''
+    fill_gotof_if : 
+    '''
+    ci.fill_gotoF_if()
+
 def p_condicionp(p):
     # soporta if, if else, if else if, if else if else
     '''
-    condicionp : estatuto fill_gotof gen_goto CLOSEBRACE ELSE OPENBRACE estatuto CLOSEBRACE
-          | estatuto fill_gotof gen_goto CLOSEBRACE ELSE condicion
-          | estatuto fill_gotof gen_goto CLOSEBRACE
+    condicionp : estatuto fill_gotof_if gen_goto CLOSEBRACE ELSE OPENBRACE estatuto CLOSEBRACE
+          | estatuto fill_gotof_if gen_goto CLOSEBRACE ELSE condicion
+          | estatuto fill_gotof_if gen_goto CLOSEBRACE
     '''
 
 def p_repeticion(p):
@@ -385,15 +420,51 @@ def p_repeticion(p):
 
 def p_condicional(p):
     '''
-    condicional : WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE estatuto CLOSEBRACE
-        | WHILE OPENPARENTHESES exp CLOSEPARENTHESES DO OPENBRACE CLOSEBRACE
+    condicional : WHILE OPENPARENTHESES migaja exp gen_gotof CLOSEPARENTHESES OPENBRACE estatuto fill_gotof_while gen_goto_migaja CLOSEBRACE 
     '''
+
+def p_migaja(p):
+    '''
+    migaja : 
+    '''
+    ci.migaja()
+
+def p_gen_goto_migaja(p):
+    '''
+    gen_goto_migaja : 
+    '''
+    ci.gen_goto_migaja()
+
+def p_gen_goto_while(p):
+    '''
+    gen_goto_while : 
+    '''
+    ci.gen_goto_while()
+
+def p_gen_fill_goto(p):
+    '''
+    gen_fill_goto : 
+    '''
+    ci.gen_fill_goto()
+
+def p_fill_goto_while(p):
+    '''
+    fill_goto_while : 
+    '''
+    ci.fill_goto_while()
+
+def p_fill_gotof_while(p):
+    '''
+    fill_gotof_while : 
+    '''
+    ci.fill_gotof_while()
+
 
 def p_nocondicional(p):
     '''
     no_condicional : FOR ID EQUALS exp TO exp OPENBRACE estatuto CLOSEBRACE
-        | FOR ID EQUALS exp TO exp DO OPENBRACE CLOSEBRACE
     '''
+
 
 def p_exp(p):
     '''
