@@ -36,13 +36,14 @@ reserved = {
     'or' : 'OR',    
     'not' : 'NOT',
     'return' : 'RETURN',
-    'call' : 'CALL'
+    'call' : 'CALL',
+    'void' : 'VOID'
     
 }
 
 tokens = [
     'ID', 'CTEI', 'CTEF', 'CTEB', 'CTEC',
-    'OPENPARENTHESES', 'CLOSEPARENTHESES',
+    'OPENPARENTHESES', 'CLOSEPARENTHESES', 'HASHTAG', 'CTE_COMMENT',
     'DOT', 'TWODOTS', 'SEMICOLON',
     'OPENBRACE', 'CLOSEBRACE',
     'GREATER', 'LESS', 'DIFFERENT', 'CTESTRING',
@@ -58,6 +59,7 @@ precedence = (
      ('right', 'EQUALS')
 )
 
+t_HASHTAG = r'\#'
 t_OPENPARENTHESES = r'\('
 t_CLOSEPARENTHESES = r'\)'
 t_SEMICOLON = r'\;'
@@ -81,6 +83,7 @@ t_COMMA = r'\,'
 t_QUOTATIONMARK = r'\''
 t_LESSEQUAL = r'\<='
 t_GREATEREQUAL = r'\>='
+t_CTE_COMMENT = r'(\#(.|\n)*?)\#'
 
 def t_newline(t):
     r'\n+'
@@ -107,7 +110,7 @@ def t_CTEC(t):
     return t
 
 def t_CTESTRING(t):
-    r'%([^.]+?)%'
+    r'"(.*)"'
     t.value = str(t.value)
     return t
 
@@ -160,6 +163,7 @@ def p_programaP(p):
     programaP : vars programaP
     | clase programaP
     | funcion programaP
+    | CTE_COMMENT programaP
     | bloque
     | empty
     '''
@@ -184,8 +188,18 @@ def p_clasePP(p):
 
 def p_funcion(p):
     '''
-    funcion : FUNCTION tipo TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction savesequence CLOSEPARENTHESES OPENBRACE estatuto CLOSEBRACE
+    funcion : FUNCTION tipo_f TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction savesequence CLOSEPARENTHESES OPENBRACE estatuto CLOSEBRACE
     '''
+
+def p_tipo_f(p):
+    '''
+    tipo_f : INT
+            | FLOAT
+            | BOOL
+            | CHAR
+            | VOID
+    '''
+    p[0]=p[1]
 
 def p_savefuncscope(p):
     '''
@@ -203,6 +217,7 @@ def p_paramsfunction(p):
     '''
     paramsfunction : tipo savetipo param COMMA paramsfunction
                     | tipo savetipo param
+                    | empty
     '''
 
 def p_savetipo(p):
@@ -234,9 +249,21 @@ def p_savesequence(p):
 
 def p_return(p):
     '''
-    return : RETURN exp
-            | RETURN
+    return : RETURN exp SEMICOLON
+            | RETURN SEMICOLON
     '''
+    if (df.current_name=="main"):
+        raise TypeError("can't return inside main!")
+    print("l00king")
+    print(df.current_name)
+    var = df.search(df.current_name, function=True)
+    print("wefound")
+    print(var)
+    if var=="void":
+        print("hi")
+        ci.gen_empty_return(df.current_name)
+    else:
+        ci.gen_return(var["type"], var["address"])
 
 def p_vars(p):
     '''
@@ -312,12 +339,13 @@ def p_estatuto(p):
     '''
     estatuto : asignacion estatuto
         | llamada estatuto
-        | retorno estatuto
         | lectura estatuto
         | escritura estatuto
         | repeticion estatuto
         | declaracion estatuto
         | condicion estatuto
+        | return estatuto
+        | CTE_COMMENT estatuto
         | empty
     '''
 
@@ -331,6 +359,7 @@ def p_llamada(p):
     llamada : ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
     '''
     var = df.search(p[1])
+    print(var)
     ci.stTypes.append(var["type"])
     ci.stOperands.append(var["address"])
 
@@ -362,11 +391,6 @@ def p_gen_param(p):
     gen_param : 
     '''
     ci.gen_param()
-
-def p_retorno(p):
-    '''
-    retorno : RETURN OPENPARENTHESES exp CLOSEPARENTHESES SEMICOLON
-    '''
 
 def p_lectura(p):
     '''

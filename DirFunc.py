@@ -38,6 +38,7 @@ class DirFunc:
 
                                                 }
                                             }
+        self.current_name = name
         self.current_scope = self.function_dictionary[name]
     
     def insert_param_types(self, currentscope, paramstack):
@@ -97,13 +98,19 @@ class DirFunc:
         print("helloo")
         print(self.function_dictionary[currscope])
     
-    def search(self, var_name):
+    def search(self, var_name, function=False):
         print("wereceived")
         print(var_name)
+        print (self.function_dictionary)
         if var_name in self.current_scope["vars"]:
             return self.current_scope["vars"][var_name]
         elif var_name in self.function_dictionary["global"]["vars"]:
             return self.function_dictionary["global"]["vars"][var_name]
         else:
-            print(var_name)
-            raise NameError("{var_name} not defined")
+            if not function:
+                print(var_name)
+                raise NameError("{var_name} not defined")
+            elif var_name in self.function_dictionary:
+                return "void"
+            else:
+                raise NameError("{var_name} not defined lol")

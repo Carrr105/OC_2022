@@ -7,10 +7,15 @@ function int : myfunction(float varfunc, float othervarfunc){
     vars int: myfunnyvar, mynegativevar;
     myfunnyvar = 0;
     mynegativevar = -1;
+    return 0;
 }
 
 function float : myotherfunction(int varfunc1, float othervarfunc2){
 
+}
+
+function void : myvoidfunction( ){
+    return;
 }
 
 main(){
@@ -31,6 +36,7 @@ main(){
     othersumxd = 10+20*2;
     otherparentesisxd = 40*(50+70);
     othervartestxd = otherparentesisxd + othersumxd;
+    # return; #
 
     if(true or false){
         

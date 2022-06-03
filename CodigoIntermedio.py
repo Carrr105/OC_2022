@@ -20,7 +20,7 @@ class CI:
         self.ctes_base = 20000
         self.temporal_base = 25000
 
-        self.char_start = 1
+        self.char_start = 0
         self.int_start = 3000
         self.float_start = 6000
         self.bool_start = 9000
@@ -223,6 +223,17 @@ class CI:
         quad = Quadruple(self.counter, 'PARAM', None, self.stOperands.pop(), None)
         self.listQuadruples.append(quad)
         self.counter+=1
+    
+    def gen_return(self, func_type, address):
+        restype = self.semanticcube.get_type(func_type, self.stTypes.pop(), "=")
+        quad = Quadruple(self.counter, None, self.stOperands.pop(), 'RETURN', address)
+        self.listQuadruples.append(quad)
+        self.counter += 1
+    
+    def gen_empty_return(self,name):
+        quad = Quadruple(self.counter, None, None, 'RETURN', name)
+        self.listQuadruples.append(quad)
+        self.counter += 1
     
     def new_obj_file(self, df):
         newfile = {
