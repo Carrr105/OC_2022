@@ -214,6 +214,16 @@ class CI:
         self.listQuadruples.append(quad)
         self.counter+=1
     
+    def gen_era(self, name):
+        quad = Quadruple(self.counter, None, None, 'ERA', name)
+        self.listQuadruples.append(quad)
+        self.counter+=1
+    
+    def gen_param(self):
+        quad = Quadruple(self.counter, 'PARAM', None, self.stOperands.pop(), None)
+        self.listQuadruples.append(quad)
+        self.counter+=1
+    
     def new_obj_file(self, df):
         newfile = {
             "Quadruples": [(quad.counter, quad.op, quad.op1, quad.op2, quad.res) for quad in self.listQuadruples],

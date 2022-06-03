@@ -33,8 +33,10 @@ reserved = {
     'for' : 'FOR',
     'to' : 'TO',
     'and' : 'AND',
-    'or' : 'OR',    'not' : 'NOT',
-    'return' : 'RETURN'
+    'or' : 'OR',    
+    'not' : 'NOT',
+    'return' : 'RETURN',
+    'call' : 'CALL'
     
 }
 
@@ -193,6 +195,9 @@ def p_savefuncscope(p):
     scopestack.append(p[-1])
     df.insert_function(p[-1], p[-3])
     ci.reset_counters()
+    if (p[-3] == ('int' or 'float' or 'bool')):
+        addr=ci.get_address(p[-3], "global")
+        df.insert_var("global",p[-1],p[-3],addr)
 
 def p_paramsfunction(p):
     '''
@@ -323,9 +328,40 @@ def p_declaracion(p):
 
 def p_llamada(p):
     '''
-    llamada : ID OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
-        | ID OPENPARENTHESES CLOSEPARENTHESES SEMICOLON
+    llamada : ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
     '''
+    var = df.search(p[1])
+    ci.stTypes.append(var["type"])
+    ci.stOperands.append(var["address"])
+
+
+
+def p_gen_era(p):
+    '''
+    gen_era : 
+    '''
+    print("p1ok")
+    print(p[-1])
+    #var = df.search(p[-1])
+    ci.gen_era(p[-1])
+
+def p_param_call(p):
+    '''
+    param_call : exp gen_param printt
+                | exp gen_param COMMA param_call
+    '''
+
+def p_printt(p):
+    '''
+    printt : 
+    '''
+    print("finished..")
+
+def p_gen_param(p):
+    '''
+    gen_param : 
+    '''
+    ci.gen_param()
 
 def p_retorno(p):
     '''
@@ -585,6 +621,7 @@ def p_factor(p):
     # falta meter ids con dimensiones
     '''
     factor : CTEB
+        | llamada printt
         | ID
         | CTEF
         | CTEI

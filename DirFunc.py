@@ -98,6 +98,8 @@ class DirFunc:
         print(self.function_dictionary[currscope])
     
     def search(self, var_name):
+        print("wereceived")
+        print(var_name)
         if var_name in self.current_scope["vars"]:
             return self.current_scope["vars"][var_name]
         elif var_name in self.function_dictionary["global"]["vars"]:

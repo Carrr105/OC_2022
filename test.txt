@@ -55,4 +55,6 @@ main(){
     while(true){
 
     }
+
+    xd = myfunction (iftest,iftest);
 }
