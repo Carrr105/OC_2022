@@ -30,10 +30,11 @@ class DirFunc:
 
 
 
-    def insert_function(self, name, type_):
+    def insert_function(self, name, type_, function="False"):
         self.function_dictionary[name] = {
                                             "type" : type_,
                                             "params" : [],
+                                            "function" : function,
                                             "vars" : {
 
                                                 }
@@ -52,7 +53,7 @@ class DirFunc:
         print(self.function_dictionary[currentscope])
 
     ######### VAR TABLE
-    def insert_var(self, currentscope, name, type_, address, isFunction=False):
+    def insert_var(self, currentscope, name, type_, address, paramcount=0, isFunction=False):
         currsize = len(self.function_dictionary)
         #print("PROBANDO")
         #print(self.function_dictionary[currentscope])
@@ -61,7 +62,8 @@ class DirFunc:
         self.function_dictionary[currentscope]["vars"][name] = {
                                                                 'type' : type_,
                                                                 'address' : address,
-                                                                'function' : str(isFunction)
+                                                                'function' : str(isFunction),
+                                                                'paramcount' : str(paramcount)
                                                                 }
         #print("PROBANDO")
         #print(self.function_dictionary)
@@ -78,6 +80,7 @@ class DirFunc:
         self.current_type = type_
         #print("type received is ")
         #print(self.current_type)
+        
     
     def insert_name(self, name):
         self.stack_name.append(name)
