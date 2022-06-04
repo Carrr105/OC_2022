@@ -35,6 +35,7 @@ class DirFunc:
                                             "type" : type_,
                                             "params" : [],
                                             "function" : function,
+                                            "dimensions" : [],
                                             "vars" : {
 
                                                 }
@@ -53,18 +54,28 @@ class DirFunc:
         print(self.function_dictionary[currentscope])
 
     ######### VAR TABLE
-    def insert_var(self, currentscope, name, type_, address, paramcount=0, isFunction=False):
+    def insert_var(self, currentscope, name, type_, address, dim_stack = [],paramcount=0, isFunction=False):
         currsize = len(self.function_dictionary)
         #print("PROBANDO")
         #print(self.function_dictionary[currentscope])
         # regresa 
         # {'vars', 'void'}
+        print("dimztack1")
+        print(dim_stack)
         self.function_dictionary[currentscope]["vars"][name] = {
                                                                 'type' : type_,
                                                                 'address' : address,
                                                                 'function' : str(isFunction),
+                                                                'dimensions' : [],
                                                                 'paramcount' : str(paramcount)
                                                                 }
+        print("SSS")
+        print (self.function_dictionary[currentscope]["vars"][name])
+        for i in range(len(dim_stack)):
+            self.function_dictionary[currentscope]["vars"][name]["dimensions"].append(dim_stack[i])
+        print("UWU")
+        print (self.function_dictionary[currentscope]["vars"][name])
+        
         #print("PROBANDO")
         #print(self.function_dictionary)
         #print(type(self.function_dictionary))

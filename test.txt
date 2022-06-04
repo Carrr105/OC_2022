@@ -50,7 +50,7 @@ main(){
     } else if (true){
 
     } else {
-        iftest = 0;
+        
     }
 
     while(true){

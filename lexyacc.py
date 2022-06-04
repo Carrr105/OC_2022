@@ -43,8 +43,8 @@ reserved = {
 }
 
 tokens = [
-    'ID', 'CTEF', 'CTEI', 'CTEB', 'CTEC',
-    'OPENPARENTHESES', 'CLOSEPARENTHESES', 'HASHTAG', 'CTE_COMMENT',
+    'OPENPARENTHESES', 'CLOSEPARENTHESES','ID', 'CTEF', 'CTEI', 'CTEB', 'CTEC',
+    'HASHTAG', 'CTE_COMMENT',
     'DOT', 'TWODOTS', 'SEMICOLON',
     'OPENBRACE', 'CLOSEBRACE',
     'GREATER', 'LESS', 'DIFFERENT', 'CTESTRING',
@@ -321,7 +321,7 @@ def p_param(p):
         else:
             address = ci.get_address(type_var, "local")
         if isParamFunc:
-            df.insert_var(scopestack[-1], p[1], type_var, address, paramcount)
+            df.insert_var(scopestack[-1], p[1], type_var, address, [], paramcount)
             paramcount+=1
         else:
             df.insert_var(scopestack[-1], p[1], type_var, address)
@@ -350,10 +350,12 @@ def p_param(p):
         else:
             address = ci.get_address(type_var, "local", value=None, size = reduce(lambda x, y: x*y, dimaux))
         if isParamFunc:
-            df.insert_var(scopestack[-1], p[1], type_var, address, paramcount)
+            df.insert_var(scopestack[-1], p[1], type_var, address, [], paramcount)
             paramcount+=1
         else:
-            df.insert_var(scopestack[-1], p[1], type_var, address)
+            print("dimztack")
+            print(dimstack)
+            df.insert_var(scopestack[-1], p[1], type_var, address, dim_stack=dimstack,)
         dimstack.clear()
         dimaux.clear()
 
@@ -474,11 +476,9 @@ def p_param_read(p):
 def p_asignacion(p):
     '''
     asignacion : ID EQUALS exp SEMICOLON
-        | ID OPENBRACKET asignaciondim EQUALS exp SEMICOLON
+        | id_dim
     '''
     print ("asignación encontrada")
-    if (p[2] == '['):
-        var = df.search(p[1])
 
     if len(p) == 5:
         print("var to look for")
@@ -495,8 +495,13 @@ def p_asignacion(p):
 
 def p_asignaciondim(p):
     '''
-    asignaciondim : exp CLOSEBRACKET OPENBRACKET asignaciondim
-                    | exp CLOSEBRACKET
+    id_dim : ID dims
+    '''
+
+def p_dims(p):
+    '''
+    dims : OPENBRACKET exp CLOSEBRACKET dims
+        | OPENBRACKET exp CLOSEBRACKET
     '''
 
 

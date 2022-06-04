@@ -15,19 +15,23 @@ class CI:
         self.tempCount = 0
         self.paramCount = 0
 
-        self.global_base = 5000
+        self.global_base = 0
         self.local_base = 10000
-        self.ctes_base = 20000
-        self.temporal_base = 25000
+        self.temporal_base = 20000
+        self.ctes_base = 30000
 
         self.char_start = 0
-        self.int_start = 3000
-        self.float_start = 6000
-        self.bool_start = 9000
+        self.int_start = 2500
+        self.float_start = 5000
+        self.bool_start = 7500
+        # termina en 37501
 
         self.main_goto_pos = None
         self.counter = 1
-        self.counter_global = self.counter_local = self.counter_ctes = self.counter_temporal = [0,0,0,0]
+        self.counter_global = [0,0,0,0]
+        self.counter_local = [0,0,0,0]
+        self.counter_ctes = [0,0,0,0]
+        self.counter_temporal = [0,0,0,0]
 
     def get_address(self, result_type, mem_type, value=None, size = 1):
         # count seria la posicion de la lista que se va a modificar
@@ -48,7 +52,7 @@ class CI:
             count = 2
         elif result_type == "bool":
             start = self.bool_start
-            end = 12000 - 1
+            end = 2500 - 1
             count = 3
         else:
             print("type not valid")
@@ -56,26 +60,55 @@ class CI:
         
         if mem_type == "global" :
             address = self.global_base + start + self.counter_global[count]
+            if address + size > self.global_base + start+ end :
+                    print(address)
+                    print(size)
+                    print(start)
+                    print(end)
+                    print(self.global_base+start+ end)
+                    raise TypeError("stack overflow global !")
             self.counter_global[count] += size
         elif mem_type == "local" :
             address = self.local_base + start + self.counter_local[count]
             self.counter_local[count] += size
+            if address + size > self.local_base + start + end :
+                    print(self.local_base+start+ end)
+                    raise TypeError("stack overflow local !")
         elif mem_type == "temporal" :
             address = self.temporal_base + start + self.counter_temporal[count]
+            if address + size > self.temporal_base + start + end :
+                    raise TypeError("stack overflow temporal !")
             self.counter_temporal[count] += size
         elif mem_type == "constants":
-            if value in self.ctes_table.values():
-                return [key for key, v in self.ctes_table.items() if v == value].pop()
-            address = self.ctes_base + start + self.counter_ctes[count]
-            self.ctes_table[address] = value
-            self.counter_ctes[count] += size
+            inv_map = {v: k for k, v in self.ctes_table.items()}
+            print("inverted1")
+            print(inv_map)
+            val = inv_map.get(value)
+            print("value_received")
+            print(value)
+            print("val4")
+            print(val)
+            print("now invmap")
+            print (inv_map)
+            if val != None:
+                address = val
+            else:
+                address = self.ctes_base + start + self.counter_ctes[count]
+                if address + size > self.ctes_base + start + end :
+                    raise TypeError("stack overflow constants !")
+                if result_type=="bool" and address + size > 37502:
+                    print(address)
+                    raise TypeError("stack overflow, too many ctes bool !")
+                self.ctes_table[address] = value
+                self.counter_ctes[count] += size
         
         return address
     
     def reset_counters(self):
-        self.counter_global =  [0,0,0,0]
+        #self.counter_global =  [0,0,0,0]
         self.counter_local =  [0,0,0,0]
-        self.counter_ctes =  [0,0,0,0]
+        # las constantes no se reinician porque son globales
+        #self.counter_ctes =  [0,0,0,0]
         self.counter_temporal = [0,0,0,0]
     
     def new_quadruple(self):
