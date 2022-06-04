@@ -8,14 +8,15 @@ import SemanticCube
 from DirFunc import DirFunc as df
 from CodigoIntermedio import CI as ci
 import re
+from six.moves import reduce
 
 df = df()
 ci = ci()
 
 reserved = {
     'program' : 'PROGRAM',
-    'int' : 'INT',
     'float' : 'FLOAT',
+    'int' : 'INT',
     'char' : 'CHAR',
     'bool' : 'BOOL',
     'print' : 'PRINT',
@@ -42,7 +43,7 @@ reserved = {
 }
 
 tokens = [
-    'ID', 'CTEI', 'CTEF', 'CTEB', 'CTEC',
+    'ID', 'CTEF', 'CTEI', 'CTEB', 'CTEC',
     'OPENPARENTHESES', 'CLOSEPARENTHESES', 'HASHTAG', 'CTE_COMMENT',
     'DOT', 'TWODOTS', 'SEMICOLON',
     'OPENBRACE', 'CLOSEBRACE',
@@ -89,19 +90,21 @@ def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
+def t_CTEF(t):
+    r'-?([0-9])+\.([0-9])*'
+    t.value = float(t.value)
+    return t
+
 def t_CTEI(t):
     r'-?\d+'
     t.value = int(t.value)
     return t
 
-def t_CTEF(t):
-    r'-?\d+\.\d+'
-    t.value = float(t.value)
-    return t
 
 def t_CTEB(t):
     r'^(?i)(TRUE|FALSE)$'
     t.value = bool(t.value)
+    print("hi1")
     return t
 
 def t_CTEC(t):
@@ -133,6 +136,7 @@ type_var = '' # cambiar a stack
 scopestack = []
 resultstack = []
 paramstack = [] 
+dimstack = [] # guarda tamaños de dimensiones de arreglos matrices etc
 
 start = 'programa'
 globalname = ''
@@ -211,7 +215,7 @@ def p_savefuncscope(p):
     ci.reset_counters()
     if (p[-3] == ('int' or 'float' or 'bool')):
         addr=ci.get_address(p[-3], "global")
-        df.insert_var("global",p[-1],p[-3],addr)
+        df.insert_var("global",p[-1],p[-3],addr,isFunction=True)
 
 def p_paramsfunction(p):
     '''
@@ -288,18 +292,60 @@ def p_savetype(p):
 def p_param(p):
     '''
     param : ID
-        | ID OPENBRACKET paramsP CLOSEBRACKET
+        | ID declare_dims
     '''
     global type_var
     print("....currentscope")
     print(df.current_scope)
     print("....xd")
     print(df.function_dictionary['global'])
-    if df.current_scope is df.function_dictionary['global']:
-        address = ci.get_address(type_var, "global")
+    
+    if (len(p)==2):
+        if df.current_scope is df.function_dictionary['global']:
+            address = ci.get_address(type_var, "global")
+        else:
+            address = ci.get_address(type_var, "local")
+        df.insert_var(scopestack[-1], p[1], type_var, address)
     else:
-        address = ci.get_address(type_var, "local")
-    df.insert_var(scopestack[-1], p[1], type_var, address)
+        # guardar variable con direccion base y con el numero de dimensiones
+        print("hola")
+        print("saving as normal id for now")
+        print("dimstack1 received is")
+        global dimstack
+        print(dimstack)
+        # dimaux almacena los valores de las direcciones para calcular el size
+        dimaux = []
+        dct = dict(ci.ctes_table)
+        for i in dimstack:
+            val = dct.get(i)
+            if val != None:
+                if isinstance(val, int) and val > 1:
+                    dimaux.append(val)
+                else:
+                    raise TypeError("really...")
+        #print(ci.ctes_table.values())
+        print("dimauxx")
+        print(dimaux)
+        if df.current_scope is df.function_dictionary['global']:
+            address = ci.get_address(type_var, "global", value=None, size = reduce(lambda x, y: x*y, dimaux))
+        else:
+            address = ci.get_address(type_var, "local", value=None, size = reduce(lambda x, y: x*y, dimaux))
+        df.insert_var(scopestack[-1], p[1], type_var, address)
+        dimstack.clear()
+        dimaux.clear()
+
+def p_declare_dims(p):
+    '''
+    declare_dims : OPENBRACKET exp CLOSEBRACKET declare_dims
+                | OPENBRACKET exp CLOSEBRACKET
+    '''
+    global dimstack
+    if (ci.stTypes.pop()=="int"):
+        dimstack.append(ci.stOperands.pop())
+    else:
+        raise TypeError("dimension should be an int!")
+
+        
 
 def p_paramsP(p):
     '''
@@ -394,7 +440,12 @@ def p_gen_param(p):
 
 def p_lectura(p):
     '''
-    lectura : READ OPENPARENTHESES param CLOSEPARENTHESES SEMICOLON
+    lectura : READ OPENPARENTHESES param_read CLOSEPARENTHESES SEMICOLON
+    '''
+
+def p_param_read(p):
+    '''
+    param_read : 
     '''
 
 def p_asignacion(p):
@@ -408,6 +459,8 @@ def p_asignacion(p):
         print(p[1])
         var = df.search(p[1]) 
         print(var)
+        if (var["function"]=="True"):
+            raise TypeError("no te pases de listo XD, se intentó asignar un valor a una función")
         ci.stOperators.append(p[2])
         ci.stOperands.append(var["address"])
         ci.stTypes.append(var["type"])
@@ -644,17 +697,20 @@ def p_termino(p):
 def p_factor(p):
     # falta meter ids con dimensiones
     '''
-    factor : CTEB
-        | llamada printt
-        | ID
+    factor :
         | CTEF
         | CTEI
         | CTEC
+        | ID
+        | CTEB
+        | llamada printt
         | OPENPARENTHESES exp CLOSEPARENTHESES
     '''
     if (len(p) == 2):
-        if bool(re.match("-?\d+\.\d+", str(p[1]))):
-            print("CTEF found!")
+        print("trying...")
+        print(p[1])
+        if bool(re.match("-?([0-9])+\.([0-9])*", str(p[1]))):
+            print("CTEFf found!")
             #print(parser.token().type)
             address = ci.get_address("float", "constants", p[1])
             ci.stTypes.append("float")
@@ -681,6 +737,8 @@ def p_factor(p):
             address = ci.get_address("char", "constants", p[1])
             ci.stTypes.append("char")
             ci.stOperands.append(address)
+        else:
+            raise TypeError("XD")
         
 def p_empty(p):
     '''

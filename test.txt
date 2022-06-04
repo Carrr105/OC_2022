@@ -20,6 +20,9 @@ function void : myvoidfunction( ){
 
 main(){
     vars int: xd;
+    vars int: xdarray[2];
+    vars float: xdfloat[4][3];
+    vars float: insanefloat[6][7][4][8];
     vars bool: mybool;
     vars bool: myotherbool, myadvancedbool;
     vars char: mychar;
@@ -51,7 +54,7 @@ main(){
     }
 
     while(true){
-        whiletest = 0;
+        whiletest = 34.2;
     }
 
     while(true or false){
@@ -63,4 +66,6 @@ main(){
     }
 
     xd = myfunction (iftest,iftest);
+    # esto de abajo no funciona (está bien, no se permite asignar un valor a una función) #
+    # myfunction = 7; #
 }

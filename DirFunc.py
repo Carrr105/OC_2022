@@ -52,7 +52,7 @@ class DirFunc:
         print(self.function_dictionary[currentscope])
 
     ######### VAR TABLE
-    def insert_var(self, currentscope, name, type_, address):
+    def insert_var(self, currentscope, name, type_, address, isFunction=False):
         currsize = len(self.function_dictionary)
         #print("PROBANDO")
         #print(self.function_dictionary[currentscope])
@@ -60,7 +60,8 @@ class DirFunc:
         # {'vars', 'void'}
         self.function_dictionary[currentscope]["vars"][name] = {
                                                                 'type' : type_,
-                                                                'address' : address
+                                                                'address' : address,
+                                                                'function' : str(isFunction)
                                                                 }
         #print("PROBANDO")
         #print(self.function_dictionary)
