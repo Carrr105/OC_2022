@@ -137,6 +137,8 @@ scopestack = []
 resultstack = []
 paramstack = [] 
 dimstack = [] # guarda tamaños de dimensiones de arreglos matrices etc
+paramcount = 0
+isParamFunc = False
 
 start = 'programa'
 globalname = ''
@@ -192,8 +194,17 @@ def p_clasePP(p):
 
 def p_funcion(p):
     '''
-    funcion : FUNCTION tipo_f TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction savesequence CLOSEPARENTHESES OPENBRACE estatuto CLOSEBRACE
+    funcion : FUNCTION tipo_f TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction savesequence CLOSEPARENTHESES OPENBRACE turnoff estatuto CLOSEBRACE
     '''
+
+def p_turnoff(p):
+    '''
+    turnoff : 
+    '''
+    global paramcount
+    paramcount = 1
+    global isParamFunc
+    isParamFunc = False
 
 def p_tipo_f(p):
     '''
@@ -204,6 +215,10 @@ def p_tipo_f(p):
             | VOID
     '''
     p[0]=p[1]
+    global paramcount
+    paramcount = 1
+    global isParamFunc
+    isParamFunc = True
 
 def p_savefuncscope(p):
     '''
@@ -211,7 +226,7 @@ def p_savefuncscope(p):
     '''
     global scopestack
     scopestack.append(p[-1])
-    df.insert_function(p[-1], p[-3])
+    df.insert_function(p[-1], p[-3], function="True")
     ci.reset_counters()
     if (p[-3] == ('int' or 'float' or 'bool')):
         addr=ci.get_address(p[-3], "global")
@@ -249,7 +264,6 @@ def p_savesequence(p):
     paramstack.clear()
     print("func state")
     print(df.function_dictionary)
-
 
 def p_return(p):
     '''
@@ -295,17 +309,22 @@ def p_param(p):
         | ID declare_dims
     '''
     global type_var
+    global isParamFunc
+    global paramcount
     print("....currentscope")
     print(df.current_scope)
     print("....xd")
     print(df.function_dictionary['global'])
-    
     if (len(p)==2):
         if df.current_scope is df.function_dictionary['global']:
             address = ci.get_address(type_var, "global")
         else:
             address = ci.get_address(type_var, "local")
-        df.insert_var(scopestack[-1], p[1], type_var, address)
+        if isParamFunc:
+            df.insert_var(scopestack[-1], p[1], type_var, address, paramcount)
+            paramcount+=1
+        else:
+            df.insert_var(scopestack[-1], p[1], type_var, address)
     else:
         # guardar variable con direccion base y con el numero de dimensiones
         print("hola")
@@ -330,7 +349,11 @@ def p_param(p):
             address = ci.get_address(type_var, "global", value=None, size = reduce(lambda x, y: x*y, dimaux))
         else:
             address = ci.get_address(type_var, "local", value=None, size = reduce(lambda x, y: x*y, dimaux))
-        df.insert_var(scopestack[-1], p[1], type_var, address)
+        if isParamFunc:
+            df.insert_var(scopestack[-1], p[1], type_var, address, paramcount)
+            paramcount+=1
+        else:
+            df.insert_var(scopestack[-1], p[1], type_var, address)
         dimstack.clear()
         dimaux.clear()
 
@@ -451,9 +474,12 @@ def p_param_read(p):
 def p_asignacion(p):
     '''
     asignacion : ID EQUALS exp SEMICOLON
-        | ID OPENBRACKET paramsP CLOSEBRACKET EQUALS exp SEMICOLON
+        | ID OPENBRACKET asignaciondim EQUALS exp SEMICOLON
     '''
     print ("asignación encontrada")
+    if (p[2] == '['):
+        var = df.search(p[1])
+
     if len(p) == 5:
         print("var to look for")
         print(p[1])
@@ -465,6 +491,14 @@ def p_asignacion(p):
         ci.stOperands.append(var["address"])
         ci.stTypes.append(var["type"])
         ci.new_quadruple()
+    
+
+def p_asignaciondim(p):
+    '''
+    asignaciondim : exp CLOSEBRACKET OPENBRACKET asignaciondim
+                    | exp CLOSEBRACKET
+    '''
+
 
 def p_escritura(p):
     '''
