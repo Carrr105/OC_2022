@@ -60,8 +60,11 @@ class DirFunc:
         #print(self.function_dictionary[currentscope])
         # regresa 
         # {'vars', 'void'}
-        print("dimztack1")
-        print(dim_stack)
+        #print("dimztackuwu")
+        #print(dim_stack)
+        print("valuess")
+        print(currentscope)
+        print(name)
         self.function_dictionary[currentscope]["vars"][name] = {
                                                                 'type' : type_,
                                                                 'address' : address,

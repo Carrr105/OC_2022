@@ -141,6 +141,7 @@ paramcount = 0
 isParamFunc = False
 recorridodimensiones = [] # guarda dimensiones para calcular cuanto hay que recorrer
 R = 1
+functype=""
 
 start = 'programa'
 globalname = ''
@@ -165,6 +166,7 @@ def p_establishglobalscope(p):
     print("global scope name is ")
     print(globalname)
     ci.gen_main_goto() # generacion del goto al main
+    print("just started bro")
 
 def p_programaP(p):
     '''
@@ -173,7 +175,6 @@ def p_programaP(p):
     | funcion programaP
     | CTE_COMMENT programaP
     | bloque
-    | empty
     '''
 
 def p_clase(p):
@@ -217,23 +218,31 @@ def p_tipo_f(p):
             | CHAR
             | VOID
     '''
-    p[0]=p[1]
+    #p[0]=p[1]
+    #p[0]=p[1]
     global paramcount
     paramcount = 1
     global isParamFunc
     isParamFunc = True
+    global functype 
+    functype = p[1]
 
 def p_savefuncscope(p):
     '''
     savefuncscope : 
     '''
     global scopestack
+    global functype
     scopestack.append(p[-1])
-    df.insert_function(p[-1], p[-3], function="True")
+    print("heyboyy1")
+    print (p[-1])
+    print (functype)
+    df.insert_function(p[-1], functype, function="True", )
     ci.reset_counters()
-    if (p[-3] == ('int' or 'float' or 'bool')):
-        addr=ci.get_address(p[-3], "global")
-        df.insert_var("global",p[-1],p[-3],addr,isFunction=True)
+    if functype == 'int' or functype== 'float' or functype== 'bool' or functype== 'char':
+        addr=ci.get_address(functype, "global")
+        df.insert_var("global",p[-1],functype,addr,isFunction=True)
+    functype = ""
 
 def p_paramsfunction(p):
     '''

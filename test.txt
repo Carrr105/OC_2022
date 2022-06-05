@@ -11,10 +11,11 @@ function int : myfunction(float varfunc, float othervarfunc){
 }
 
 function float : myotherfunction(int varfunc1, float othervarfunc2){
-
+    return 1.0;
 }
 
 function void : myvoidfunction( ){
+    mysecondvar = myotherfunction(1,1);
     return;
 }
 
