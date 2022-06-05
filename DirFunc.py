@@ -30,12 +30,13 @@ class DirFunc:
 
 
 
-    def insert_function(self, name, type_, function="False"):
+    def insert_function(self, name, type_, function="False", ip=1):
         self.function_dictionary[name] = {
                                             "type" : type_,
                                             "params" : [],
                                             "function" : function,
                                             "dimensions" : [],
+                                            "ip": ip,
                                             "vars" : {
 
                                                 }

@@ -237,7 +237,7 @@ def p_savefuncscope(p):
     print("heyboyy1")
     print (p[-1])
     print (functype)
-    df.insert_function(p[-1], functype, function="True", )
+    df.insert_function(p[-1], functype, function="True", ip=ci.counter)
     ci.reset_counters()
     if functype == 'int' or functype== 'float' or functype== 'bool' or functype== 'char':
         addr=ci.get_address(functype, "global")
