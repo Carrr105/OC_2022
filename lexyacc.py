@@ -139,6 +139,8 @@ paramstack = []
 dimstack = [] # guarda tamaños de dimensiones de arreglos matrices etc
 paramcount = 0
 isParamFunc = False
+recorridodimensiones = [] # guarda dimensiones para calcular cuanto hay que recorrer
+R = 1
 
 start = 'programa'
 globalname = ''
@@ -345,6 +347,7 @@ def p_param(p):
         #print(ci.ctes_table.values())
         print("dimauxx")
         print(dimaux)
+        # la dirección calculada es la base
         if df.current_scope is df.function_dictionary['global']:
             address = ci.get_address(type_var, "global", value=None, size = reduce(lambda x, y: x*y, dimaux))
         else:
@@ -355,7 +358,8 @@ def p_param(p):
         else:
             print("dimztack")
             print(dimstack)
-            df.insert_var(scopestack[-1], p[1], type_var, address, dim_stack=dimstack,)
+            # se almacenan dimensiones directamente como valores por cuestion de tiempo
+            df.insert_var(scopestack[-1], p[1], type_var, address, dim_stack=dimaux)
         dimstack.clear()
         dimaux.clear()
 
@@ -369,6 +373,7 @@ def p_declare_dims(p):
         dimstack.append(ci.stOperands.pop())
     else:
         raise TypeError("dimension should be an int!")
+
 
         
 
@@ -476,7 +481,7 @@ def p_param_read(p):
 def p_asignacion(p):
     '''
     asignacion : ID EQUALS exp SEMICOLON
-        | id_dim
+        | ID dims EQUALS exp SEMICOLON
     '''
     print ("asignación encontrada")
 
@@ -491,18 +496,49 @@ def p_asignacion(p):
         ci.stOperands.append(var["address"])
         ci.stTypes.append(var["type"])
         ci.new_quadruple()
+    elif len(p) == 6:
+        print("var with dimensions to look for")
+        print(p[1])
+        var = df.search(p[1]) 
+        print(var)
+        if (var["function"]=="True"):
+            raise TypeError("no te pases de listo XD, se intentó asignar un valor a una función")
+        ci.stOperators.append(p[3])
+        global recorridodimensiones
+        global R
+        print("R - 1 =")
+        print(R - 1)
+        # dir base + recorrido
+        ci.stOperands.append(var["address"] + (R - 1))
+        ci.stTypes.append(var["type"])
+        ci.new_quadruple()
+        recorridodimensiones.clear()
+        R = 1
     
-
-def p_asignaciondim(p):
-    '''
-    id_dim : ID dims
-    '''
-
 def p_dims(p):
     '''
-    dims : OPENBRACKET exp CLOSEBRACKET dims
-        | OPENBRACKET exp CLOSEBRACKET
+    dims : OPENBRACKET exp calculate CLOSEBRACKET dims
+        | OPENBRACKET exp calculate CLOSEBRACKET
     '''
+
+def p_calculate(p):
+    '''
+    calculate : 
+    '''
+    global recorridodimensiones
+    global R
+    if (ci.stTypes.pop()=="int"):
+        #recorridodimensiones.append(ci.stOperands.pop())
+        dim = ci.stOperands.pop()
+        print("dimiss")
+        print(dim)
+        dct = dict(ci.ctes_table)
+        val = dct.get(dim)
+        print("dimbasado")
+        print(val)
+        R = R * (val+1)
+    else:
+        raise TypeError("dimension should be inttttt")
 
 
 def p_escritura(p):
