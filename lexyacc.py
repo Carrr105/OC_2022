@@ -778,9 +778,22 @@ def p_factor(p):
         | CTEC
         | ID
         | CTEB
-        | llamada printt
+        | llamada printt printt
         | OPENPARENTHESES exp CLOSEPARENTHESES
+        | ID dims 
     '''
+    if (len(p)==3):
+        print("var with dimensions to look for")
+        print(p[1])
+        var = df.search(p[1]) 
+        print(var)
+        global R
+        print("R - 1 =")
+        print(R - 1)
+        # dir base + recorrido
+        ci.stOperands.append(var["address"] + (R - 1))
+        ci.stTypes.append(var["type"])
+        R = 1
     if (len(p) == 2):
         print("trying...")
         print(p[1])
