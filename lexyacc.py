@@ -559,15 +559,11 @@ def p_escritura(p):
     '''
     escritura : WRITE OPENPARENTHESES escrituraP CLOSEPARENTHESES SEMICOLON
     '''
+    
 
 def p_escrituraP(p):
     '''
-    escrituraP : QUOTATIONMARK CTESTRING QUOTATIONMARK COMMA escrituraP
-        | exp COMMA escrituraP
-        | ID COMMA escrituraP
-        | QUOTATIONMARK CTESTRING QUOTATIONMARK
-        | exp
-        | ID
+    escrituraP : exp
     '''
 
 def p_condicion(p):

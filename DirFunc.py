@@ -69,6 +69,7 @@ class DirFunc:
         self.function_dictionary[currentscope]["vars"][name] = {
                                                                 'type' : type_,
                                                                 'address' : address,
+                                                                'value' : None,
                                                                 'function' : str(isFunction),
                                                                 'dimensions' : [],
                                                                 'paramcount' : str(paramcount)
