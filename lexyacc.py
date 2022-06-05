@@ -173,7 +173,6 @@ def p_programaP(p):
     | funcion programaP
     | CTE_COMMENT programaP
     | bloque
-    | empty
     '''
 
 def p_clase(p):
@@ -232,6 +231,8 @@ def p_savefuncscope(p):
     df.insert_function(p[-1], p[-3], function="True")
     ci.reset_counters()
     if (p[-3] == ('int' or 'float' or 'bool')):
+        print("deee")
+        print(p[-3])
         addr=ci.get_address(p[-3], "global")
         df.insert_var("global",p[-1],p[-3],addr,isFunction=True)
 
@@ -435,6 +436,9 @@ def p_llamada(p):
     '''
     llamada : ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
     '''
+    print("currentscope1")
+    print(df.current_scope)
+    print(df.function_dictionary)
     ci.gen_gosub(p[1])
     var = df.search(p[1])
     print(var)
