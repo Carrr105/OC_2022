@@ -415,7 +415,7 @@ def p_establishmainscope(p):
     '''
     global scopestack
     scopestack.append("main")
-    df.insert_function("main", "void")
+    df.insert_function("main", "void", function="False", ip=ci.counter)
     df.print_functions()
     print("main has been found")
     ci.reset_counters()
