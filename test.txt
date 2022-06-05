@@ -15,7 +15,7 @@ function float : myotherfunction(int varfunc1, float othervarfunc2){
 }
 
 function void : myvoidfunction( ){
-    mysecondvar = myotherfunction(1,1);
+    mysecondvar = myotherfunction(1,2);
     return;
 }
 

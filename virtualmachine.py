@@ -7,10 +7,12 @@ f = open('obj.json')
 # a dictionary
 data = json.load(f)
 dict_ctes = dict(data['ctes_table'])
+dict_func = eval(data['Func_dir'])
 #dict_quad = dict(data['Quadruples'])
 dict_temp = {}
 dict_aux = {}
 cont = 0
+era_jump = 0
 
 function_stack = []
 auxiliar_pair = (1, 2)
@@ -149,12 +151,42 @@ while True:
     
     #SI EL CUADRUPLO ES "ERA"
     if data['Quadruples'][cont][3] == 'ERA':
+        print("--> ERA =", dict_func[data['Quadruples'][cont][4]]['ip'])
+        era_jump = dict_func[data['Quadruples'][cont][4]]['ip'] - 2
+        """
         auxiliar_pair = (dict_temp, cont)
         function_stack.append(auxiliar_pair)
         print("DSDIDI")
         print("-->", function_stack)
         dict_temp.clear()
         print("-->", "dict_temp =", dict_temp)
+        """
+        
+    #SI EL CUADRUPLO ES "PARAM"
+    if data['Quadruples'][cont][1] == 'PARAM':
+        if data['Quadruples'][cont][3] >= 30000:
+            dict_aux[data['Quadruples'][cont][3]] = dict_ctes[data['Quadruples'][cont][3]]
+            print("-->", dict_aux)
+        else:
+            if data['Quadruples'][cont][3] in dict_temp:
+                dict_aux[data['Quadruples'][cont][3]] = dict_temp[data['Quadruples'][cont][3]]
+                print("-->", dict_aux)
+    """         
+    #SI EL CUADRUPLO ES UN "GOSUB"
+    if data['Quadruples'][cont][3] == 'GOSUB':
+        auxiliar_pair = (dict_temp, cont)
+        function_stack.append(auxiliar_pair)
+        print("--> GUARDADO = ", function_stack)
+        dict_temp.clear()
+        print("--> CLEAN = ", dict_temp)
+        cont = era_jump
+    
+    
+    #SI EL CUADRUPLO ES UN "RETURN"
+    if data['Quadruples'][cont][3] == 'RETURN':
+        if data['Quadruples'][cont][2] >= 30000:
+            print("hello")
+    """        
     
     #SI EL CUADRUPLO ES "="
     if data['Quadruples'][cont][1] == '=':
@@ -192,8 +224,12 @@ while True:
     
     cont = cont + 1
 
-print(data['Func_dir'])
-    
+print("JHDCOJUDJD")
+print(dict_func['myotherfunction']['ip'])
+
+print("AQUI VA EL DICCIONARIO DE FUNCIONES")
+print(dict_func)
+
 for i in data['ctes_table']:
     print(i)
 
