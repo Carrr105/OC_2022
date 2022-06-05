@@ -198,6 +198,7 @@ def p_funcion(p):
     '''
     funcion : FUNCTION tipo_f TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction savesequence CLOSEPARENTHESES OPENBRACE turnoff estatuto CLOSEBRACE
     '''
+    ci.gen_endfunc()
 
 def p_turnoff(p):
     '''
@@ -434,10 +435,14 @@ def p_llamada(p):
     '''
     llamada : ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
     '''
+    ci.gen_gosub(p[1])
     var = df.search(p[1])
     print(var)
-    ci.stTypes.append(var["type"])
     ci.stOperands.append(var["address"])
+    ci.stTypes.append(var["type"]) #mexicanada, repetir el append para que no este vacio el stack
+    print("mystackuwu")
+    ci.stOperators.append("=")
+    ci.parche_guadalupano()
 
 
 

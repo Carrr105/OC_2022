@@ -144,6 +144,29 @@ class CI:
             #print("type mismatch!")
             raise TypeError("Type mismatch!")
     
+    def parche_guadalupano(self):
+        print("stack of operators ")
+        print (self.stOperators)
+        print("stack of operands ")
+        print (self.stOperands)
+        print("stack of types ")
+        print (self.stTypes)
+        operator = self.stOperators.pop()
+        rightop = self.stOperands.pop()
+        righttype = self.stTypes.pop()
+
+        result = self.get_address(righttype, "temporal")
+        quadruple = Quadruple(self.counter, operator, None, rightop, result)
+        self.stOperands.append(result) # generacion del temporal 
+        self.stTypes.append(righttype)
+        self.counter = self.counter + 1
+        self.listQuadruples.append(quadruple)
+    
+    def gen_gosub(self, function_name):
+        quad = Quadruple(self.counter, None, None, "GOSUB", function_name)
+        self.listQuadruples.append(quad)
+        self.counter += 1
+
     def print_quadruples(self):
         print("...................")
         print("printing quadruples")
@@ -254,6 +277,11 @@ class CI:
     
     def gen_param(self):
         quad = Quadruple(self.counter, 'PARAM', None, self.stOperands.pop(), None)
+        self.listQuadruples.append(quad)
+        self.counter+=1
+    
+    def gen_endfunc(self):
+        quad = Quadruple(self.counter, 'ENDFUNC', None, None, None)
         self.listQuadruples.append(quad)
         self.counter+=1
     

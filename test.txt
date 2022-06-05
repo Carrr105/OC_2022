@@ -68,10 +68,9 @@ main(){
 
     }
 
-    xd = myfunction (iftest,iftest);
-
     xdfloat[0][0] = 3.4;
     otherxd = insanefloat[3][2][1][2];
     # esto de abajo no funciona (está bien, no se permite asignar un valor a una función) #
     # myfunction = 7; #
+    xd = myfunction (iftest,iftest) + 1;
 }
