@@ -162,6 +162,24 @@ class CI:
         self.counter = self.counter + 1
         self.listQuadruples.append(quadruple)
     
+    def gen_write(self):
+        operator = self.stOperators.pop()
+        rightop = self.stOperands.pop()
+        righttype = self.stTypes.pop()
+
+        quadruple = Quadruple(self.counter, operator, None, None, rightop)
+        self.counter = self.counter + 1
+        self.listQuadruples.append(quadruple)
+    
+    def gen_read(self):
+        operator = self.stOperators.pop()
+        rightop = self.stOperands.pop()
+        righttype = self.stTypes.pop()
+
+        quadruple = Quadruple(self.counter, operator, None, None, rightop)
+        self.counter = self.counter + 1
+        self.listQuadruples.append(quadruple)
+    
     def gen_gosub(self, function_name):
         quad = Quadruple(self.counter, None, None, "GOSUB", function_name)
         self.listQuadruples.append(quad)
@@ -295,6 +313,8 @@ class CI:
         quad = Quadruple(self.counter, None, None, 'RETURN', name)
         self.listQuadruples.append(quad)
         self.counter += 1
+    
+    
     
     def new_obj_file(self, df):
         newfile = {

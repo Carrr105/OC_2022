@@ -1,0 +1,26 @@
+program test4;
+
+vars int : xd;
+function int : sumDos(int uno, int dos){
+    write ( uno + dos);
+}
+
+class MyClass{ 
+    # primero vars, despues funciones#
+    vars int : myclassvar;
+    vars int : first;
+
+    function int : myclassfunction(){
+        first = 5 + 4;
+    }
+}
+
+function float : sumUno(int tres, float unu){
+    write ( tres + xd);
+}
+
+main(){
+    vars int : myint;
+    vars MyClass : uwu, uwu2;
+    xd = sumDos( 1*8+7 , 2 ) ;
+}

@@ -3,6 +3,16 @@ program test;
 vars int : myfirstvar, mysecondvar;
 vars bool: myothervar;
 
+class MyClass{ 
+    # primero vars, despues funciones#
+    vars int : myclassvar;
+    vars int : first;
+
+    function int : myclassfunction(){
+        first = 5 + 4;
+    }
+}
+
 function int : myfunction(float varfunc, float othervarfunc){
     vars int: myfunnyvar, mynegativevar;
     myfunnyvar = 0;
@@ -20,6 +30,7 @@ function void : myvoidfunction( ){
 }
 
 main(){
+    vars MyClass : xdd;
     vars int: xd;
     vars int: xdarray[2];
     vars float: xdfloat[4][3];
@@ -57,8 +68,9 @@ main(){
         
     }
 
-    while(true){
+    while(myotherbool){
         whiletest = 34.2;
+        myotherbool = false;
     }
 
     while(true or false){
@@ -69,9 +81,15 @@ main(){
 
     }
 
-    xdfloat[0][0] = 3.4;
+    xdfloat[3][2] = 3.4;
     otherxd = insanefloat[3][2][1][2];
     # esto de abajo no funciona (está bien, no se permite asignar un valor a una función) #
     # myfunction = 7; #
     xd = myfunction (iftest,iftest) + 1;
+    write("hola");
+    write(xd);
+    write(xd + 1);
+    read(xd);
+    # esto de abajo truena como sapo#
+    #read(xd+1);#
 }

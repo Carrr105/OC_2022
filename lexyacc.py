@@ -142,6 +142,9 @@ isParamFunc = False
 recorridodimensiones = [] # guarda dimensiones para calcular cuanto hay que recorrer
 R = 1
 functype=""
+currdimlist = [] #contiene las dimensiones de la variable en cuestion
+isClass = False
+myvars = {}
 
 start = 'programa'
 globalname = ''
@@ -179,19 +182,36 @@ def p_programaP(p):
 
 def p_clase(p):
     '''
-    clase : CLASS ID OPENBRACE claseP CLOSEBRACE
+    clase : CLASS ID insert_class OPENBRACE claseP CLOSEBRACE
     '''
+    global isClass
+    isClass=False
+
+def p_insert_class(p):
+    '''
+    insert_class : 
+    '''
+    global scopestack
+    scopestack.append(p[-1])
+    print("heyboyy1")
+    print (p[-1])
+    df.insert_class(p[-1])
+    global isClass
+    isClass=True
+    ci.reset_counters()
 
 ## cero o más declaraciones de vars. 
 def p_claseP(p):
     '''
-    claseP : vars clasePP
+    claseP : vars claseP
+         | CTE_COMMENT claseP
          | clasePP
     '''
 # cero o más funcion
 def p_clasePP(p):
     '''
     clasePP : funcion clasePP
+            | CTE_COMMENT claseP
             | empty
     '''
 
@@ -231,18 +251,31 @@ def p_savefuncscope(p):
     '''
     savefuncscope : 
     '''
+    global isClass
     global scopestack
     global functype
-    scopestack.append(p[-1])
-    print("heyboyy1")
-    print (p[-1])
-    print (functype)
-    df.insert_function(p[-1], functype, function="True", ip=ci.counter)
-    ci.reset_counters()
-    if functype == 'int' or functype== 'float' or functype== 'bool' or functype== 'char':
-        addr=ci.get_address(functype, "global")
-        df.insert_var("global",p[-1],functype,addr,isFunction=True)
-    functype = ""
+    if not isClass:
+        print("entre2")
+        scopestack.append(p[-1])
+        print("heyboyy1")
+        print (p[-1])
+        print (functype)
+        ci.reset_counters()
+        df.insert_function(p[-1], functype, function="True", ip=ci.counter)
+        if functype == 'int' or functype== 'float' or functype== 'bool' or functype== 'char':
+            addr=ci.get_address(functype, "global")
+            df.insert_var("global",p[-1],functype,addr,isFunction=True)
+        functype = ""
+    else:
+        print("p1is")
+        print(p[-1])
+        df.insert_function(p[-1], functype, function="True", ip=ci.counter, isClass = isClass)
+        if functype == 'int' or functype== 'float' or functype== 'bool' or functype== 'char':
+            addr=ci.get_address(functype, "local")
+            df.insert_var("local",p[-1],functype,addr,isFunction=True, isClass=isClass)
+        functype = ""
+
+
 
 def p_paramsfunction(p):
     '''
@@ -269,10 +302,11 @@ def p_savesequence(p):
     savesequence : 
     '''
     global paramstack
-    print("insertin2 sequence...")
+    global isClass
+    print("insertin3 sequence...")
     print(paramstack)
     print (scopestack[-1])
-    df.insert_param_types(scopestack[-1], paramstack)
+    df.insert_param_types(scopestack[-1], paramstack, isClass=isClass)
     paramstack.clear()
     print("func state")
     print(df.function_dictionary)
@@ -314,6 +348,13 @@ def p_savetype(p):
     type_var = p[-1]
     print("type_var is ")
     print(type_var)
+    print("verifying...")
+    print (type_var)
+    print(type(type_var))
+    if type_var != "int" and type_var != "char" and type_var != "bool" and type_var != "float":
+        verify = df.search_class(type_var)
+        print("verified")
+        print(verify)
 
 def p_param(p):
     '''
@@ -323,6 +364,8 @@ def p_param(p):
     global type_var
     global isParamFunc
     global paramcount
+    global isClass
+    global myvars
     print("....currentscope")
     print(df.current_scope)
     print("....xd")
@@ -330,13 +373,42 @@ def p_param(p):
     if (len(p)==2):
         if df.current_scope is df.function_dictionary['global']:
             address = ci.get_address(type_var, "global")
+            df.insert_var(scopestack[-1], p[1], type_var, address, [], 0, isFunction=False, isClass=isClass)
+        elif type_var != "int" and type_var != "char" and type_var != "bool" and type_var != "float" and isClass == False:
+            address = -1
+            print("l00k1")
+            print(type_var)
+            myvarfromclass = df.search_class(type_var)
+            myvars = myvarfromclass["vars"]
+            print("beforecycle")
+            print(ci.counter_local)
+            print("letstry1")
+            print(df.current_name)
+            mylist = []
+            for k,v in myvars.items():
+                mylist.append((k,v["type"],v["value"],ci.get_address(v["type"], "local")))
+                print(v)
+                print("info2")
+                print(k)
+                print(v["address"])
+            print("aftercycle")
+            print(ci.counter_local)
+            print("newmyvars")
+            print(myvars)
+            if not isParamFunc:
+                df.insert_var(scopestack[-1], p[1], type_var, address, [], 0, isFunction=False, isClass=isClass, myvarss=mylist)
+        elif isClass:
+            address = ci.get_address(type_var, "local")
+            df.insert_var(scopestack[-1], p[1], type_var, address, [], 0, isFunction=False, isClass=isClass)
         else:
             address = ci.get_address(type_var, "local")
-        if isParamFunc:
-            df.insert_var(scopestack[-1], p[1], type_var, address, [], paramcount)
-            paramcount+=1
-        else:
-            df.insert_var(scopestack[-1], p[1], type_var, address)
+            if isParamFunc:
+                df.insert_var(scopestack[-1], p[1], type_var, address, [], paramcount, isFunction=False, isClass=isClass)
+                paramcount+=1
+            df.insert_var(scopestack[-1], p[1], type_var, address, [], 0, isFunction=False, isClass=isClass)
+            
+            
+        myvars = {}
     else:
         # guardar variable con direccion base y con el numero de dimensiones
         print("hola")
@@ -358,18 +430,21 @@ def p_param(p):
         print("dimauxx")
         print(dimaux)
         # la dirección calculada es la base
-        if df.current_scope is df.function_dictionary['global']:
+        if df.current_scope is df.function_dictionary['global'] and not isClass:
             address = ci.get_address(type_var, "global", value=None, size = reduce(lambda x, y: x*y, dimaux))
         else:
-            address = ci.get_address(type_var, "local", value=None, size = reduce(lambda x, y: x*y, dimaux))
+            if not isClass:
+                address = ci.get_address(type_var, "local", value=None, size = reduce(lambda x, y: x*y, dimaux))
+            else:
+                address = None
         if isParamFunc:
-            df.insert_var(scopestack[-1], p[1], type_var, address, [], paramcount)
+            df.insert_var(scopestack[-1], p[1], type_var, address, [], paramcount, isFunction=False, isClass=isClass)
             paramcount+=1
         else:
             print("dimztack")
             print(dimstack)
             # se almacenan dimensiones directamente como valores por cuestion de tiempo
-            df.insert_var(scopestack[-1], p[1], type_var, address, dim_stack=dimaux)
+            df.insert_var(scopestack[-1], p[1], type_var, address, dimaux, 0, isFunction=False, isClass=isClass)
         dimstack.clear()
         dimaux.clear()
 
@@ -399,8 +474,17 @@ def p_tipo(p):
          | FLOAT
          | CHAR
          | BOOL
+         | ID
     '''
     p[0] = p[1]
+
+
+def p_class(p):
+    '''
+    class : 
+    '''
+    
+
 
 def p_bloque(p):
     '''
@@ -439,7 +523,6 @@ def p_declaracion(p):
     '''
     declaracion : vars
     '''
-
 def p_llamada(p):
     '''
     llamada : ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
@@ -451,7 +534,7 @@ def p_llamada(p):
     ci.stTypes.append(var["type"]) #mexicanada, repetir el append para que no este vacio el stack
     print("mystackuwu")
     ci.stOperators.append("=")
-    ci.parche_guadalupano()
+    #ci.parche_guadalupano()
 
 
 
@@ -484,8 +567,37 @@ def p_gen_param(p):
 
 def p_lectura(p):
     '''
-    lectura : READ OPENPARENTHESES param_read CLOSEPARENTHESES SEMICOLON
+    lectura : READ OPENPARENTHESES ID CLOSEPARENTHESES SEMICOLON
+            | READ OPENPARENTHESES ID dims CLOSEPARENTHESES SEMICOLON
     '''
+    if (len(p)==6):
+        print("var to look for")
+        print(p[3])
+        var = df.search(p[3]) 
+        print(var)
+        if (var["function"]=="True"):
+            raise TypeError("XD, no se puede asignar valor a una función")
+        ci.stOperators.append(p[1])
+        ci.stOperands.append(var["address"])
+        ci.stTypes.append(var["type"])
+        ci.gen_read()
+    if (len(p)==7):
+        var = df.search(p[3]) 
+        print(var)
+        if (var["function"]=="True"):
+            raise TypeError("XD, no se puede leer una funcion")
+        ci.stOperators.append(p[1])
+        global recorridodimensiones
+        global R
+        print("R -1 =")
+        print(R - 1)
+        # dir base + recorrido
+        ci.stOperands.append(var["address"] + (R - 1))
+        ci.stTypes.append(var["type"])
+        ci.gen_read()
+        recorridodimensiones.clear()
+        R = 1
+
 
 def p_param_read(p):
     '''
@@ -495,7 +607,7 @@ def p_param_read(p):
 def p_asignacion(p):
     '''
     asignacion : ID EQUALS exp SEMICOLON
-        | ID dims EQUALS exp SEMICOLON
+        | ID retrieve_var_dims dims EQUALS exp SEMICOLON
     '''
     print ("asignación encontrada")
 
@@ -514,6 +626,7 @@ def p_asignacion(p):
         print("var with dimensions to look for")
         print(p[1])
         var = df.search(p[1]) 
+        print("unuchan")
         print(var)
         if (var["function"]=="True"):
             raise TypeError("no te pases de listo XD, se intentó asignar un valor a una función")
@@ -529,6 +642,15 @@ def p_asignacion(p):
         recorridodimensiones.clear()
         R = 1
     
+def p_retrieve_var_dims(p):
+    '''
+    retrieve_var_dims : 
+    '''
+    global currdimlist
+    var = df.search(p[-1]) 
+    currdimlist = var["dimensions"]
+
+
 def p_dims(p):
     '''
     dims : OPENBRACKET exp calculate CLOSEBRACKET dims
@@ -541,6 +663,7 @@ def p_calculate(p):
     '''
     global recorridodimensiones
     global R
+    global currdimlist
     if (ci.stTypes.pop()=="int"):
         #recorridodimensiones.append(ci.stOperands.pop())
         dim = ci.stOperands.pop()
@@ -550,7 +673,17 @@ def p_calculate(p):
         val = dct.get(dim)
         print("dimbasado")
         print(val)
-        R = R * (val+1)
+        if len(currdimlist) != 0:
+            currdimfromvar = currdimlist.pop()
+            print("now comparing2")
+            print(currdimfromvar)
+            print(val)
+        else:
+            raise TypeError("se introdujeron mas dimensiones de las que tiene la variable")
+        if val >= 0 and val < currdimfromvar:
+            R = R * (val+1)
+        else:
+            raise TypeError("indice no valido")
     else:
         raise TypeError("dimension should be inttttt")
 
@@ -559,12 +692,24 @@ def p_escritura(p):
     '''
     escritura : WRITE OPENPARENTHESES escrituraP CLOSEPARENTHESES SEMICOLON
     '''
+    ci.stOperators.append(p[1])
+    ci.gen_write()
     
 
 def p_escrituraP(p):
     '''
     escrituraP : exp
+                | writestring
     '''
+
+def p_writestring(p):
+    '''
+    writestring : CTESTRING
+    '''
+    print ("CTE string found!")
+    address = ci.get_address("char", "constants", p[1])
+    ci.stTypes.append("char")
+    ci.stOperands.append(address)
 
 def p_condicion(p):
     '''
@@ -790,7 +935,7 @@ def p_factor(p):
         | CTEB
         | llamada printt printt
         | OPENPARENTHESES exp CLOSEPARENTHESES
-        | ID dims 
+        | ID retrieve_var_dims dims 
     '''
     if (len(p)==3):
         print("var with dimensions to look for")
@@ -852,7 +997,7 @@ parser = yacc.yacc()
 
 if __name__ == '__main__':
     try:
-        archivo = open('test.txt','r')
+        archivo = open('./tests/test5.txt','r')
         info = archivo.read()
         lexer.input(info)
         #tokenize
