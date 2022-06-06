@@ -1,0 +1,18 @@
+program test;
+
+function int : sumDos(int uno, int dos){
+    vars int : variableFunc;
+    variableFunc = uno + dos;
+    write(variableFunc);
+    if(variableFunc < 20){
+        return(sumDos(uno+1, dos+1));
+    } else {
+        return(variableFunc);
+    }
+}
+
+main(){
+    vars int : prueba;
+    prueba = sumDos( 1*8+7 , 2 ) ;
+    write(prueba);
+}

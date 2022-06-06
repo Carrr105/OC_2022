@@ -38,6 +38,7 @@ while True:
     
     #SI EL CUADRUPLO ES UN "GOSUB"
     if data['Quadruples'][cont][3] == 'GOSUB':
+        contador_guadalupano = 0
         dict_copy = dict(dict_temp)
         auxiliar_pair = (dict_copy, cont+1)
         function_stack.append(auxiliar_pair)
