@@ -206,11 +206,10 @@ class DirFunc:
         elif var_name in self.function_dictionary["global"]["vars"]:
             return self.function_dictionary["global"]["vars"][var_name]
         else:
-            if not function:
-                print(var_name)
-                raise NameError("{var_name} not defined")
-            elif var_name in self.function_dictionary:
+            if var_name in self.function_dictionary:
                 return "void"
+            elif not function:
+                raise NameError("{var_name} not defined lol")
             else:
                 raise NameError("{var_name} not defined lol")
         

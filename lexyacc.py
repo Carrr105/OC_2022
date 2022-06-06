@@ -145,6 +145,7 @@ functype=""
 currdimlist = [] #contiene las dimensiones de la variable en cuestion
 isClass = False
 myvars = {}
+isVoid=False
 
 start = 'programa'
 globalname = ''
@@ -509,6 +510,7 @@ def p_estatuto(p):
     '''
     estatuto : asignacion estatuto
         | llamada estatuto
+        | llamadavoid estatuto
         | lectura estatuto
         | escritura estatuto
         | repeticion estatuto
@@ -529,12 +531,33 @@ def p_llamada(p):
     '''
     ci.gen_gosub(p[1])
     var = df.search(p[1])
+    print("holixd")
     print(var)
+    var = df.search(p[1])
     ci.stOperands.append(var["address"])
     ci.stTypes.append(var["type"]) #mexicanada, repetir el append para que no este vacio el stack
     print("mystackuwu")
     ci.stOperators.append("=")
     #ci.parche_guadalupano()
+
+def p_llamadavoid(p):
+    '''
+    llamadavoid : ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES SEMICOLON
+    '''
+    ci.gen_gosub(p[1])
+    var = df.search(p[1], function=False)
+    print("holixd")
+    print(var)
+    if (var != "void"):
+        var = df.search(p[1])
+        ci.stOperands.append(var["address"])
+        ci.stTypes.append(var["type"]) #mexicanada, repetir el append para que no este vacio el stack
+        print("mystackuwu")
+        ci.stOperators.append("=")
+    #ci.parche_guadalupano()
+    global isVoid
+    isVoid = False
+
 
 
 
@@ -546,11 +569,16 @@ def p_gen_era(p):
     print(p[-1])
     #var = df.search(p[-1])
     ci.gen_era(p[-1])
+    var = df.search(p[-1])
+    global isVoid
+    if (var == "void"):
+        isVoid=True
 
 def p_param_call(p):
     '''
     param_call : exp gen_param printt
                 | exp gen_param COMMA param_call
+                | empty
     '''
 
 def p_printt(p):
@@ -563,7 +591,9 @@ def p_gen_param(p):
     '''
     gen_param : 
     '''
-    ci.gen_param()
+    global isVoid
+    if not isVoid:
+        ci.gen_param()
 
 def p_lectura(p):
     '''
