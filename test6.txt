@@ -1,0 +1,10 @@
+program test;
+
+main(){
+    vars int : prueba;
+    vars int : pruebaDos;
+    prueba = 2;
+    prueba = 2 + 2;
+    pruebaDos = 8 * prueba;
+    prueba = pruebaDos - 6;
+}
