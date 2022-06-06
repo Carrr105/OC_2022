@@ -17,6 +17,8 @@ cont = 0
 contador_guadalupano = 0
 function_name = ''
 era_jump = 0
+int_aux = 0
+main_quad = 0
 
 function_stack = []
 auxiliar_pair = (1, 2)
@@ -373,13 +375,27 @@ while True:
         #     dict_temp[data['Quadruples'][cont][4]] = dict_func['global']['vars'][function_name]['value']
         #     print(dict_func['global']['vars'][function_name]['value'])
         #     print("-->", dict_aux)
-        else:
-            print("SI ESTOY ENTRANDO")
-            for function, value in dict_func[function_name]['vars'].items():
+        elif data['Quadruples'][cont][0] > main_quad:
+            print("SI ESTOY ENTRANDO A MAYOR QUE MAIN")
+            for function, value in dict_func['global']['vars'].items():
                 if value['address'] == data['Quadruples'][cont][3]:
-                    dict_temp[value['address']] = value['value']
+                    int_aux = value['value']
                     print("-->", "dict_temp =", dict_temp)
-                
+            for function, value in dict_func['main']['vars'].items():
+                if value['address'] == data['Quadruples'][cont][4]:
+                    value['value'] = int_aux
+                    print("-->", "dict_temp =", dict_temp)
+        else:
+            print("SI ESTOY ENTRANDO A menor QUE MAIN")
+            for function, value in dict_func['global']['vars'].items():
+                if value['address'] == data['Quadruples'][cont][3]:
+                    int_aux = value['value']
+                    print("-->", "dict_temp =", dict_temp)
+            for function, value in dict_func[function_name]['vars'].items():
+                if value['address'] == data['Quadruples'][cont][4]:
+                    value['value'] = int_aux
+                    print("-->", "dict_temp =", dict_temp)    
+                    
     #SI EL CUADRUPLO ES "or"         
     if data['Quadruples'][cont][1] == 'or':
         dict_temp[data['Quadruples'][cont][4]] = "false"
@@ -433,6 +449,8 @@ while True:
 
     #SI EL CUADRUPLO ES GOTO
     if data['Quadruples'][cont][3] == 'GOTO':
+        if data['Quadruples'][cont][0] == 1:
+            main_quad = data['Quadruples'][cont][4] - 2
         print(data['Quadruples'][cont][4])
         cont = data['Quadruples'][cont][4] - 2 #Brinca uno antes del cuadruplo por cont + 1
         
@@ -454,6 +472,18 @@ while True:
             print(dict_ctes[data['Quadruples'][cont][4]])
         elif data['Quadruples'][cont][4] in dict_temp:
             print(dict_temp[data['Quadruples'][cont][4]])
+        elif data['Quadruples'][cont][0] > main_quad:
+            print("SI ESTOY ENTRANDO A MAYOR QUE MAIN")
+            for function, value in dict_func['main']['vars'].items():
+                if value['address'] == data['Quadruples'][cont][4]:
+                    print(value['value'])
+                    print("-->", "dict_temp =", dict_temp)
+        else:
+            print("SI ESTOY ENTRANDO A menor QUE MAIN")
+            for function, value in dict_func[function_name]['vars'].items():
+                if value['address'] == data['Quadruples'][cont][4]:
+                    print(value['value'])
+                    print("-->", "dict_temp =", dict_temp)
             
     #SI EL CUADRUPLO ES "read"
     if data['Quadruples'][cont][1] == 'read':

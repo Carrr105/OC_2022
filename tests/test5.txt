@@ -7,4 +7,5 @@ function int : sumDos(int uno, int dos){
 main(){
     vars int : prueba;
     prueba = sumDos( 1*8+7 , 2 ) ;
+    write(prueba);
 }
