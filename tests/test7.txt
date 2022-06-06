@@ -1,0 +1,19 @@
+program test;
+
+main(){
+    vars int : prueba;
+    vars int : pruebaDos;
+    prueba = 2;
+    prueba = 2 + 2;
+    pruebaDos = 20;
+    
+    while(prueba < 10){
+        write(prueba);
+        prueba = prueba + 1;
+    }
+
+    while(pruebaDos <= 23){
+        write(pruebaDos);
+        pruebaDos = pruebaDos + 1;
+    }
+}

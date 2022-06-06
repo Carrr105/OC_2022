@@ -7,4 +7,7 @@ main(){
     prueba = 2 + 2;
     pruebaDos = 8 * prueba;
     prueba = pruebaDos - 6;
+
+    read(pruebaDos);
+    write(pruebaDos);
 }

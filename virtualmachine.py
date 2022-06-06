@@ -345,15 +345,7 @@ while True:
                     dict_temp[value['address']] = value['value']
                     print("-->", "dict_temp =", dict_temp)
                 
-    #SI EL CUADRUPLO ES "or"
-    """
-    if data['Quadruples'][cont][1] == 'or':
-        if data['Quadruples'][cont][3] >= 30000:
-            print("-->", dict_ctes.get(data['Quadruples'][cont][2]), "or", dict_ctes.get(data['Quadruples'][cont][3]))
-            if dict_ctes.get(data['Quadruples'][cont][2]) == "true" or dict_ctes.get(data['Quadruples'][cont][3]) == "true":
-                dict_temp[data['Quadruples'][cont][4]] = "true"
-                print("-->", "dict_temp =", dict_temp)
-    """           
+    #SI EL CUADRUPLO ES "or"         
     if data['Quadruples'][cont][1] == 'or':
         dict_temp[data['Quadruples'][cont][4]] = "false"
         #Si el primer valor esta en la tabla de constantes 30000
@@ -398,6 +390,156 @@ while True:
                 if dict_temp[data['Quadruples'][cont][1]] == "false":
                     print(data['Quadruples'][cont][4])
                     cont = data['Quadruples'][cont][4] - 2 #Brinca uno antes del cuadruplo por cont + 1
+                    
+    #SI EL CUADRUPLO ES "write"
+    if data['Quadruples'][cont][1] == 'write':
+        if data['Quadruples'][cont][4] >= 30000:
+            print(dict_ctes[data['Quadruples'][cont][4]])
+        elif data['Quadruples'][cont][4] in dict_temp:
+            print(dict_temp[data['Quadruples'][cont][4]])
+            
+    #SI EL CUADRUPLO ES "read"
+    if data['Quadruples'][cont][1] == 'read':
+        if data['Quadruples'][cont][4] >= 30000:
+            dict_temp[data['Quadruples'][cont][4]] = input()
+            print("input =", dict_temp[data['Quadruples'][cont][4]])
+        elif data['Quadruples'][cont][4] in dict_temp:
+            dict_temp[data['Quadruples'][cont][4]] = input()
+            print("input =", dict_temp[data['Quadruples'][cont][4]])
+
+    #AQUI COMIENZAN TODOS LOS OPERADORES RELACIONALES
+
+    #SI EL CUADRUPLO ES '<'
+    if data['Quadruples'][cont][1] == '<':
+        dict_temp[data['Quadruples'][cont][4]] = "false"
+        #Si el primer valor esta en la tabla de constantes 30000
+        if data['Quadruples'][cont][2] >= 30000:
+            #Verificamos el segundo valor en todas sus formas
+            if data['Quadruples'][cont][3] >= 30000:
+                if dict_ctes.get(data['Quadruples'][cont][2]) < dict_ctes.get(data['Quadruples'][cont][3]):
+                    dict_temp[data['Quadruples'][cont][4]] = "true"
+            else:
+                if data['Quadruples'][cont][3] in dict_temp:
+                    if dict_ctes.get(data['Quadruples'][cont][2]) < dict_temp[data['Quadruples'][cont][3]]:
+                        dict_temp[data['Quadruples'][cont][4]] = "true"
+        else:
+                if data['Quadruples'][cont][3] >= 30000:
+                    if dict_temp[data['Quadruples'][cont][2]] < dict_ctes.get(data['Quadruples'][cont][3]):
+                        dict_temp[data['Quadruples'][cont][4]] = "true"
+                else:
+                    if data['Quadruples'][cont][3] in dict_temp:
+                        if dict_temp[data['Quadruples'][cont][2]] < dict_temp[data['Quadruples'][cont][3]]:
+                            dict_temp[data['Quadruples'][cont][4]] = "true"
+                            
+    #SI EL CUADRUPLO ES '<='
+    if data['Quadruples'][cont][1] == '<=':
+        dict_temp[data['Quadruples'][cont][4]] = "false"
+        #Si el primer valor esta en la tabla de constantes 30000
+        if data['Quadruples'][cont][2] >= 30000:
+            #Verificamos el segundo valor en todas sus formas
+            if data['Quadruples'][cont][3] >= 30000:
+                if dict_ctes.get(data['Quadruples'][cont][2]) <= dict_ctes.get(data['Quadruples'][cont][3]):
+                    dict_temp[data['Quadruples'][cont][4]] = "true"
+            else:
+                if data['Quadruples'][cont][3] in dict_temp:
+                    if dict_ctes.get(data['Quadruples'][cont][2]) <= dict_temp[data['Quadruples'][cont][3]]:
+                        dict_temp[data['Quadruples'][cont][4]] = "true"
+        else:
+                if data['Quadruples'][cont][3] >= 30000:
+                    if dict_temp[data['Quadruples'][cont][2]] <= dict_ctes.get(data['Quadruples'][cont][3]):
+                        dict_temp[data['Quadruples'][cont][4]] = "true"
+                else:
+                    if data['Quadruples'][cont][3] in dict_temp:
+                        if dict_temp[data['Quadruples'][cont][2]] <= dict_temp[data['Quadruples'][cont][3]]:
+                            dict_temp[data['Quadruples'][cont][4]] = "true"
+                            
+    #SI EL CUADRUPLO ES '>'
+    if data['Quadruples'][cont][1] == '>':
+        dict_temp[data['Quadruples'][cont][4]] = "false"
+        #Si el primer valor esta en la tabla de constantes 30000
+        if data['Quadruples'][cont][2] >= 30000:
+            #Verificamos el segundo valor en todas sus formas
+            if data['Quadruples'][cont][3] >= 30000:
+                if dict_ctes.get(data['Quadruples'][cont][2]) > dict_ctes.get(data['Quadruples'][cont][3]):
+                    dict_temp[data['Quadruples'][cont][4]] = "true"
+            else:
+                if data['Quadruples'][cont][3] in dict_temp:
+                    if dict_ctes.get(data['Quadruples'][cont][2]) > dict_temp[data['Quadruples'][cont][3]]:
+                        dict_temp[data['Quadruples'][cont][4]] = "true"
+        else:
+                if data['Quadruples'][cont][3] >= 30000:
+                    if dict_temp[data['Quadruples'][cont][2]] > dict_ctes.get(data['Quadruples'][cont][3]):
+                        dict_temp[data['Quadruples'][cont][4]] = "true"
+                else:
+                    if data['Quadruples'][cont][3] in dict_temp:
+                        if dict_temp[data['Quadruples'][cont][2]] > dict_temp[data['Quadruples'][cont][3]]:
+                            dict_temp[data['Quadruples'][cont][4]] = "true"
+                            
+    #SI EL CUADRUPLO ES '>='
+    if data['Quadruples'][cont][1] == '>=':
+        dict_temp[data['Quadruples'][cont][4]] = "false"
+        #Si el primer valor esta en la tabla de constantes 30000
+        if data['Quadruples'][cont][2] >= 30000:
+            #Verificamos el segundo valor en todas sus formas
+            if data['Quadruples'][cont][3] >= 30000:
+                if dict_ctes.get(data['Quadruples'][cont][2]) >= dict_ctes.get(data['Quadruples'][cont][3]):
+                    dict_temp[data['Quadruples'][cont][4]] = "true"
+            else:
+                if data['Quadruples'][cont][3] in dict_temp:
+                    if dict_ctes.get(data['Quadruples'][cont][2]) >= dict_temp[data['Quadruples'][cont][3]]:
+                        dict_temp[data['Quadruples'][cont][4]] = "true"
+        else:
+                if data['Quadruples'][cont][3] >= 30000:
+                    if dict_temp[data['Quadruples'][cont][2]] >= dict_ctes.get(data['Quadruples'][cont][3]):
+                        dict_temp[data['Quadruples'][cont][4]] = "true"
+                else:
+                    if data['Quadruples'][cont][3] in dict_temp:
+                        if dict_temp[data['Quadruples'][cont][2]] >= dict_temp[data['Quadruples'][cont][3]]:
+                            dict_temp[data['Quadruples'][cont][4]] = "true"
+                            
+    #SI EL CUADRUPLO ES '=='
+    if data['Quadruples'][cont][1] == '==':
+        dict_temp[data['Quadruples'][cont][4]] = "false"
+        #Si el primer valor esta en la tabla de constantes 30000
+        if data['Quadruples'][cont][2] >= 30000:
+            #Verificamos el segundo valor en todas sus formas
+            if data['Quadruples'][cont][3] >= 30000:
+                if dict_ctes.get(data['Quadruples'][cont][2]) == dict_ctes.get(data['Quadruples'][cont][3]):
+                    dict_temp[data['Quadruples'][cont][4]] = "true"
+            else:
+                if data['Quadruples'][cont][3] in dict_temp:
+                    if dict_ctes.get(data['Quadruples'][cont][2]) == dict_temp[data['Quadruples'][cont][3]]:
+                        dict_temp[data['Quadruples'][cont][4]] = "true"
+        else:
+                if data['Quadruples'][cont][3] >= 30000:
+                    if dict_temp[data['Quadruples'][cont][2]] == dict_ctes.get(data['Quadruples'][cont][3]):
+                        dict_temp[data['Quadruples'][cont][4]] = "true"
+                else:
+                    if data['Quadruples'][cont][3] in dict_temp:
+                        if dict_temp[data['Quadruples'][cont][2]] == dict_temp[data['Quadruples'][cont][3]]:
+                            dict_temp[data['Quadruples'][cont][4]] = "true"
+                            
+    #SI EL CUADRUPLO ES '!='
+    if data['Quadruples'][cont][1] == '!=':
+        dict_temp[data['Quadruples'][cont][4]] = "false"
+        #Si el primer valor esta en la tabla de constantes 30000
+        if data['Quadruples'][cont][2] >= 30000:
+            #Verificamos el segundo valor en todas sus formas
+            if data['Quadruples'][cont][3] >= 30000:
+                if dict_ctes.get(data['Quadruples'][cont][2]) != dict_ctes.get(data['Quadruples'][cont][3]):
+                    dict_temp[data['Quadruples'][cont][4]] = "true"
+            else:
+                if data['Quadruples'][cont][3] in dict_temp:
+                    if dict_ctes.get(data['Quadruples'][cont][2]) != dict_temp[data['Quadruples'][cont][3]]:
+                        dict_temp[data['Quadruples'][cont][4]] = "true"
+        else:
+                if data['Quadruples'][cont][3] >= 30000:
+                    if dict_temp[data['Quadruples'][cont][2]] != dict_ctes.get(data['Quadruples'][cont][3]):
+                        dict_temp[data['Quadruples'][cont][4]] = "true"
+                else:
+                    if data['Quadruples'][cont][3] in dict_temp:
+                        if dict_temp[data['Quadruples'][cont][2]] != dict_temp[data['Quadruples'][cont][3]]:
+                            dict_temp[data['Quadruples'][cont][4]] = "true"
 
     cont = cont + 1
 
