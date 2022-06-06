@@ -82,6 +82,7 @@ while True:
     
     #SI EL CUADRUPLO ES UN "*"
     if data['Quadruples'][cont][1] == '*':
+        print("SI LO ESTOY ENCONTRANDO")
         if data['Quadruples'][cont][2] >= 30000:
             if data['Quadruples'][cont][3] >= 30000:
                 dict_temp[data['Quadruples'][cont][4]] = dict_ctes.get(data['Quadruples'][cont][2]) * dict_ctes.get(data['Quadruples'][cont][3])
@@ -92,20 +93,32 @@ while True:
                     dict_temp[data['Quadruples'][cont][4]] = dict_ctes.get(data['Quadruples'][cont][2]) * dict_temp[data['Quadruples'][cont][3]]
                     print("-->", data['Quadruples'][cont][4], "=", data['Quadruples'][cont][2], "*", data['Quadruples'][cont][3])
                     print("-->", "dict_temp =", dict_temp)
-        else:
-            if data['Quadruples'][cont][2] in dict_temp:
-                if data['Quadruples'][cont][3] >= 30000:
-                    dict_temp[data['Quadruples'][cont][4]] = dict_temp[data['Quadruples'][cont][2]] * dict_ctes.get(data['Quadruples'][cont][3])
+        elif data['Quadruples'][cont][2] in dict_temp:
+            if data['Quadruples'][cont][3] >= 30000:
+                dict_temp[data['Quadruples'][cont][4]] = dict_temp[data['Quadruples'][cont][2]] * dict_ctes.get(data['Quadruples'][cont][3])
+                print("-->", data['Quadruples'][cont][4], "=", data['Quadruples'][cont][2], "*", data['Quadruples'][cont][3])
+                print("-->", "dict_temp =", dict_temp)
+            else:
+                if data['Quadruples'][cont][3] in dict_temp:
+                    dict_temp[data['Quadruples'][cont][4]] = dict_temp[data['Quadruples'][cont][2]] * dict_temp[data['Quadruples'][cont][3]]
                     print("-->", data['Quadruples'][cont][4], "=", data['Quadruples'][cont][2], "*", data['Quadruples'][cont][3])
                     print("-->", "dict_temp =", dict_temp)
-                else:
-                    if data['Quadruples'][cont][3] in dict_temp:
-                        dict_temp[data['Quadruples'][cont][4]] = dict_temp[data['Quadruples'][cont][2]] * dict_temp[data['Quadruples'][cont][3]]
-                        print("-->", data['Quadruples'][cont][4], "=", data['Quadruples'][cont][2], "*", data['Quadruples'][cont][3])
-                        print("-->", "dict_temp =", dict_temp)
+        else:
+            print("SI ESTOY ENTRANDO")
+            for function, value in dict_func[function_name]['vars'].items():
+                if value['address'] == data['Quadruples'][cont][2]:
+                    dict_temp[data['Quadruples'][cont][4]] = value['value']
+                    print(value['address'], '=', value['value'])
+                    print("-->", "dict_temp =", dict_temp)
+            for function, value in dict_func[function_name]['vars'].items():
+                if value['address'] == data['Quadruples'][cont][3]:
+                    dict_temp[data['Quadruples'][cont][4]] = dict_temp[data['Quadruples'][cont][4]] * value['value']
+                    print(value['address'], '=', value['value'])
+                    print("-->", "dict_temp =", dict_temp)
                         
     #SI EL CUADRUPLO ES UN "/"
     if data['Quadruples'][cont][1] == '/':
+        print("SI LO ESTOY ENCONTRANDO")
         if data['Quadruples'][cont][2] >= 30000:
             if data['Quadruples'][cont][3] >= 30000:
                 dict_temp[data['Quadruples'][cont][4]] = dict_ctes.get(data['Quadruples'][cont][2]) / dict_ctes.get(data['Quadruples'][cont][3])
@@ -116,17 +129,28 @@ while True:
                     dict_temp[data['Quadruples'][cont][4]] = dict_ctes.get(data['Quadruples'][cont][2]) / dict_temp[data['Quadruples'][cont][3]]
                     print("-->", data['Quadruples'][cont][4], "=", data['Quadruples'][cont][2], "/", data['Quadruples'][cont][3])
                     print("-->", "dict_temp =", dict_temp)
-        else:
-            if data['Quadruples'][cont][2] in dict_temp:
-                if data['Quadruples'][cont][3] >= 30000:
-                    dict_temp[data['Quadruples'][cont][4]] = dict_temp[data['Quadruples'][cont][2]] / dict_ctes.get(data['Quadruples'][cont][3])
+        elif data['Quadruples'][cont][2] in dict_temp:
+            if data['Quadruples'][cont][3] >= 30000:
+                dict_temp[data['Quadruples'][cont][4]] = dict_temp[data['Quadruples'][cont][2]] / dict_ctes.get(data['Quadruples'][cont][3])
+                print("-->", data['Quadruples'][cont][4], "=", data['Quadruples'][cont][2], "/", data['Quadruples'][cont][3])
+                print("-->", "dict_temp =", dict_temp)
+            else:
+                if data['Quadruples'][cont][3] in dict_temp:
+                    dict_temp[data['Quadruples'][cont][4]] = dict_temp[data['Quadruples'][cont][2]] / dict_temp[data['Quadruples'][cont][3]]
                     print("-->", data['Quadruples'][cont][4], "=", data['Quadruples'][cont][2], "/", data['Quadruples'][cont][3])
                     print("-->", "dict_temp =", dict_temp)
-                else:
-                    if data['Quadruples'][cont][3] in dict_temp:
-                        dict_temp[data['Quadruples'][cont][4]] = dict_temp[data['Quadruples'][cont][2]] / dict_temp[data['Quadruples'][cont][3]]
-                        print("-->", data['Quadruples'][cont][4], "=", data['Quadruples'][cont][2], "/", data['Quadruples'][cont][3])
-                        print("-->", "dict_temp =", dict_temp)
+        else:
+            print("SI ESTOY ENTRANDO")
+            for function, value in dict_func[function_name]['vars'].items():
+                if value['address'] == data['Quadruples'][cont][2]:
+                    dict_temp[data['Quadruples'][cont][4]] = value['value']
+                    print(value['address'], '=', value['value'])
+                    print("-->", "dict_temp =", dict_temp)
+            for function, value in dict_func[function_name]['vars'].items():
+                if value['address'] == data['Quadruples'][cont][3]:
+                    dict_temp[data['Quadruples'][cont][4]] = dict_temp[data['Quadruples'][cont][4]] / value['value']
+                    print(value['address'], '=', value['value'])
+                    print("-->", "dict_temp =", dict_temp)
                         
     #SI EL CUADRUPLO ES UN "+"
     if data['Quadruples'][cont][1] == '+':
@@ -166,6 +190,7 @@ while True:
                         
     #SI EL CUADRUPLO ES UN "-"
     if data['Quadruples'][cont][1] == '-':
+        print("SI LO ESTOY ENCONTRANDO")
         if data['Quadruples'][cont][2] >= 30000:
             if data['Quadruples'][cont][3] >= 30000:
                 dict_temp[data['Quadruples'][cont][4]] = dict_ctes.get(data['Quadruples'][cont][2]) - dict_ctes.get(data['Quadruples'][cont][3])
@@ -176,17 +201,28 @@ while True:
                     dict_temp[data['Quadruples'][cont][4]] = dict_ctes.get(data['Quadruples'][cont][2]) - dict_temp[data['Quadruples'][cont][3]]
                     print("-->", data['Quadruples'][cont][4], "=", data['Quadruples'][cont][2], "-", data['Quadruples'][cont][3])
                     print("-->", "dict_temp =", dict_temp)
-        else:
-            if data['Quadruples'][cont][2] in dict_temp:
-                if data['Quadruples'][cont][3] >= 30000:
-                    dict_temp[data['Quadruples'][cont][4]] = dict_temp[data['Quadruples'][cont][2]] - dict_ctes.get(data['Quadruples'][cont][3])
+        elif data['Quadruples'][cont][2] in dict_temp:
+            if data['Quadruples'][cont][3] >= 30000:
+                dict_temp[data['Quadruples'][cont][4]] = dict_temp[data['Quadruples'][cont][2]] - dict_ctes.get(data['Quadruples'][cont][3])
+                print("-->", data['Quadruples'][cont][4], "=", data['Quadruples'][cont][2], "-", data['Quadruples'][cont][3])
+                print("-->", "dict_temp =", dict_temp)
+            else:
+                if data['Quadruples'][cont][3] in dict_temp:
+                    dict_temp[data['Quadruples'][cont][4]] = dict_temp[data['Quadruples'][cont][2]] - dict_temp[data['Quadruples'][cont][3]]
                     print("-->", data['Quadruples'][cont][4], "=", data['Quadruples'][cont][2], "-", data['Quadruples'][cont][3])
                     print("-->", "dict_temp =", dict_temp)
-                else:
-                    if data['Quadruples'][cont][3] in dict_temp:
-                        dict_temp[data['Quadruples'][cont][4]] = dict_temp[data['Quadruples'][cont][2]] - dict_temp[data['Quadruples'][cont][3]]
-                        print("-->", data['Quadruples'][cont][4], "=", data['Quadruples'][cont][2], "-", data['Quadruples'][cont][3])
-                        print("-->", "dict_temp =", dict_temp)
+        else:
+            print("SI ESTOY ENTRANDO")
+            for function, value in dict_func[function_name]['vars'].items():
+                if value['address'] == data['Quadruples'][cont][2]:
+                    dict_temp[data['Quadruples'][cont][4]] = value['value']
+                    print(value['address'], '=', value['value'])
+                    print("-->", "dict_temp =", dict_temp)
+            for function, value in dict_func[function_name]['vars'].items():
+                if value['address'] == data['Quadruples'][cont][3]:
+                    dict_temp[data['Quadruples'][cont][4]] = dict_temp[data['Quadruples'][cont][4]] - value['value']
+                    print(value['address'], '=', value['value'])
+                    print("-->", "dict_temp =", dict_temp)
     
     #SI EL CUADRUPLO ES "NOT"
     if data['Quadruples'][cont][1] == 'not':
@@ -318,7 +354,6 @@ while True:
     
     #SI EL CUADRUPLO ES "="
     if data['Quadruples'][cont][1] == '=':
-        print("--> TE AMO GUASSO", data['Quadruples'][cont][3])
         if data['Quadruples'][cont][3] >= 30000:
             print("-->", data['Quadruples'][cont][4], '=', data['Quadruples'][cont][3])
             dict_temp[data['Quadruples'][cont][4]] = dict_ctes.get(data['Quadruples'][cont][3])
