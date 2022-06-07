@@ -1031,7 +1031,7 @@ parser = yacc.yacc()
 
 if __name__ == '__main__':
     try:
-        archivo = open('./tests/test5.txt','r')
+        archivo = open('./tests/test_funcionsimple.txt','r')
         info = archivo.read()
         lexer.input(info)
         #tokenize

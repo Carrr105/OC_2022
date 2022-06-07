@@ -8,6 +8,6 @@ main(){
     pruebaDos = 8 * prueba;
     prueba = pruebaDos - 6;
 
-    read(pruebaDos);
-    write(pruebaDos);
+    write("El resultado es = ");
+    write(pruebaDos / 4);
 }

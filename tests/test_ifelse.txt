@@ -9,6 +9,11 @@ main(){
     if(prueba > 10){
         write(prueba);
     } else {
-        write(pruebaDos);
+        if(pruebaDos > 15){
+            write("pruebaDos");
+            write(pruebaDos);
+        } else {
+            write("se ejecuta mal");
+        }
     }
 }
