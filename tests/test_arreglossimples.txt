@@ -1,0 +1,11 @@
+program test;
+
+main(){
+    vars int : prueba[3];
+    vars int : pruebaDos;
+    prueba[0] = 2;
+    pruebaDos = 2 * 2;
+    prueba[1] = pruebaDos;
+
+    write(prueba[1]);
+}

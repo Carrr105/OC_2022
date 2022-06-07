@@ -144,6 +144,8 @@ class DirFunc:
                 print("SSS")
                 print (self.function_dictionary[currentscope]["vars"][name])
                 for i in range(len(dim_stack)):
+                    print("apanding")
+                    print(dim_stack[i])
                     self.function_dictionary[currentscope]["vars"][name]["dimensions"].append(dim_stack[i])
                 print("UWU")
                 print (self.function_dictionary[currentscope]["vars"][name])

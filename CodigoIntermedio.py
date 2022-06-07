@@ -314,6 +314,11 @@ class CI:
         self.listQuadruples.append(quad)
         self.counter += 1
     
+    def gen_ver(self,limit):
+        quad = Quadruple(self.counter, self.stOperands[-1], limit, 'VERIFY', None)
+        self.listQuadruples.append(quad)
+        self.counter += 1
+    
     
     
     def new_obj_file(self, df):

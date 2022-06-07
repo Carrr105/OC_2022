@@ -1,0 +1,14 @@
+program test;
+
+main(){
+    vars int : prueba;
+    vars int : pruebaDos;
+    prueba = 2;
+    pruebaDos = 20;
+    
+    if(prueba > 10){
+        write(prueba);
+    } else {
+        write(pruebaDos);
+    }
+}

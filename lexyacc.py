@@ -145,6 +145,7 @@ functype=""
 currdimlist = [] #contiene las dimensiones de la variable en cuestion
 isClass = False
 myvars = {}
+temporal = []
 
 start = 'programa'
 globalname = ''
@@ -366,6 +367,7 @@ def p_param(p):
     global paramcount
     global isClass
     global myvars
+    global temporal
     print("....currentscope")
     print(df.current_scope)
     print("....xd")
@@ -419,13 +421,23 @@ def p_param(p):
         # dimaux almacena los valores de las direcciones para calcular el size
         dimaux = []
         dct = dict(ci.ctes_table)
+        print("dimstack is")
+        print(dimstack)
         for i in dimstack:
             val = dct.get(i)
+            print("dctok")
+            print(dct)
+            print("valok")
+            print(val)
             if val != None:
-                if isinstance(val, int) and val > 1:
+                if isinstance(val, int) and val >= 0:
+                    print("entr3")
                     dimaux.append(val)
                 else:
-                    raise TypeError("really...")
+                    if i >= 20000 and i < 30000:
+                        dimaux.append(temporal.pop())
+                    else:
+                        raise TypeError("really...")
         #print(ci.ctes_table.values())
         print("dimauxx")
         print(dimaux)
@@ -443,6 +455,8 @@ def p_param(p):
         else:
             print("dimztack")
             print(dimstack)
+            print("dimauxxuwu")
+            print(dimaux)
             # se almacenan dimensiones directamente como valores por cuestion de tiempo
             df.insert_var(scopestack[-1], p[1], type_var, address, dimaux, 0, isFunction=False, isClass=isClass)
         dimstack.clear()
@@ -450,11 +464,20 @@ def p_param(p):
 
 def p_declare_dims(p):
     '''
-    declare_dims : OPENBRACKET exp CLOSEBRACKET declare_dims
-                | OPENBRACKET exp CLOSEBRACKET
+    declare_dims : OPENBRACKET exp saveone CLOSEBRACKET declare_dims
+                | OPENBRACKET exp saveone CLOSEBRACKET
+    '''
+
+def p_saveone(p):
+    '''
+    saveone : 
     '''
     global dimstack
-    if (ci.stTypes.pop()=="int"):
+    type_ = ci.stTypes.pop()
+    print("xdnt")
+    print(type_)
+    if (type_ == "int" or type_ == "float"):
+        print("saving dimension1")
         dimstack.append(ci.stOperands.pop())
     else:
         raise TypeError("dimension should be an int!")
@@ -615,6 +638,7 @@ def p_asignacion(p):
         print("var to look for")
         print(p[1])
         var = df.search(p[1]) 
+        #print("vargot")
         print(var)
         if (var["function"]=="True"):
             raise TypeError("no te pases de listo XD, se intentó asignar un valor a una función")
@@ -622,21 +646,27 @@ def p_asignacion(p):
         ci.stOperands.append(var["address"])
         ci.stTypes.append(var["type"])
         ci.new_quadruple()
-    elif len(p) == 6:
+    elif len(p) == 7:
         print("var with dimensions to look for")
         print(p[1])
+        print("vargot")
+        one_address = ci.get_address("int", "constants", 1)
+        ci.stOperands.append(one_address)
+        ci.stOperators.append("-")
+        ci.stTypes.append("int")
+        ci.new_quadruple()
         var = df.search(p[1]) 
-        print("unuchan")
+        print("unuchan12")
         print(var)
         if (var["function"]=="True"):
             raise TypeError("no te pases de listo XD, se intentó asignar un valor a una función")
-        ci.stOperators.append(p[3])
+        ci.stOperators.append(p[4])
         global recorridodimensiones
         global R
         print("R - 1 =")
         print(R - 1)
         # dir base + recorrido
-        ci.stOperands.append(var["address"] + (R - 1))
+        ci.stOperands.append(var["address"]) #  manda dir base
         ci.stTypes.append(var["type"])
         ci.new_quadruple()
         recorridodimensiones.clear()
@@ -649,6 +679,10 @@ def p_retrieve_var_dims(p):
     global currdimlist
     var = df.search(p[-1]) 
     currdimlist = var["dimensions"]
+    print("sapo2")
+    print(currdimlist)
+    print("lengthis")
+    print(currdimlist)
 
 
 def p_dims(p):
@@ -664,26 +698,26 @@ def p_calculate(p):
     global recorridodimensiones
     global R
     global currdimlist
-    if (ci.stTypes.pop()=="int"):
+    if (ci.stTypes[-1]):
         #recorridodimensiones.append(ci.stOperands.pop())
-        dim = ci.stOperands.pop()
+        dim = ci.stOperands[-1]
         print("dimiss")
         print(dim)
         dct = dict(ci.ctes_table)
         val = dct.get(dim)
         print("dimbasado")
+        ci.gen_ver(currdimlist.pop()) # genera cuadruplo de verificacion de la direccion
+        R_address = ci.get_address("int", "constants", R)
+        ci.stOperands.append(R_address)
+        ci.stOperators.append("*")
+        ci.stTypes.append("int")
+        ci.new_quadruple()
+        one_address = ci.get_address("int", "constants", 1)
+        ci.stOperands.append(one_address)
+        ci.stOperators.append("+")
+        ci.stTypes.append("int")
+        ci.new_quadruple()
         print(val)
-        if len(currdimlist) != 0:
-            currdimfromvar = currdimlist.pop()
-            print("now comparing2")
-            print(currdimfromvar)
-            print(val)
-        else:
-            raise TypeError("se introdujeron mas dimensiones de las que tiene la variable")
-        if val >= 0 and val < currdimfromvar:
-            R = R * (val+1)
-        else:
-            raise TypeError("indice no valido")
     else:
         raise TypeError("dimension should be inttttt")
 
@@ -949,7 +983,7 @@ def p_factor(p):
         ci.stOperands.append(var["address"] + (R - 1))
         ci.stTypes.append(var["type"])
         R = 1
-    if (len(p) == 2):
+    elif (len(p) == 2):
         print("trying...")
         print(p[1])
         if bool(re.match("-?([0-9])+\.([0-9])*", str(p[1]))):
@@ -997,7 +1031,7 @@ parser = yacc.yacc()
 
 if __name__ == '__main__':
     try:
-        archivo = open('./tests/test_recursivosimple.txt','r')
+        archivo = open('./tests/test5.txt','r')
         info = archivo.read()
         lexer.input(info)
         #tokenize
