@@ -43,7 +43,7 @@ reserved = {
 }
 
 tokens = [
-    'OPENPARENTHESES', 'CLOSEPARENTHESES','ID', 'CTEF', 'CTEI', 'CTEB', 'CTEC',
+    'ID','OPENPARENTHESES', 'CLOSEPARENTHESES', 'CTEF', 'CTEI', 'CTEB', 'CTEC',
     'HASHTAG', 'CTE_COMMENT',
     'DOT', 'TWODOTS', 'SEMICOLON',
     'OPENBRACE', 'CLOSEBRACE',
@@ -146,6 +146,7 @@ currdimlist = [] #contiene las dimensiones de la variable en cuestion
 isClass = False
 myvars = {}
 temporal = []
+isfirstdim = True
 
 start = 'programa'
 globalname = ''
@@ -660,13 +661,19 @@ def p_asignacion(p):
         print(var)
         if (var["function"]=="True"):
             raise TypeError("no te pases de listo XD, se intentó asignar un valor a una función")
-        ci.stOperators.append(p[4])
         global recorridodimensiones
         global R
         print("R - 1 =")
         print(R - 1)
         # dir base + recorrido
+        ci.stOperators.append("+") # agrega simbolo igual de asignacion
         ci.stOperands.append(var["address"]) #  manda dir base
+        ci.stTypes.append(var["type"])
+        ci.new_quadruple() # genera cuadruplo para sumar recorrido a direccion base
+        ci.stOperators.append(p[4]) # agrega simbolo igual de asignacion
+        print ("stackz1")
+        print(ci.stTypes)
+        #ci.stOperands.append(var["address"])
         ci.stTypes.append(var["type"])
         ci.new_quadruple()
         recorridodimensiones.clear()
@@ -690,6 +697,8 @@ def p_dims(p):
     dims : OPENBRACKET exp calculate CLOSEBRACKET dims
         | OPENBRACKET exp calculate CLOSEBRACKET
     '''
+    global isfirstdim
+    isfirstdim = True
 
 def p_calculate(p):
     '''
@@ -697,24 +706,48 @@ def p_calculate(p):
     '''
     global recorridodimensiones
     global R
+    global isfirstdim
     global currdimlist
-    if (ci.stTypes[-1]):
+    if (ci.stTypes.pop() == "int"):
         #recorridodimensiones.append(ci.stOperands.pop())
         dim = ci.stOperands[-1]
-        print("dimiss")
+        print("dimiss1")
         print(dim)
         dct = dict(ci.ctes_table)
         val = dct.get(dim)
         print("dimbasado")
-        ci.gen_ver(currdimlist.pop()) # genera cuadruplo de verificacion de la direccion
-        R_address = ci.get_address("int", "constants", R)
-        ci.stOperands.append(R_address)
-        ci.stOperators.append("*")
-        ci.stTypes.append("int")
-        ci.new_quadruple()
+        ci.gen_ver(currdimlist[-1]) # genera cuadruplo de verificacion de la direccion
         one_address = ci.get_address("int", "constants", 1)
+        ci.stOperands.append(dim)
+        if isinstance(val, int):
+            ci.stTypes.append("int")
+        else:
+            print(type(val))
+            raise TypeError("dimension should be int")
         ci.stOperands.append(one_address)
         ci.stOperators.append("+")
+        ci.stTypes.append("int")
+        if isfirstdim:
+            print("makinggg 1st verification")
+            print( ci.stOperands)
+            print(ci.stOperators)
+            print(ci.stTypes)
+            ci.new_quadruple()
+            R_address = ci.get_address("int", "constants", R)
+            ci.stOperands.append(R_address)
+            isfirstdim = False
+        else:
+            print("makinggg 2nd verification")
+            print( ci.stOperands)
+            print(ci.stOperators)
+            print(ci.stTypes)
+            ci.new_quadruple()
+            print("makinggg 2ndn verification")
+            print( ci.stOperands)
+            print(ci.stOperators)
+            print(ci.stTypes)
+            print("tempr")
+        ci.stOperators.append("*")
         ci.stTypes.append("int")
         ci.new_quadruple()
         print(val)
@@ -971,17 +1004,27 @@ def p_factor(p):
         | OPENPARENTHESES exp CLOSEPARENTHESES
         | ID retrieve_var_dims dims 
     '''
-    if (len(p)==3):
-        print("var with dimensions to look for")
+    if len(p)==4 and str(p[-1]) != "(":
+        global R
+        one_address = ci.get_address("int", "constants", 1)
+        ci.stOperands.append(one_address)
+        ci.stOperators.append("-")
+        ci.stTypes.append("int")
+        ci.new_quadruple()
+        print("p3")
         print(p[1])
         var = df.search(p[1]) 
+        print("unuchan12")
         print(var)
-        global R
+        if (var["function"]=="True"):
+            raise TypeError("no te pases de listo XD, se intentó asignar un valor a una función")
         print("R - 1 =")
         print(R - 1)
         # dir base + recorrido
-        ci.stOperands.append(var["address"] + (R - 1))
+        ci.stOperators.append("+") # agrega simbolo igual de asignacion
+        ci.stOperands.append(var["address"]) #  manda dir base
         ci.stTypes.append(var["type"])
+        ci.new_quadruple() # genera cuadruplo para sumar recorrido a direccion base
         R = 1
     elif (len(p) == 2):
         print("trying...")
@@ -1031,7 +1074,7 @@ parser = yacc.yacc()
 
 if __name__ == '__main__':
     try:
-        archivo = open('./tests/test_funcionsimple.txt','r')
+        archivo = open('./tests/factorial.txt','r')
         info = archivo.read()
         lexer.input(info)
         #tokenize
@@ -1044,6 +1087,7 @@ if __name__ == '__main__':
         if(yacc.parse(info, tracking=True) == 'PROGRAM COMPILED'):
             print("success")
             df.print_var()
+            ci.print_quadruples()
             ci.new_obj_file(str(df.function_dictionary))
         else:
             print("syntax error")

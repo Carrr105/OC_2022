@@ -1,0 +1,26 @@
+program factorial;
+
+function int : factorialiterativo(int n){
+    vars int : i, resultado;
+    resultado = 1;
+    i=2;
+    while(i<=n){
+        resultado = resultado * i;
+        i = i + 1;
+    }
+    write ( resultado);
+    return 0;
+}
+
+
+main(){
+    vars float : myfloat[4][3];
+    myfloat[0][0] = 3;
+    vars int : mydimvar;
+    write (mydimvar);
+    vars int : myint;
+    mydimvar = myfloat[0][0];
+    myint = 7;
+    write(myint);
+    write(factorialiterativo(myint));
+}

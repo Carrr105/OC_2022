@@ -188,8 +188,8 @@ class CI:
     def print_quadruples(self):
         print("...................")
         print("printing quadruples")
-        for i in range(len(self.listQuadruples)):
-            print (self.listQuadruples[i])
+        for quad in self.listQuadruples:
+            print((quad.counter, quad.op, quad.op1, quad.op2, quad.res) )
         print("...................")
     
     def get_quadruples(self):
@@ -315,12 +315,10 @@ class CI:
         self.counter += 1
     
     def gen_ver(self,limit):
-        quad = Quadruple(self.counter, self.stOperands[-1], limit, 'VERIFY', None)
+        quad = Quadruple(self.counter, self.stOperands.pop(), limit, 'VERIFY', None)
         self.listQuadruples.append(quad)
-        self.counter += 1
-    
-    
-    
+        self.counter += 1   
+
     def new_obj_file(self, df):
         newfile = {
             "Quadruples": [(quad.counter, quad.op, quad.op1, quad.op2, quad.res) for quad in self.listQuadruples],

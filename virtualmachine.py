@@ -48,8 +48,9 @@ while True:
         for function, value in dict_temp.items():
             list_aux.append(value)
         for function, value in dict_func[function_name]['vars'].items():
-            value['value'] = list_aux[contador_guadalupano]
-            contador_guadalupano = contador_guadalupano + 1
+            if (len(list_aux) != 0 ):
+                value['value'] = list_aux[contador_guadalupano]
+                contador_guadalupano = contador_guadalupano + 1
             if contador_guadalupano == len(dict_func[function_name]['params']):
                 break
         list_aux.clear()
@@ -471,6 +472,10 @@ while True:
             #print("input =", dict_temp[data['Quadruples'][cont][4]])
         elif data['Quadruples'][cont][4] in dict_temp:
             dict_temp[data['Quadruples'][cont][4]] = input()
+        else:
+            print("found a read")
+            print(dict_func)
+
             #print("input =", dict_temp[data['Quadruples'][cont][4]])
 
     #AQUI COMIENZAN TODOS LOS OPERADORES RELACIONALES
