@@ -5,7 +5,7 @@ main(){
     vars int : pruebaDos;
     pruebaDos = 2 * 1;
     matriz[pruebaDos][1] = 0;
-    pruebaDos = matriz[pruebaDos][0];
-
+    pruebaDos = 0;
     write (matriz[2][1]);
+    pruebaDos =  matriz[2][1];
 }

@@ -148,6 +148,7 @@ myvars = {}
 temporal = []
 isfirstdim = True
 i_count = 0
+current_var_name = ""
 
 start = 'programa'
 globalname = ''
@@ -634,6 +635,7 @@ def p_asignacion(p):
     asignacion : ID EQUALS exp SEMICOLON
         | ID retrieve_var_dims dims EQUALS exp SEMICOLON
     '''
+    p[0]=p[1]
     print ("asignación encontrada")
 
     if len(p) == 5:
@@ -648,43 +650,25 @@ def p_asignacion(p):
         ci.stOperands.append(var["address"])
         ci.stTypes.append(var["type"])
         ci.new_quadruple()
-    elif len(p) == 7:
-        print("var with dimensions to look for")
-        print(p[1])
-        print("vargot")
-        one_address = ci.get_address("int", "constants", 1)
-        ci.stOperands.append(one_address)
-        ci.stOperators.append("-")
-        ci.stTypes.append("int")
-        ci.new_quadruple()
+    else:
+        ci.stOperators.append("=") # agrega simbolo igual de asignacion
+        print ("stackz2")
+        print(ci.stOperands)
+        ci.stOperands.reverse()
+        #ci.stOperands.append(var["address"])
         var = df.search(p[1]) 
         print("unuchan12")
         print(var)
-        if (var["function"]=="True"):
-            raise TypeError("no te pases de listo XD, se intentó asignar un valor a una función")
-        global recorridodimensiones
-        global R
-        print("R - 1 =")
-        print(R - 1)
-        # dir base + recorrido
-        ci.stOperators.append("+") # agrega simbolo igual de asignacion
-        ci.stOperands.append(var["address"]) #  manda dir base
-        ci.stTypes.append(var["type"])
-        ci.new_quadruple() # genera cuadruplo para sumar recorrido a direccion base
-        ci.stOperators.append(p[4]) # agrega simbolo igual de asignacion
-        print ("stackz1")
-        print(ci.stTypes)
-        #ci.stOperands.append(var["address"])
         ci.stTypes.append(var["type"])
         ci.new_quadruple()
-        recorridodimensiones.clear()
-        R = 1
+        
     
 def p_retrieve_var_dims(p):
     '''
     retrieve_var_dims : 
     '''
     global currdimlist
+    global current_var_name
     var = df.search(p[-1]) 
     currdimlist = var["dimensions"]
     print("weretriv1")
@@ -699,6 +683,9 @@ def p_retrieve_var_dims(p):
     print(ci.stOperators)
     print(ci.stTypes)
     #currdimlist.reverse()
+    current_var_name = p[-1]
+    print("currivar")
+    print(current_var_name)
 
 
 def p_dims(p):
@@ -706,12 +693,40 @@ def p_dims(p):
     dims : OPENBRACKET exp calculate CLOSEBRACKET dims
         | OPENBRACKET exp calculate CLOSEBRACKET
     '''
-    global isfirstdim
-    isfirstdim = True
-    global currdimlist
-    currdimlist = []
-    global i_count
-    i_count = 0
+    if (len(p)==5):
+        global isfirstdim
+        isfirstdim = True
+        global currdimlist
+        currdimlist = []
+        global i_count
+        i_count = 0
+        global current_var_name
+        print("var with dimensions to look for")
+        print("vargot")
+        print("uptilnow1")
+        print(ci.stOperands)
+        print(ci.stTypes)
+        one_address = ci.get_address("int", "constants", 1)
+        ci.stOperands.append(one_address)
+        ci.stOperators.append("-")
+        ci.stTypes.append("int")
+        ci.new_quadruple()
+        var = df.search(current_var_name) 
+        print("unuchan12")
+        print(var)
+        if (var["function"]=="True"):
+            raise TypeError("no te pases de listo XD, se intentó asignar un valor a una función")
+        global recorridodimensiones
+        global R
+        print("R - 1 =")
+        print(R - 1)
+        # dir base + recorrido
+        ci.stOperators.append("+") # agrega simbolo igual de asignacion
+        ci.stOperands.append(var["address"]) #  manda dir base
+        ci.stTypes.append(var["type"])
+        ci.new_quadruple() # genera cuadruplo para sumar recorrido a direccion base
+        recorridodimensiones.clear()
+        R = 1
 
 def p_calculate(p):
     '''
@@ -722,56 +737,57 @@ def p_calculate(p):
     global isfirstdim
     global currdimlist
     global i_count
-    print("recivvv3")
+    print("contt1")
+    print(i_count)
+    print("recivvv4")
     print(currdimlist)
     print(ci.stOperands)
     print(ci.stOperators)
     print(ci.stTypes)
-    if ci.stTypes.pop() == "int":
-        #recorridodimensiones.append(ci.stOperands.pop())
-        dim = ci.stOperands[-1]
-        print("dimiss1")
-        print(dim)
-        dct = dict(ci.ctes_table)
-        val = dct.get(dim)
-        print("dimbasado")
-        print("verf4")
-        print("stackverify")
-        #print(ci.stOperands.pop())
-        #print(currdimlist[-1])
-        #ci.stOperands.append(dim)
-        ci.gen_ver(currdimlist[i_count]) # genera cuadruplo de verificacion de la direccion
-        one_address = ci.get_address("int", "constants", 1)
-        ci.stOperands.append(dim)
-        ci.stTypes.append("int")
-        ci.stOperands.append(one_address)
-        ci.stOperators.append("+")
-        ci.stTypes.append("int")
-        if isfirstdim:
-            print("makinggg 1st verification")
-            print( ci.stOperands)
-            print(ci.stOperators)
-            print(ci.stTypes)
-            ci.new_quadruple()
-            R_address = ci.get_address("int", "constants", R)
-            ci.stOperands.append(R_address)
-            isfirstdim = False
-        else:
-            print("makinggg 2nd verification")
-            print( ci.stOperands)
-            print(ci.stOperators)
-            print(ci.stTypes)
-            ci.new_quadruple()
-            print("makinggg 2ndn verification")
-            print( ci.stOperands)
-            print(ci.stOperators)
-            print(ci.stTypes)
-            print("tempr")
-        ci.stOperators.append("*")
-        ci.stTypes.append("int")
-        ci.new_quadruple()
-        print(val)
-        i_count = i_count + 1
+    ci.stTypes.pop()
+    #recorridodimensiones.append(ci.stOperands.pop())
+    dim = ci.stOperands[-1]
+    print("dimiss1")
+    print(dim)
+    dct = dict(ci.ctes_table)
+    val = dct.get(dim)
+    print("dimbasado")
+    print("verf4")
+    print("stackverify")
+    #print(ci.stOperands.pop())
+    #print(currdimlist[-1])
+    #ci.stOperands.append(dim)
+    ci.gen_ver(currdimlist[i_count]) # genera cuadruplo de verificacion de la direccion
+    one_address = ci.get_address("int", "constants", 1)
+    ci.stOperands.append(dim)
+    ci.stTypes.append("int")
+    ci.stOperands.append(one_address)
+    ci.stOperators.append("+")
+    ci.stTypes.append("int")
+    ci.new_quadruple()
+    if isfirstdim:
+        print("makinggg 1st verification")
+        print( ci.stOperands)
+        print(ci.stOperators)
+        print(ci.stTypes)
+        R_address = ci.get_address("int", "constants", R)
+        ci.stOperands.append(R_address)
+        isfirstdim = False
+    else:
+        print("makinggg 3nd verification")
+        print( ci.stOperands)
+        print(ci.stOperators)
+        print(ci.stTypes)
+        print("makinggg 3ndn verification")
+        print( ci.stOperands)
+        print(ci.stOperators)
+        print(ci.stTypes)
+        print("tempr")
+    ci.stOperators.append("*")
+    ci.stTypes.append("int")
+    ci.new_quadruple()
+    print(val)
+    i_count = i_count + 1
 
 
 def p_escritura(p):
@@ -1023,29 +1039,7 @@ def p_factor(p):
         | OPENPARENTHESES exp CLOSEPARENTHESES
         | ID retrieve_var_dims dims 
     '''
-    if len(p)==4 and str(p[-1]) != "(":
-        global R
-        one_address = ci.get_address("int", "constants", 1)
-        ci.stOperands.append(one_address)
-        ci.stOperators.append("-")
-        ci.stTypes.append("int")
-        ci.new_quadruple()
-        print("p3")
-        print(p[1])
-        var = df.search(p[1]) 
-        print("unuchan12")
-        print(var)
-        if (var["function"]=="True"):
-            raise TypeError("no te pases de listo XD, se intentó asignar un valor a una función")
-        print("R - 1 =")
-        print(R - 1)
-        # dir base + recorrido
-        ci.stOperators.append("+") # agrega simbolo igual de asignacion
-        ci.stOperands.append(var["address"]) #  manda dir base
-        ci.stTypes.append(var["type"])
-        ci.new_quadruple() # genera cuadruplo para sumar recorrido a direccion base
-        R = 1
-    elif (len(p) == 2):
+    if (len(p) == 2):
         print("trying...")
         print(p[1])
         if bool(re.match("-?([0-9])+\.([0-9])*", str(p[1]))):
