@@ -743,11 +743,7 @@ def p_calculate(p):
         ci.gen_ver(currdimlist[i_count]) # genera cuadruplo de verificacion de la direccion
         one_address = ci.get_address("int", "constants", 1)
         ci.stOperands.append(dim)
-        if isinstance(val, int):
-            ci.stTypes.append("int")
-        else:
-            print(type(val))
-            raise TypeError("dimension should be int")
+        ci.stTypes.append("int")
         ci.stOperands.append(one_address)
         ci.stOperators.append("+")
         ci.stTypes.append("int")

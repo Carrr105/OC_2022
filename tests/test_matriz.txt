@@ -3,8 +3,9 @@ program test;
 main(){
     vars int : matriz[4][3];
     vars int : pruebaDos;
-    matriz[1][2] = 0;
-    pruebaDos = 2 * 2;
+    pruebaDos = 2 * 1;
+    matriz[pruebaDos][1] = 0;
+    pruebaDos = matriz[pruebaDos][0];
 
-    write (matriz[1][2]);
+    write (matriz[2][1]);
 }
