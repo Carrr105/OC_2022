@@ -147,6 +147,7 @@ isClass = False
 myvars = {}
 temporal = []
 isfirstdim = True
+i_count = 0
 
 start = 'programa'
 globalname = ''
@@ -686,6 +687,9 @@ def p_retrieve_var_dims(p):
     global currdimlist
     var = df.search(p[-1]) 
     currdimlist = var["dimensions"]
+    print("weretriv1")
+    print (currdimlist)
+    print(var["address"])
     print("sapo3")
     print(currdimlist)
     print("lengthis")
@@ -694,7 +698,7 @@ def p_retrieve_var_dims(p):
     print(ci.stOperands)
     print(ci.stOperators)
     print(ci.stTypes)
-    currdimlist.reverse()
+    #currdimlist.reverse()
 
 
 def p_dims(p):
@@ -706,6 +710,8 @@ def p_dims(p):
     isfirstdim = True
     global currdimlist
     currdimlist = []
+    global i_count
+    i_count = 0
 
 def p_calculate(p):
     '''
@@ -715,6 +721,7 @@ def p_calculate(p):
     global R
     global isfirstdim
     global currdimlist
+    global i_count
     print("recivvv3")
     print(currdimlist)
     print(ci.stOperands)
@@ -733,7 +740,7 @@ def p_calculate(p):
         #print(ci.stOperands.pop())
         #print(currdimlist[-1])
         #ci.stOperands.append(dim)
-        ci.gen_ver(currdimlist.pop()) # genera cuadruplo de verificacion de la direccion
+        ci.gen_ver(currdimlist[i_count]) # genera cuadruplo de verificacion de la direccion
         one_address = ci.get_address("int", "constants", 1)
         ci.stOperands.append(dim)
         if isinstance(val, int):
@@ -768,6 +775,7 @@ def p_calculate(p):
         ci.stTypes.append("int")
         ci.new_quadruple()
         print(val)
+        i_count = i_count + 1
 
 
 def p_escritura(p):
@@ -1090,7 +1098,7 @@ parser = yacc.yacc()
 
 if __name__ == '__main__':
     try:
-        archivo = open('./tests/test_factorial.txt','r')
+        archivo = open('./tests/test_matriz.txt','r')
         info = archivo.read()
         lexer.input(info)
         #tokenize

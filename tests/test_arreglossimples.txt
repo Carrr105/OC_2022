@@ -5,7 +5,7 @@ main(){
     vars int : pruebaDos;
     prueba[0] = 2;
     pruebaDos = 2 * 2;
-    prueba[1] = pruebaDos;
+    prueba[0] = 2;
 
-    write(prueba[1]);
+
 }

@@ -1,0 +1,10 @@
+program test;
+
+main(){
+    vars int : matriz[4][3];
+    vars int : pruebaDos;
+    matriz[1][2] = 0;
+    pruebaDos = 2 * 2;
+
+    write (matriz[1][2]);
+}
