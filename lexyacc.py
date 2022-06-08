@@ -686,10 +686,15 @@ def p_retrieve_var_dims(p):
     global currdimlist
     var = df.search(p[-1]) 
     currdimlist = var["dimensions"]
-    print("sapo2")
+    print("sapo3")
     print(currdimlist)
     print("lengthis")
     print(currdimlist)
+    print("currstack")
+    print(ci.stOperands)
+    print(ci.stOperators)
+    print(ci.stTypes)
+    currdimlist.reverse()
 
 
 def p_dims(p):
@@ -699,6 +704,8 @@ def p_dims(p):
     '''
     global isfirstdim
     isfirstdim = True
+    global currdimlist
+    currdimlist = []
 
 def p_calculate(p):
     '''
@@ -708,7 +715,12 @@ def p_calculate(p):
     global R
     global isfirstdim
     global currdimlist
-    if (ci.stTypes.pop() == "int"):
+    print("recivvv3")
+    print(currdimlist)
+    print(ci.stOperands)
+    print(ci.stOperators)
+    print(ci.stTypes)
+    if ci.stTypes.pop() == "int":
         #recorridodimensiones.append(ci.stOperands.pop())
         dim = ci.stOperands[-1]
         print("dimiss1")
@@ -716,7 +728,12 @@ def p_calculate(p):
         dct = dict(ci.ctes_table)
         val = dct.get(dim)
         print("dimbasado")
-        ci.gen_ver(currdimlist[-1]) # genera cuadruplo de verificacion de la direccion
+        print("verf4")
+        print("stackverify")
+        #print(ci.stOperands.pop())
+        #print(currdimlist[-1])
+        #ci.stOperands.append(dim)
+        ci.gen_ver(currdimlist.pop()) # genera cuadruplo de verificacion de la direccion
         one_address = ci.get_address("int", "constants", 1)
         ci.stOperands.append(dim)
         if isinstance(val, int):
@@ -751,8 +768,6 @@ def p_calculate(p):
         ci.stTypes.append("int")
         ci.new_quadruple()
         print(val)
-    else:
-        raise TypeError("dimension should be inttttt")
 
 
 def p_escritura(p):
@@ -1000,7 +1015,7 @@ def p_factor(p):
         | CTEC
         | ID
         | CTEB
-        | llamada printt printt
+        | llamada printt 
         | OPENPARENTHESES exp CLOSEPARENTHESES
         | ID retrieve_var_dims dims 
     '''
@@ -1037,6 +1052,7 @@ def p_factor(p):
             ci.stOperands.append(address)
         elif bool(re.match("-?\d+", str(p[1]))):
             print("CTEI found!")
+            print("oloo1")
             address = ci.get_address("int", "constants", p[1])
             ci.stTypes.append("int")
             ci.stOperands.append(address)
@@ -1074,7 +1090,7 @@ parser = yacc.yacc()
 
 if __name__ == '__main__':
     try:
-        archivo = open('./tests/factorial.txt','r')
+        archivo = open('./tests/test_factorial.txt','r')
         info = archivo.read()
         lexer.input(info)
         #tokenize

@@ -1,0 +1,25 @@
+program factorial;
+
+function int : factorialiterativo(int n){
+    vars int : i, resultado;
+    resultado = 1;
+    i=2;
+    while(i<=n){
+        resultado = resultado * i;
+        i = i + 1;
+    }
+    write ( resultado);
+    return 0;
+}
+
+
+main(){
+    vars int : myint;
+    vars int : mymatrix[4][3];
+    mymatrix [1][2] = 3;
+    myint = 0;
+    # myint = mymatrix[1][2]; #
+    write("myint is ");
+    write(myint);
+    write(factorialiterativo(myint));
+}

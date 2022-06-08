@@ -136,7 +136,7 @@ Rule 120   factor -> CTEI
 Rule 121   factor -> CTEC
 Rule 122   factor -> ID
 Rule 123   factor -> CTEB
-Rule 124   factor -> llamada printt printt
+Rule 124   factor -> llamada printt
 Rule 125   factor -> OPENPARENTHESES exp CLOSEPARENTHESES
 Rule 126   factor -> ID retrieve_var_dims dims
 Rule 127   empty -> <empty>
@@ -249,7 +249,7 @@ param_read           :
 paramsP              : 40
 paramsfunction       : 16 24
 pexp                 : 105 106 107 108 109 110 111 113 114
-printt               : 64 124 124
+printt               : 64 124
 programa             : 0
 programaP            : 1 3 4 5 6
 repeticion           : 55
@@ -1005,7 +1005,7 @@ state 57
     (121) factor -> . CTEC
     (122) factor -> . ID
     (123) factor -> . CTEB
-    (124) factor -> . llamada printt printt
+    (124) factor -> . llamada printt
     (125) factor -> . OPENPARENTHESES exp CLOSEPARENTHESES
     (126) factor -> . ID retrieve_var_dims dims
     (62) llamada -> . ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
@@ -1745,7 +1745,7 @@ state 82
     (121) factor -> . CTEC
     (122) factor -> . ID
     (123) factor -> . CTEB
-    (124) factor -> . llamada printt printt
+    (124) factor -> . llamada printt
     (125) factor -> . OPENPARENTHESES exp CLOSEPARENTHESES
     (126) factor -> . ID retrieve_var_dims dims
     (62) llamada -> . ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
@@ -1866,7 +1866,7 @@ state 88
     (121) factor -> . CTEC
     (122) factor -> . ID
     (123) factor -> . CTEB
-    (124) factor -> . llamada printt printt
+    (124) factor -> . llamada printt
     (125) factor -> . OPENPARENTHESES exp CLOSEPARENTHESES
     (126) factor -> . ID retrieve_var_dims dims
     (62) llamada -> . ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
@@ -2133,7 +2133,7 @@ state 97
 
 state 98
 
-    (124) factor -> llamada . printt printt
+    (124) factor -> llamada . printt
     (66) printt -> .
 
     MULTIPLY        reduce using rule 66 (printt -> .)
@@ -2184,7 +2184,7 @@ state 99
     (121) factor -> . CTEC
     (122) factor -> . ID
     (123) factor -> . CTEB
-    (124) factor -> . llamada printt printt
+    (124) factor -> . llamada printt
     (125) factor -> . OPENPARENTHESES exp CLOSEPARENTHESES
     (126) factor -> . ID retrieve_var_dims dims
     (62) llamada -> . ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
@@ -2348,7 +2348,7 @@ state 114
     (121) factor -> . CTEC
     (122) factor -> . ID
     (123) factor -> . CTEB
-    (124) factor -> . llamada printt printt
+    (124) factor -> . llamada printt
     (125) factor -> . OPENPARENTHESES exp CLOSEPARENTHESES
     (126) factor -> . ID retrieve_var_dims dims
     (62) llamada -> . ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
@@ -2437,7 +2437,7 @@ state 118
     (121) factor -> . CTEC
     (122) factor -> . ID
     (123) factor -> . CTEB
-    (124) factor -> . llamada printt printt
+    (124) factor -> . llamada printt
     (125) factor -> . OPENPARENTHESES exp CLOSEPARENTHESES
     (126) factor -> . ID retrieve_var_dims dims
     (62) llamada -> . ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
@@ -2501,7 +2501,7 @@ state 119
     (121) factor -> . CTEC
     (122) factor -> . ID
     (123) factor -> . CTEB
-    (124) factor -> . llamada printt printt
+    (124) factor -> . llamada printt
     (125) factor -> . OPENPARENTHESES exp CLOSEPARENTHESES
     (126) factor -> . ID retrieve_var_dims dims
     (62) llamada -> . ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
@@ -2623,7 +2623,7 @@ state 125
     (121) factor -> . CTEC
     (122) factor -> . ID
     (123) factor -> . CTEB
-    (124) factor -> . llamada printt printt
+    (124) factor -> . llamada printt
     (125) factor -> . OPENPARENTHESES exp CLOSEPARENTHESES
     (126) factor -> . ID retrieve_var_dims dims
     (62) llamada -> . ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
@@ -2681,7 +2681,7 @@ state 126
     (121) factor -> . CTEC
     (122) factor -> . ID
     (123) factor -> . CTEB
-    (124) factor -> . llamada printt printt
+    (124) factor -> . llamada printt
     (125) factor -> . OPENPARENTHESES exp CLOSEPARENTHESES
     (126) factor -> . ID retrieve_var_dims dims
     (62) llamada -> . ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
@@ -2748,7 +2748,7 @@ state 128
     (121) factor -> . CTEC
     (122) factor -> . ID
     (123) factor -> . CTEB
-    (124) factor -> . llamada printt printt
+    (124) factor -> . llamada printt
     (125) factor -> . OPENPARENTHESES exp CLOSEPARENTHESES
     (126) factor -> . ID retrieve_var_dims dims
     (62) llamada -> . ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
@@ -2798,7 +2798,7 @@ state 129
     (121) factor -> . CTEC
     (122) factor -> . ID
     (123) factor -> . CTEB
-    (124) factor -> . llamada printt printt
+    (124) factor -> . llamada printt
     (125) factor -> . OPENPARENTHESES exp CLOSEPARENTHESES
     (126) factor -> . ID retrieve_var_dims dims
     (62) llamada -> . ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
@@ -2848,7 +2848,7 @@ state 130
     (121) factor -> . CTEC
     (122) factor -> . ID
     (123) factor -> . CTEB
-    (124) factor -> . llamada printt printt
+    (124) factor -> . llamada printt
     (125) factor -> . OPENPARENTHESES exp CLOSEPARENTHESES
     (126) factor -> . ID retrieve_var_dims dims
     (62) llamada -> . ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
@@ -2898,7 +2898,7 @@ state 131
     (121) factor -> . CTEC
     (122) factor -> . ID
     (123) factor -> . CTEB
-    (124) factor -> . llamada printt printt
+    (124) factor -> . llamada printt
     (125) factor -> . OPENPARENTHESES exp CLOSEPARENTHESES
     (126) factor -> . ID retrieve_var_dims dims
     (62) llamada -> . ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
@@ -2948,7 +2948,7 @@ state 132
     (121) factor -> . CTEC
     (122) factor -> . ID
     (123) factor -> . CTEB
-    (124) factor -> . llamada printt printt
+    (124) factor -> . llamada printt
     (125) factor -> . OPENPARENTHESES exp CLOSEPARENTHESES
     (126) factor -> . ID retrieve_var_dims dims
     (62) llamada -> . ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
@@ -2998,7 +2998,7 @@ state 133
     (121) factor -> . CTEC
     (122) factor -> . ID
     (123) factor -> . CTEB
-    (124) factor -> . llamada printt printt
+    (124) factor -> . llamada printt
     (125) factor -> . OPENPARENTHESES exp CLOSEPARENTHESES
     (126) factor -> . ID retrieve_var_dims dims
     (62) llamada -> . ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
@@ -3045,7 +3045,7 @@ state 134
     (121) factor -> . CTEC
     (122) factor -> . ID
     (123) factor -> . CTEB
-    (124) factor -> . llamada printt printt
+    (124) factor -> . llamada printt
     (125) factor -> . OPENPARENTHESES exp CLOSEPARENTHESES
     (126) factor -> . ID retrieve_var_dims dims
     (62) llamada -> . ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
@@ -3091,7 +3091,7 @@ state 135
     (121) factor -> . CTEC
     (122) factor -> . ID
     (123) factor -> . CTEB
-    (124) factor -> . llamada printt printt
+    (124) factor -> . llamada printt
     (125) factor -> . OPENPARENTHESES exp CLOSEPARENTHESES
     (126) factor -> . ID retrieve_var_dims dims
     (62) llamada -> . ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
@@ -3134,7 +3134,7 @@ state 136
     (121) factor -> . CTEC
     (122) factor -> . ID
     (123) factor -> . CTEB
-    (124) factor -> . llamada printt printt
+    (124) factor -> . llamada printt
     (125) factor -> . OPENPARENTHESES exp CLOSEPARENTHESES
     (126) factor -> . ID retrieve_var_dims dims
     (62) llamada -> . ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
@@ -3176,7 +3176,7 @@ state 137
     (121) factor -> . CTEC
     (122) factor -> . ID
     (123) factor -> . CTEB
-    (124) factor -> . llamada printt printt
+    (124) factor -> . llamada printt
     (125) factor -> . OPENPARENTHESES exp CLOSEPARENTHESES
     (126) factor -> . ID retrieve_var_dims dims
     (62) llamada -> . ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
@@ -3221,42 +3221,40 @@ state 138
 
 state 139
 
-    (124) factor -> llamada printt . printt
-    (66) printt -> .
+    (124) factor -> llamada printt .
 
-    MULTIPLY        reduce using rule 66 (printt -> .)
-    DIVIDE          reduce using rule 66 (printt -> .)
-    PLUS            reduce using rule 66 (printt -> .)
-    MINUS           reduce using rule 66 (printt -> .)
-    GREATER         reduce using rule 66 (printt -> .)
-    LESS            reduce using rule 66 (printt -> .)
-    DIFFERENT       reduce using rule 66 (printt -> .)
-    EQUALS_BOOLEAN  reduce using rule 66 (printt -> .)
-    LESSEQUAL       reduce using rule 66 (printt -> .)
-    GREATEREQUAL    reduce using rule 66 (printt -> .)
-    AND             reduce using rule 66 (printt -> .)
-    OR              reduce using rule 66 (printt -> .)
-    CLOSEBRACKET    reduce using rule 66 (printt -> .)
-    SEMICOLON       reduce using rule 66 (printt -> .)
-    CLOSEPARENTHESES reduce using rule 66 (printt -> .)
-    COMMA           reduce using rule 66 (printt -> .)
-    TO              reduce using rule 66 (printt -> .)
-    OPENBRACE       reduce using rule 66 (printt -> .)
+    MULTIPLY        reduce using rule 124 (factor -> llamada printt .)
+    DIVIDE          reduce using rule 124 (factor -> llamada printt .)
+    PLUS            reduce using rule 124 (factor -> llamada printt .)
+    MINUS           reduce using rule 124 (factor -> llamada printt .)
+    GREATER         reduce using rule 124 (factor -> llamada printt .)
+    LESS            reduce using rule 124 (factor -> llamada printt .)
+    DIFFERENT       reduce using rule 124 (factor -> llamada printt .)
+    EQUALS_BOOLEAN  reduce using rule 124 (factor -> llamada printt .)
+    LESSEQUAL       reduce using rule 124 (factor -> llamada printt .)
+    GREATEREQUAL    reduce using rule 124 (factor -> llamada printt .)
+    AND             reduce using rule 124 (factor -> llamada printt .)
+    OR              reduce using rule 124 (factor -> llamada printt .)
+    CLOSEBRACKET    reduce using rule 124 (factor -> llamada printt .)
+    SEMICOLON       reduce using rule 124 (factor -> llamada printt .)
+    CLOSEPARENTHESES reduce using rule 124 (factor -> llamada printt .)
+    COMMA           reduce using rule 124 (factor -> llamada printt .)
+    TO              reduce using rule 124 (factor -> llamada printt .)
+    OPENBRACE       reduce using rule 124 (factor -> llamada printt .)
 
-    printt                         shift and go to state 170
 
 state 140
 
     (125) factor -> OPENPARENTHESES exp . CLOSEPARENTHESES
 
-    CLOSEPARENTHESES shift and go to state 171
+    CLOSEPARENTHESES shift and go to state 170
 
 
 state 141
 
     (16) funcion -> FUNCTION tipo_f TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction savesequence . CLOSEPARENTHESES OPENBRACE turnoff estatuto CLOSEBRACE
 
-    CLOSEPARENTHESES shift and go to state 172
+    CLOSEPARENTHESES shift and go to state 171
 
 
 state 142
@@ -3268,20 +3266,20 @@ state 142
 
     ID              shift and go to state 44
 
-    param                          shift and go to state 173
+    param                          shift and go to state 172
 
 state 143
 
     (71) asignacion -> ID EQUALS exp . SEMICOLON
 
-    SEMICOLON       shift and go to state 174
+    SEMICOLON       shift and go to state 173
 
 
 state 144
 
     (72) asignacion -> ID retrieve_var_dims dims . EQUALS exp SEMICOLON
 
-    EQUALS          shift and go to state 175
+    EQUALS          shift and go to state 174
 
 
 state 145
@@ -3312,7 +3310,7 @@ state 145
     (121) factor -> . CTEC
     (122) factor -> . ID
     (123) factor -> . CTEB
-    (124) factor -> . llamada printt printt
+    (124) factor -> . llamada printt
     (125) factor -> . OPENPARENTHESES exp CLOSEPARENTHESES
     (126) factor -> . ID retrieve_var_dims dims
     (62) llamada -> . ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
@@ -3338,7 +3336,7 @@ state 145
     CTEB            shift and go to state 97
     OPENPARENTHESES shift and go to state 99
 
-    exp                            shift and go to state 176
+    exp                            shift and go to state 175
     iexp                           shift and go to state 87
     nexp                           shift and go to state 89
     pexp                           shift and go to state 90
@@ -3375,7 +3373,7 @@ state 146
     (121) factor -> . CTEC
     (122) factor -> . ID
     (123) factor -> . CTEB
-    (124) factor -> . llamada printt printt
+    (124) factor -> . llamada printt
     (125) factor -> . OPENPARENTHESES exp CLOSEPARENTHESES
     (126) factor -> . ID retrieve_var_dims dims
     (62) llamada -> . ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
@@ -3402,8 +3400,8 @@ state 146
     CTEB            shift and go to state 97
     OPENPARENTHESES shift and go to state 99
 
-    param_call                     shift and go to state 177
-    exp                            shift and go to state 178
+    param_call                     shift and go to state 176
+    exp                            shift and go to state 177
     iexp                           shift and go to state 87
     nexp                           shift and go to state 89
     pexp                           shift and go to state 90
@@ -3418,16 +3416,16 @@ state 147
     (74) dims -> . OPENBRACKET exp calculate CLOSEBRACKET dims
     (75) dims -> . OPENBRACKET exp calculate CLOSEBRACKET
 
-    CLOSEPARENTHESES shift and go to state 179
+    CLOSEPARENTHESES shift and go to state 178
     OPENBRACKET     shift and go to state 145
 
-    dims                           shift and go to state 180
+    dims                           shift and go to state 179
 
 state 148
 
     (77) escritura -> WRITE OPENPARENTHESES escrituraP . CLOSEPARENTHESES SEMICOLON
 
-    CLOSEPARENTHESES shift and go to state 181
+    CLOSEPARENTHESES shift and go to state 180
 
 
 state 149
@@ -3455,7 +3453,7 @@ state 152
 
     (81) condicion -> IF OPENPARENTHESES exp . CLOSEPARENTHESES OPENBRACE gen_gotof condicionp fill_goto
 
-    CLOSEPARENTHESES shift and go to state 182
+    CLOSEPARENTHESES shift and go to state 181
 
 
 state 153
@@ -3501,7 +3499,7 @@ state 154
     (121) factor -> . CTEC
     (122) factor -> . ID
     (123) factor -> . CTEB
-    (124) factor -> . llamada printt printt
+    (124) factor -> . llamada printt
     (125) factor -> . OPENPARENTHESES exp CLOSEPARENTHESES
     (126) factor -> . ID retrieve_var_dims dims
     (62) llamada -> . ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
@@ -3527,7 +3525,7 @@ state 154
     CTEB            shift and go to state 97
     OPENPARENTHESES shift and go to state 99
 
-    exp                            shift and go to state 183
+    exp                            shift and go to state 182
     iexp                           shift and go to state 87
     nexp                           shift and go to state 89
     pexp                           shift and go to state 90
@@ -3562,7 +3560,7 @@ state 155
     (121) factor -> . CTEC
     (122) factor -> . ID
     (123) factor -> . CTEB
-    (124) factor -> . llamada printt printt
+    (124) factor -> . llamada printt
     (125) factor -> . OPENPARENTHESES exp CLOSEPARENTHESES
     (126) factor -> . ID retrieve_var_dims dims
     (62) llamada -> . ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
@@ -3588,7 +3586,7 @@ state 155
     CTEB            shift and go to state 97
     OPENPARENTHESES shift and go to state 99
 
-    exp                            shift and go to state 184
+    exp                            shift and go to state 183
     iexp                           shift and go to state 87
     nexp                           shift and go to state 89
     pexp                           shift and go to state 90
@@ -3608,7 +3606,7 @@ state 156
     CLOSEPARENTHESES reduce using rule 38 (declare_dims -> OPENBRACKET exp saveone CLOSEBRACKET .)
     OPENBRACKET     shift and go to state 57
 
-    declare_dims                   shift and go to state 185
+    declare_dims                   shift and go to state 184
 
 state 157
 
@@ -3932,30 +3930,6 @@ state 169
 
 state 170
 
-    (124) factor -> llamada printt printt .
-
-    MULTIPLY        reduce using rule 124 (factor -> llamada printt printt .)
-    DIVIDE          reduce using rule 124 (factor -> llamada printt printt .)
-    PLUS            reduce using rule 124 (factor -> llamada printt printt .)
-    MINUS           reduce using rule 124 (factor -> llamada printt printt .)
-    GREATER         reduce using rule 124 (factor -> llamada printt printt .)
-    LESS            reduce using rule 124 (factor -> llamada printt printt .)
-    DIFFERENT       reduce using rule 124 (factor -> llamada printt printt .)
-    EQUALS_BOOLEAN  reduce using rule 124 (factor -> llamada printt printt .)
-    LESSEQUAL       reduce using rule 124 (factor -> llamada printt printt .)
-    GREATEREQUAL    reduce using rule 124 (factor -> llamada printt printt .)
-    AND             reduce using rule 124 (factor -> llamada printt printt .)
-    OR              reduce using rule 124 (factor -> llamada printt printt .)
-    CLOSEBRACKET    reduce using rule 124 (factor -> llamada printt printt .)
-    SEMICOLON       reduce using rule 124 (factor -> llamada printt printt .)
-    CLOSEPARENTHESES reduce using rule 124 (factor -> llamada printt printt .)
-    COMMA           reduce using rule 124 (factor -> llamada printt printt .)
-    TO              reduce using rule 124 (factor -> llamada printt printt .)
-    OPENBRACE       reduce using rule 124 (factor -> llamada printt printt .)
-
-
-state 171
-
     (125) factor -> OPENPARENTHESES exp CLOSEPARENTHESES .
 
     MULTIPLY        reduce using rule 125 (factor -> OPENPARENTHESES exp CLOSEPARENTHESES .)
@@ -3978,23 +3952,23 @@ state 171
     OPENBRACE       reduce using rule 125 (factor -> OPENPARENTHESES exp CLOSEPARENTHESES .)
 
 
-state 172
+state 171
 
     (16) funcion -> FUNCTION tipo_f TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction savesequence CLOSEPARENTHESES . OPENBRACE turnoff estatuto CLOSEBRACE
 
-    OPENBRACE       shift and go to state 186
+    OPENBRACE       shift and go to state 185
 
 
-state 173
+state 172
 
     (24) paramsfunction -> tipo savetipo param . COMMA paramsfunction
     (25) paramsfunction -> tipo savetipo param .
 
-    COMMA           shift and go to state 187
+    COMMA           shift and go to state 186
     CLOSEPARENTHESES reduce using rule 25 (paramsfunction -> tipo savetipo param .)
 
 
-state 174
+state 173
 
     (71) asignacion -> ID EQUALS exp SEMICOLON .
 
@@ -4010,7 +3984,7 @@ state 174
     CLOSEBRACE      reduce using rule 71 (asignacion -> ID EQUALS exp SEMICOLON .)
 
 
-state 175
+state 174
 
     (72) asignacion -> ID retrieve_var_dims dims EQUALS . exp SEMICOLON
     (100) exp -> . iexp
@@ -4037,7 +4011,7 @@ state 175
     (121) factor -> . CTEC
     (122) factor -> . ID
     (123) factor -> . CTEB
-    (124) factor -> . llamada printt printt
+    (124) factor -> . llamada printt
     (125) factor -> . OPENPARENTHESES exp CLOSEPARENTHESES
     (126) factor -> . ID retrieve_var_dims dims
     (62) llamada -> . ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
@@ -4063,7 +4037,7 @@ state 175
     CTEB            shift and go to state 97
     OPENPARENTHESES shift and go to state 99
 
-    exp                            shift and go to state 188
+    exp                            shift and go to state 187
     iexp                           shift and go to state 87
     nexp                           shift and go to state 89
     pexp                           shift and go to state 90
@@ -4071,7 +4045,7 @@ state 175
     factor                         shift and go to state 92
     llamada                        shift and go to state 98
 
-state 176
+state 175
 
     (74) dims -> OPENBRACKET exp . calculate CLOSEBRACKET dims
     (75) dims -> OPENBRACKET exp . calculate CLOSEBRACKET
@@ -4079,16 +4053,16 @@ state 176
 
     CLOSEBRACKET    reduce using rule 76 (calculate -> .)
 
-    calculate                      shift and go to state 189
+    calculate                      shift and go to state 188
 
-state 177
+state 176
 
     (62) llamada -> ID gen_era OPENPARENTHESES param_call . CLOSEPARENTHESES
 
-    CLOSEPARENTHESES shift and go to state 190
+    CLOSEPARENTHESES shift and go to state 189
 
 
-state 178
+state 177
 
     (64) param_call -> exp . gen_param printt
     (65) param_call -> exp . gen_param COMMA param_call
@@ -4097,53 +4071,53 @@ state 178
     COMMA           reduce using rule 67 (gen_param -> .)
     CLOSEPARENTHESES reduce using rule 67 (gen_param -> .)
 
-    gen_param                      shift and go to state 191
+    gen_param                      shift and go to state 190
 
-state 179
+state 178
 
     (68) lectura -> READ OPENPARENTHESES ID CLOSEPARENTHESES . SEMICOLON
 
-    SEMICOLON       shift and go to state 192
+    SEMICOLON       shift and go to state 191
+
+
+state 179
+
+    (69) lectura -> READ OPENPARENTHESES ID dims . CLOSEPARENTHESES SEMICOLON
+
+    CLOSEPARENTHESES shift and go to state 192
 
 
 state 180
 
-    (69) lectura -> READ OPENPARENTHESES ID dims . CLOSEPARENTHESES SEMICOLON
+    (77) escritura -> WRITE OPENPARENTHESES escrituraP CLOSEPARENTHESES . SEMICOLON
 
-    CLOSEPARENTHESES shift and go to state 193
+    SEMICOLON       shift and go to state 193
 
 
 state 181
 
-    (77) escritura -> WRITE OPENPARENTHESES escrituraP CLOSEPARENTHESES . SEMICOLON
+    (81) condicion -> IF OPENPARENTHESES exp CLOSEPARENTHESES . OPENBRACE gen_gotof condicionp fill_goto
 
-    SEMICOLON       shift and go to state 194
+    OPENBRACE       shift and go to state 194
 
 
 state 182
-
-    (81) condicion -> IF OPENPARENTHESES exp CLOSEPARENTHESES . OPENBRACE gen_gotof condicionp fill_goto
-
-    OPENBRACE       shift and go to state 195
-
-
-state 183
 
     (92) condicional -> WHILE OPENPARENTHESES migaja exp . gen_gotof CLOSEPARENTHESES OPENBRACE estatuto fill_gotof_while gen_goto_migaja CLOSEBRACE
     (82) gen_gotof -> .
 
     CLOSEPARENTHESES reduce using rule 82 (gen_gotof -> .)
 
-    gen_gotof                      shift and go to state 196
+    gen_gotof                      shift and go to state 195
 
-state 184
+state 183
 
     (99) no_condicional -> FOR ID EQUALS exp . TO exp OPENBRACE estatuto CLOSEBRACE
 
-    TO              shift and go to state 197
+    TO              shift and go to state 196
 
 
-state 185
+state 184
 
     (37) declare_dims -> OPENBRACKET exp saveone CLOSEBRACKET declare_dims .
 
@@ -4152,7 +4126,7 @@ state 185
     CLOSEPARENTHESES reduce using rule 37 (declare_dims -> OPENBRACKET exp saveone CLOSEBRACKET declare_dims .)
 
 
-state 186
+state 185
 
     (16) funcion -> FUNCTION tipo_f TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction savesequence CLOSEPARENTHESES OPENBRACE . turnoff estatuto CLOSEBRACE
     (17) turnoff -> .
@@ -4168,9 +4142,9 @@ state 186
     VARS            reduce using rule 17 (turnoff -> .)
     CLOSEBRACE      reduce using rule 17 (turnoff -> .)
 
-    turnoff                        shift and go to state 198
+    turnoff                        shift and go to state 197
 
-state 187
+state 186
 
     (24) paramsfunction -> tipo savetipo param COMMA . paramsfunction
     (24) paramsfunction -> . tipo savetipo param COMMA paramsfunction
@@ -4191,25 +4165,25 @@ state 187
     CLOSEPARENTHESES reduce using rule 127 (empty -> .)
 
     tipo                           shift and go to state 102
-    paramsfunction                 shift and go to state 199
+    paramsfunction                 shift and go to state 198
     empty                          shift and go to state 103
 
-state 188
+state 187
 
     (72) asignacion -> ID retrieve_var_dims dims EQUALS exp . SEMICOLON
 
-    SEMICOLON       shift and go to state 200
+    SEMICOLON       shift and go to state 199
 
 
-state 189
+state 188
 
     (74) dims -> OPENBRACKET exp calculate . CLOSEBRACKET dims
     (75) dims -> OPENBRACKET exp calculate . CLOSEBRACKET
 
-    CLOSEBRACKET    shift and go to state 201
+    CLOSEBRACKET    shift and go to state 200
 
 
-state 190
+state 189
 
     (62) llamada -> ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES .
 
@@ -4243,18 +4217,18 @@ state 190
     OPENBRACE       reduce using rule 62 (llamada -> ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES .)
 
 
-state 191
+state 190
 
     (64) param_call -> exp gen_param . printt
     (65) param_call -> exp gen_param . COMMA param_call
     (66) printt -> .
 
-    COMMA           shift and go to state 203
+    COMMA           shift and go to state 202
     CLOSEPARENTHESES reduce using rule 66 (printt -> .)
 
-    printt                         shift and go to state 202
+    printt                         shift and go to state 201
 
-state 192
+state 191
 
     (68) lectura -> READ OPENPARENTHESES ID CLOSEPARENTHESES SEMICOLON .
 
@@ -4270,14 +4244,14 @@ state 192
     CLOSEBRACE      reduce using rule 68 (lectura -> READ OPENPARENTHESES ID CLOSEPARENTHESES SEMICOLON .)
 
 
-state 193
+state 192
 
     (69) lectura -> READ OPENPARENTHESES ID dims CLOSEPARENTHESES . SEMICOLON
 
-    SEMICOLON       shift and go to state 204
+    SEMICOLON       shift and go to state 203
 
 
-state 194
+state 193
 
     (77) escritura -> WRITE OPENPARENTHESES escrituraP CLOSEPARENTHESES SEMICOLON .
 
@@ -4293,7 +4267,7 @@ state 194
     CLOSEBRACE      reduce using rule 77 (escritura -> WRITE OPENPARENTHESES escrituraP CLOSEPARENTHESES SEMICOLON .)
 
 
-state 195
+state 194
 
     (81) condicion -> IF OPENPARENTHESES exp CLOSEPARENTHESES OPENBRACE . gen_gotof condicionp fill_goto
     (82) gen_gotof -> .
@@ -4309,16 +4283,16 @@ state 195
     VARS            reduce using rule 82 (gen_gotof -> .)
     CLOSEBRACE      reduce using rule 82 (gen_gotof -> .)
 
-    gen_gotof                      shift and go to state 205
+    gen_gotof                      shift and go to state 204
 
-state 196
+state 195
 
     (92) condicional -> WHILE OPENPARENTHESES migaja exp gen_gotof . CLOSEPARENTHESES OPENBRACE estatuto fill_gotof_while gen_goto_migaja CLOSEBRACE
 
-    CLOSEPARENTHESES shift and go to state 206
+    CLOSEPARENTHESES shift and go to state 205
 
 
-state 197
+state 196
 
     (99) no_condicional -> FOR ID EQUALS exp TO . exp OPENBRACE estatuto CLOSEBRACE
     (100) exp -> . iexp
@@ -4345,7 +4319,7 @@ state 197
     (121) factor -> . CTEC
     (122) factor -> . ID
     (123) factor -> . CTEB
-    (124) factor -> . llamada printt printt
+    (124) factor -> . llamada printt
     (125) factor -> . OPENPARENTHESES exp CLOSEPARENTHESES
     (126) factor -> . ID retrieve_var_dims dims
     (62) llamada -> . ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
@@ -4371,7 +4345,7 @@ state 197
     CTEB            shift and go to state 97
     OPENPARENTHESES shift and go to state 99
 
-    exp                            shift and go to state 207
+    exp                            shift and go to state 206
     iexp                           shift and go to state 87
     nexp                           shift and go to state 89
     pexp                           shift and go to state 90
@@ -4379,7 +4353,7 @@ state 197
     factor                         shift and go to state 92
     llamada                        shift and go to state 98
 
-state 198
+state 197
 
     (16) funcion -> FUNCTION tipo_f TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction savesequence CLOSEPARENTHESES OPENBRACE turnoff . estatuto CLOSEBRACE
     (51) estatuto -> . asignacion estatuto
@@ -4420,7 +4394,7 @@ state 198
     FOR             shift and go to state 84
     VARS            shift and go to state 12
 
-    estatuto                       shift and go to state 208
+    estatuto                       shift and go to state 207
     asignacion                     shift and go to state 65
     llamada                        shift and go to state 66
     lectura                        shift and go to state 67
@@ -4434,14 +4408,14 @@ state 198
     no_condicional                 shift and go to state 79
     vars                           shift and go to state 80
 
-state 199
+state 198
 
     (24) paramsfunction -> tipo savetipo param COMMA paramsfunction .
 
     CLOSEPARENTHESES reduce using rule 24 (paramsfunction -> tipo savetipo param COMMA paramsfunction .)
 
 
-state 200
+state 199
 
     (72) asignacion -> ID retrieve_var_dims dims EQUALS exp SEMICOLON .
 
@@ -4457,7 +4431,7 @@ state 200
     CLOSEBRACE      reduce using rule 72 (asignacion -> ID retrieve_var_dims dims EQUALS exp SEMICOLON .)
 
 
-state 201
+state 200
 
     (74) dims -> OPENBRACKET exp calculate CLOSEBRACKET . dims
     (75) dims -> OPENBRACKET exp calculate CLOSEBRACKET .
@@ -4485,16 +4459,16 @@ state 201
     OPENBRACE       reduce using rule 75 (dims -> OPENBRACKET exp calculate CLOSEBRACKET .)
     OPENBRACKET     shift and go to state 145
 
-    dims                           shift and go to state 209
+    dims                           shift and go to state 208
 
-state 202
+state 201
 
     (64) param_call -> exp gen_param printt .
 
     CLOSEPARENTHESES reduce using rule 64 (param_call -> exp gen_param printt .)
 
 
-state 203
+state 202
 
     (65) param_call -> exp gen_param COMMA . param_call
     (64) param_call -> . exp gen_param printt
@@ -4523,7 +4497,7 @@ state 203
     (121) factor -> . CTEC
     (122) factor -> . ID
     (123) factor -> . CTEB
-    (124) factor -> . llamada printt printt
+    (124) factor -> . llamada printt
     (125) factor -> . OPENPARENTHESES exp CLOSEPARENTHESES
     (126) factor -> . ID retrieve_var_dims dims
     (62) llamada -> . ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
@@ -4550,8 +4524,8 @@ state 203
     CTEB            shift and go to state 97
     OPENPARENTHESES shift and go to state 99
 
-    exp                            shift and go to state 178
-    param_call                     shift and go to state 210
+    exp                            shift and go to state 177
+    param_call                     shift and go to state 209
     iexp                           shift and go to state 87
     nexp                           shift and go to state 89
     pexp                           shift and go to state 90
@@ -4559,7 +4533,7 @@ state 203
     factor                         shift and go to state 92
     llamada                        shift and go to state 98
 
-state 204
+state 203
 
     (69) lectura -> READ OPENPARENTHESES ID dims CLOSEPARENTHESES SEMICOLON .
 
@@ -4575,7 +4549,7 @@ state 204
     CLOSEBRACE      reduce using rule 69 (lectura -> READ OPENPARENTHESES ID dims CLOSEPARENTHESES SEMICOLON .)
 
 
-state 205
+state 204
 
     (81) condicion -> IF OPENPARENTHESES exp CLOSEPARENTHESES OPENBRACE gen_gotof . condicionp fill_goto
     (87) condicionp -> . estatuto fill_gotof_if gen_goto CLOSEBRACE ELSE OPENBRACE estatuto CLOSEBRACE
@@ -4619,8 +4593,8 @@ state 205
     FOR             shift and go to state 84
     VARS            shift and go to state 12
 
-    condicionp                     shift and go to state 211
-    estatuto                       shift and go to state 212
+    condicionp                     shift and go to state 210
+    estatuto                       shift and go to state 211
     condicion                      shift and go to state 71
     asignacion                     shift and go to state 65
     llamada                        shift and go to state 66
@@ -4634,28 +4608,28 @@ state 205
     no_condicional                 shift and go to state 79
     vars                           shift and go to state 80
 
-state 206
+state 205
 
     (92) condicional -> WHILE OPENPARENTHESES migaja exp gen_gotof CLOSEPARENTHESES . OPENBRACE estatuto fill_gotof_while gen_goto_migaja CLOSEBRACE
+
+    OPENBRACE       shift and go to state 212
+
+
+state 206
+
+    (99) no_condicional -> FOR ID EQUALS exp TO exp . OPENBRACE estatuto CLOSEBRACE
 
     OPENBRACE       shift and go to state 213
 
 
 state 207
 
-    (99) no_condicional -> FOR ID EQUALS exp TO exp . OPENBRACE estatuto CLOSEBRACE
+    (16) funcion -> FUNCTION tipo_f TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction savesequence CLOSEPARENTHESES OPENBRACE turnoff estatuto . CLOSEBRACE
 
-    OPENBRACE       shift and go to state 214
+    CLOSEBRACE      shift and go to state 214
 
 
 state 208
-
-    (16) funcion -> FUNCTION tipo_f TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction savesequence CLOSEPARENTHESES OPENBRACE turnoff estatuto . CLOSEBRACE
-
-    CLOSEBRACE      shift and go to state 215
-
-
-state 209
 
     (74) dims -> OPENBRACKET exp calculate CLOSEBRACKET dims .
 
@@ -4680,14 +4654,14 @@ state 209
     OPENBRACE       reduce using rule 74 (dims -> OPENBRACKET exp calculate CLOSEBRACKET dims .)
 
 
-state 210
+state 209
 
     (65) param_call -> exp gen_param COMMA param_call .
 
     CLOSEPARENTHESES reduce using rule 65 (param_call -> exp gen_param COMMA param_call .)
 
 
-state 211
+state 210
 
     (81) condicion -> IF OPENPARENTHESES exp CLOSEPARENTHESES OPENBRACE gen_gotof condicionp . fill_goto
     (85) fill_goto -> .
@@ -4703,9 +4677,9 @@ state 211
     VARS            reduce using rule 85 (fill_goto -> .)
     CLOSEBRACE      reduce using rule 85 (fill_goto -> .)
 
-    fill_goto                      shift and go to state 216
+    fill_goto                      shift and go to state 215
 
-state 212
+state 211
 
     (87) condicionp -> estatuto . fill_gotof_if gen_goto CLOSEBRACE ELSE OPENBRACE estatuto CLOSEBRACE
     (88) condicionp -> estatuto . fill_gotof_if gen_goto CLOSEBRACE ELSE condicion
@@ -4714,11 +4688,66 @@ state 212
 
     CLOSEBRACE      reduce using rule 86 (fill_gotof_if -> .)
 
-    fill_gotof_if                  shift and go to state 217
+    fill_gotof_if                  shift and go to state 216
+
+state 212
+
+    (92) condicional -> WHILE OPENPARENTHESES migaja exp gen_gotof CLOSEPARENTHESES OPENBRACE . estatuto fill_gotof_while gen_goto_migaja CLOSEBRACE
+    (51) estatuto -> . asignacion estatuto
+    (52) estatuto -> . llamada estatuto
+    (53) estatuto -> . lectura estatuto
+    (54) estatuto -> . escritura estatuto
+    (55) estatuto -> . repeticion estatuto
+    (56) estatuto -> . declaracion estatuto
+    (57) estatuto -> . condicion estatuto
+    (58) estatuto -> . return estatuto
+    (59) estatuto -> . CTE_COMMENT estatuto
+    (60) estatuto -> . empty
+    (71) asignacion -> . ID EQUALS exp SEMICOLON
+    (72) asignacion -> . ID retrieve_var_dims dims EQUALS exp SEMICOLON
+    (62) llamada -> . ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
+    (68) lectura -> . READ OPENPARENTHESES ID CLOSEPARENTHESES SEMICOLON
+    (69) lectura -> . READ OPENPARENTHESES ID dims CLOSEPARENTHESES SEMICOLON
+    (77) escritura -> . WRITE OPENPARENTHESES escrituraP CLOSEPARENTHESES SEMICOLON
+    (90) repeticion -> . condicional
+    (91) repeticion -> . no_condicional
+    (61) declaracion -> . vars
+    (81) condicion -> . IF OPENPARENTHESES exp CLOSEPARENTHESES OPENBRACE gen_gotof condicionp fill_goto
+    (29) return -> . RETURN exp SEMICOLON
+    (30) return -> . RETURN SEMICOLON
+    (127) empty -> .
+    (92) condicional -> . WHILE OPENPARENTHESES migaja exp gen_gotof CLOSEPARENTHESES OPENBRACE estatuto fill_gotof_while gen_goto_migaja CLOSEBRACE
+    (99) no_condicional -> . FOR ID EQUALS exp TO exp OPENBRACE estatuto CLOSEBRACE
+    (31) vars -> . VARS tipo savetype TWODOTS varsP
+
+    CTE_COMMENT     shift and go to state 73
+    ID              shift and go to state 75
+    READ            shift and go to state 76
+    WRITE           shift and go to state 77
+    IF              shift and go to state 81
+    RETURN          shift and go to state 82
+    CLOSEBRACE      reduce using rule 127 (empty -> .)
+    WHILE           shift and go to state 83
+    FOR             shift and go to state 84
+    VARS            shift and go to state 12
+
+    estatuto                       shift and go to state 217
+    asignacion                     shift and go to state 65
+    llamada                        shift and go to state 66
+    lectura                        shift and go to state 67
+    escritura                      shift and go to state 68
+    repeticion                     shift and go to state 69
+    declaracion                    shift and go to state 70
+    condicion                      shift and go to state 71
+    return                         shift and go to state 72
+    empty                          shift and go to state 74
+    condicional                    shift and go to state 78
+    no_condicional                 shift and go to state 79
+    vars                           shift and go to state 80
 
 state 213
 
-    (92) condicional -> WHILE OPENPARENTHESES migaja exp gen_gotof CLOSEPARENTHESES OPENBRACE . estatuto fill_gotof_while gen_goto_migaja CLOSEBRACE
+    (99) no_condicional -> FOR ID EQUALS exp TO exp OPENBRACE . estatuto CLOSEBRACE
     (51) estatuto -> . asignacion estatuto
     (52) estatuto -> . llamada estatuto
     (53) estatuto -> . lectura estatuto
@@ -4773,61 +4802,6 @@ state 213
 
 state 214
 
-    (99) no_condicional -> FOR ID EQUALS exp TO exp OPENBRACE . estatuto CLOSEBRACE
-    (51) estatuto -> . asignacion estatuto
-    (52) estatuto -> . llamada estatuto
-    (53) estatuto -> . lectura estatuto
-    (54) estatuto -> . escritura estatuto
-    (55) estatuto -> . repeticion estatuto
-    (56) estatuto -> . declaracion estatuto
-    (57) estatuto -> . condicion estatuto
-    (58) estatuto -> . return estatuto
-    (59) estatuto -> . CTE_COMMENT estatuto
-    (60) estatuto -> . empty
-    (71) asignacion -> . ID EQUALS exp SEMICOLON
-    (72) asignacion -> . ID retrieve_var_dims dims EQUALS exp SEMICOLON
-    (62) llamada -> . ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
-    (68) lectura -> . READ OPENPARENTHESES ID CLOSEPARENTHESES SEMICOLON
-    (69) lectura -> . READ OPENPARENTHESES ID dims CLOSEPARENTHESES SEMICOLON
-    (77) escritura -> . WRITE OPENPARENTHESES escrituraP CLOSEPARENTHESES SEMICOLON
-    (90) repeticion -> . condicional
-    (91) repeticion -> . no_condicional
-    (61) declaracion -> . vars
-    (81) condicion -> . IF OPENPARENTHESES exp CLOSEPARENTHESES OPENBRACE gen_gotof condicionp fill_goto
-    (29) return -> . RETURN exp SEMICOLON
-    (30) return -> . RETURN SEMICOLON
-    (127) empty -> .
-    (92) condicional -> . WHILE OPENPARENTHESES migaja exp gen_gotof CLOSEPARENTHESES OPENBRACE estatuto fill_gotof_while gen_goto_migaja CLOSEBRACE
-    (99) no_condicional -> . FOR ID EQUALS exp TO exp OPENBRACE estatuto CLOSEBRACE
-    (31) vars -> . VARS tipo savetype TWODOTS varsP
-
-    CTE_COMMENT     shift and go to state 73
-    ID              shift and go to state 75
-    READ            shift and go to state 76
-    WRITE           shift and go to state 77
-    IF              shift and go to state 81
-    RETURN          shift and go to state 82
-    CLOSEBRACE      reduce using rule 127 (empty -> .)
-    WHILE           shift and go to state 83
-    FOR             shift and go to state 84
-    VARS            shift and go to state 12
-
-    estatuto                       shift and go to state 219
-    asignacion                     shift and go to state 65
-    llamada                        shift and go to state 66
-    lectura                        shift and go to state 67
-    escritura                      shift and go to state 68
-    repeticion                     shift and go to state 69
-    declaracion                    shift and go to state 70
-    condicion                      shift and go to state 71
-    return                         shift and go to state 72
-    empty                          shift and go to state 74
-    condicional                    shift and go to state 78
-    no_condicional                 shift and go to state 79
-    vars                           shift and go to state 80
-
-state 215
-
     (16) funcion -> FUNCTION tipo_f TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction savesequence CLOSEPARENTHESES OPENBRACE turnoff estatuto CLOSEBRACE .
 
     CTE_COMMENT     reduce using rule 16 (funcion -> FUNCTION tipo_f TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction savesequence CLOSEPARENTHESES OPENBRACE turnoff estatuto CLOSEBRACE .)
@@ -4838,7 +4812,7 @@ state 215
     CLOSEBRACE      reduce using rule 16 (funcion -> FUNCTION tipo_f TWODOTS ID savefuncscope OPENPARENTHESES paramsfunction savesequence CLOSEPARENTHESES OPENBRACE turnoff estatuto CLOSEBRACE .)
 
 
-state 216
+state 215
 
     (81) condicion -> IF OPENPARENTHESES exp CLOSEPARENTHESES OPENBRACE gen_gotof condicionp fill_goto .
 
@@ -4854,7 +4828,7 @@ state 216
     CLOSEBRACE      reduce using rule 81 (condicion -> IF OPENPARENTHESES exp CLOSEPARENTHESES OPENBRACE gen_gotof condicionp fill_goto .)
 
 
-state 217
+state 216
 
     (87) condicionp -> estatuto fill_gotof_if . gen_goto CLOSEBRACE ELSE OPENBRACE estatuto CLOSEBRACE
     (88) condicionp -> estatuto fill_gotof_if . gen_goto CLOSEBRACE ELSE condicion
@@ -4863,43 +4837,43 @@ state 217
 
     CLOSEBRACE      reduce using rule 84 (gen_goto -> .)
 
-    gen_goto                       shift and go to state 220
+    gen_goto                       shift and go to state 219
 
-state 218
+state 217
 
     (92) condicional -> WHILE OPENPARENTHESES migaja exp gen_gotof CLOSEPARENTHESES OPENBRACE estatuto . fill_gotof_while gen_goto_migaja CLOSEBRACE
     (98) fill_gotof_while -> .
 
     CLOSEBRACE      reduce using rule 98 (fill_gotof_while -> .)
 
-    fill_gotof_while               shift and go to state 221
+    fill_gotof_while               shift and go to state 220
+
+state 218
+
+    (99) no_condicional -> FOR ID EQUALS exp TO exp OPENBRACE estatuto . CLOSEBRACE
+
+    CLOSEBRACE      shift and go to state 221
+
 
 state 219
 
-    (99) no_condicional -> FOR ID EQUALS exp TO exp OPENBRACE estatuto . CLOSEBRACE
+    (87) condicionp -> estatuto fill_gotof_if gen_goto . CLOSEBRACE ELSE OPENBRACE estatuto CLOSEBRACE
+    (88) condicionp -> estatuto fill_gotof_if gen_goto . CLOSEBRACE ELSE condicion
+    (89) condicionp -> estatuto fill_gotof_if gen_goto . CLOSEBRACE
 
     CLOSEBRACE      shift and go to state 222
 
 
 state 220
 
-    (87) condicionp -> estatuto fill_gotof_if gen_goto . CLOSEBRACE ELSE OPENBRACE estatuto CLOSEBRACE
-    (88) condicionp -> estatuto fill_gotof_if gen_goto . CLOSEBRACE ELSE condicion
-    (89) condicionp -> estatuto fill_gotof_if gen_goto . CLOSEBRACE
-
-    CLOSEBRACE      shift and go to state 223
-
-
-state 221
-
     (92) condicional -> WHILE OPENPARENTHESES migaja exp gen_gotof CLOSEPARENTHESES OPENBRACE estatuto fill_gotof_while . gen_goto_migaja CLOSEBRACE
     (94) gen_goto_migaja -> .
 
     CLOSEBRACE      reduce using rule 94 (gen_goto_migaja -> .)
 
-    gen_goto_migaja                shift and go to state 224
+    gen_goto_migaja                shift and go to state 223
 
-state 222
+state 221
 
     (99) no_condicional -> FOR ID EQUALS exp TO exp OPENBRACE estatuto CLOSEBRACE .
 
@@ -4915,13 +4889,13 @@ state 222
     CLOSEBRACE      reduce using rule 99 (no_condicional -> FOR ID EQUALS exp TO exp OPENBRACE estatuto CLOSEBRACE .)
 
 
-state 223
+state 222
 
     (87) condicionp -> estatuto fill_gotof_if gen_goto CLOSEBRACE . ELSE OPENBRACE estatuto CLOSEBRACE
     (88) condicionp -> estatuto fill_gotof_if gen_goto CLOSEBRACE . ELSE condicion
     (89) condicionp -> estatuto fill_gotof_if gen_goto CLOSEBRACE .
 
-    ELSE            shift and go to state 225
+    ELSE            shift and go to state 224
     CTE_COMMENT     reduce using rule 89 (condicionp -> estatuto fill_gotof_if gen_goto CLOSEBRACE .)
     ID              reduce using rule 89 (condicionp -> estatuto fill_gotof_if gen_goto CLOSEBRACE .)
     READ            reduce using rule 89 (condicionp -> estatuto fill_gotof_if gen_goto CLOSEBRACE .)
@@ -4934,25 +4908,25 @@ state 223
     CLOSEBRACE      reduce using rule 89 (condicionp -> estatuto fill_gotof_if gen_goto CLOSEBRACE .)
 
 
-state 224
+state 223
 
     (92) condicional -> WHILE OPENPARENTHESES migaja exp gen_gotof CLOSEPARENTHESES OPENBRACE estatuto fill_gotof_while gen_goto_migaja . CLOSEBRACE
 
-    CLOSEBRACE      shift and go to state 226
+    CLOSEBRACE      shift and go to state 225
 
 
-state 225
+state 224
 
     (87) condicionp -> estatuto fill_gotof_if gen_goto CLOSEBRACE ELSE . OPENBRACE estatuto CLOSEBRACE
     (88) condicionp -> estatuto fill_gotof_if gen_goto CLOSEBRACE ELSE . condicion
     (81) condicion -> . IF OPENPARENTHESES exp CLOSEPARENTHESES OPENBRACE gen_gotof condicionp fill_goto
 
-    OPENBRACE       shift and go to state 227
+    OPENBRACE       shift and go to state 226
     IF              shift and go to state 81
 
-    condicion                      shift and go to state 228
+    condicion                      shift and go to state 227
 
-state 226
+state 225
 
     (92) condicional -> WHILE OPENPARENTHESES migaja exp gen_gotof CLOSEPARENTHESES OPENBRACE estatuto fill_gotof_while gen_goto_migaja CLOSEBRACE .
 
@@ -4968,7 +4942,7 @@ state 226
     CLOSEBRACE      reduce using rule 92 (condicional -> WHILE OPENPARENTHESES migaja exp gen_gotof CLOSEPARENTHESES OPENBRACE estatuto fill_gotof_while gen_goto_migaja CLOSEBRACE .)
 
 
-state 227
+state 226
 
     (87) condicionp -> estatuto fill_gotof_if gen_goto CLOSEBRACE ELSE OPENBRACE . estatuto CLOSEBRACE
     (51) estatuto -> . asignacion estatuto
@@ -5009,7 +4983,7 @@ state 227
     FOR             shift and go to state 84
     VARS            shift and go to state 12
 
-    estatuto                       shift and go to state 229
+    estatuto                       shift and go to state 228
     asignacion                     shift and go to state 65
     llamada                        shift and go to state 66
     lectura                        shift and go to state 67
@@ -5023,7 +4997,7 @@ state 227
     no_condicional                 shift and go to state 79
     vars                           shift and go to state 80
 
-state 228
+state 227
 
     (88) condicionp -> estatuto fill_gotof_if gen_goto CLOSEBRACE ELSE condicion .
 
@@ -5039,14 +5013,14 @@ state 228
     CLOSEBRACE      reduce using rule 88 (condicionp -> estatuto fill_gotof_if gen_goto CLOSEBRACE ELSE condicion .)
 
 
-state 229
+state 228
 
     (87) condicionp -> estatuto fill_gotof_if gen_goto CLOSEBRACE ELSE OPENBRACE estatuto . CLOSEBRACE
 
-    CLOSEBRACE      shift and go to state 230
+    CLOSEBRACE      shift and go to state 229
 
 
-state 230
+state 229
 
     (87) condicionp -> estatuto fill_gotof_if gen_goto CLOSEBRACE ELSE OPENBRACE estatuto CLOSEBRACE .
 
