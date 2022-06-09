@@ -12,6 +12,7 @@ dict_func = eval(data['Func_dir'])
 dict_temp = {}
 dict_copy = {}
 dict_aux = {}
+dict_point = {}
 list_aux = []
 cont = 0
 contador_guadalupano = 0
@@ -130,7 +131,15 @@ while True:
     #SI EL CUADRUPLO ES UN "+"
     elif data['Quadruples'][cont][1] == '+':
         #print("SI LO ESTOY ENCONTRANDO")
-        if data['Quadruples'][cont][2] >= 30000:
+        if data['Quadruples'][cont][4] >= 40000:
+            if data['Quadruples'][cont][2] >= 30000:
+                dict_point[data['Quadruples'][cont][4]] = dict_ctes.get(data['Quadruples'][cont][2]) + data['Quadruples'][cont][3]
+                print(dict_point)
+            else:
+                dict_point[data['Quadruples'][cont][4]] = dict_temp[data['Quadruples'][cont][2]] + data['Quadruples'][cont][3]
+                print(dict_point[data['Quadruples'][cont][4]], "=" ,dict_temp[data['Quadruples'][cont][2]], "+" ,data['Quadruples'][cont][3])
+                print(dict_point)
+        elif data['Quadruples'][cont][2] >= 30000:
             if data['Quadruples'][cont][3] >= 30000:
                 dict_temp[data['Quadruples'][cont][4]] = dict_ctes.get(data['Quadruples'][cont][2]) + dict_ctes.get(data['Quadruples'][cont][3])
                 #print("-->", data['Quadruples'][cont][4], "=", data['Quadruples'][cont][2], "+", data['Quadruples'][cont][3])
@@ -162,6 +171,7 @@ while True:
                     dict_temp[data['Quadruples'][cont][4]] = dict_temp[data['Quadruples'][cont][4]] + value['value']
                     #print(value['address'], '=', value['value'])
                     #print("-->", "dict_temp =", dict_temp)
+        print("-->", "dict_temp =", dict_temp)
                         
     #SI EL CUADRUPLO ES UN "-"
     elif data['Quadruples'][cont][1] == '-':
@@ -336,7 +346,23 @@ while True:
     
     #SI EL CUADRUPLO ES "="
     elif data['Quadruples'][cont][1] == '=':
-        if data['Quadruples'][cont][3] >= 30000:
+        if data['Quadruples'][cont][4] >= 40000:
+            print("Aqui se asigna la direccion del array")
+            
+            #dict_point[data['Quadruples'][cont][4]] = data['Quadruples'][cont][3]
+            if data['Quadruples'][cont][3] >= 30000:
+                #dict_temp[dict_point[data['Quadruples'][cont][4]]] = data['Quadruples'][cont][3]
+                dict_temp[dict_point[data['Quadruples'][cont][4]]] = dict_ctes.get(data['Quadruples'][cont][3])
+                print("-->", "dict_temp =", dict_point) 
+                print("-->", "dict_temp =", dict_temp)
+            else:
+                dict_temp[dict_point[data['Quadruples'][cont][4]]] = dict_temp[data['Quadruples'][cont][3]]
+        elif data['Quadruples'][cont][3] >= 40000:
+            if dict_point[data['Quadruples'][cont][3]] >= 30000:
+                dict_temp[data['Quadruples'][cont][4]] = dict_ctes.get(dict_point[data['Quadruples'][cont][3]])
+            else:
+                dict_temp[data['Quadruples'][cont][4]] = dict_temp[dict_point[data['Quadruples'][cont][3]]]
+        elif data['Quadruples'][cont][3] >= 30000:
             #print("-->", data['Quadruples'][cont][4], '=', data['Quadruples'][cont][3])
             dict_temp[data['Quadruples'][cont][4]] = dict_ctes.get(data['Quadruples'][cont][3])
             #print("-->", "dict_temp =", dict_temp)
@@ -448,10 +474,16 @@ while True:
                     
     #SI EL CUADRUPLO ES "write"
     elif data['Quadruples'][cont][1] == 'write':
-        if data['Quadruples'][cont][4] >= 30000:
+        if data['Quadruples'][cont][4] >= 40000:
+            if dict_point[data['Quadruples'][cont][4]] >= 30000:
+                print(dict_ctes.get(dict_point[data['Quadruples'][cont][4]]))
+            else:
+                print(dict_temp[dict_point[data['Quadruples'][cont][4]]])
+        elif data['Quadruples'][cont][4] >= 30000:
             print(dict_ctes[data['Quadruples'][cont][4]])
         elif data['Quadruples'][cont][4] in dict_temp:
             print(dict_temp[data['Quadruples'][cont][4]])
+            print("entro aqui")
         elif data['Quadruples'][cont][0] > main_quad:
             #print("SI ESTOY ENTRANDO A MAYOR QUE MAIN")
             for function, value in dict_func['main']['vars'].items():
@@ -612,6 +644,12 @@ while True:
                         if dict_temp[data['Quadruples'][cont][2]] != dict_temp[data['Quadruples'][cont][3]]:
                             dict_temp[data['Quadruples'][cont][4]] = "true"
 
+    elif data['Quadruples'][cont][3] == 'VERIFY':
+        if data['Quadruples'][cont][1] >= 30000:
+            if dict_ctes[data['Quadruples'][cont][1]] >= data['Quadruples'][cont][2]:
+                print("Limite de arreglo excedido")
+                exit()
+
     cont = cont + 1
 
 #print("JHDCOJUDJD")
@@ -620,8 +658,8 @@ while True:
 #print("AQUI VA EL DICCIONARIO DE FUNCIONES")
 #print(dict_func)
 
-#for i in data['ctes_table']:
-#   #print(i)
+for i in data['ctes_table']:
+   print(i)
 
 auxiliar_pair = (dict_temp, cont)
 function_stack.append(auxiliar_pair)

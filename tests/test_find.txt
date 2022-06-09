@@ -1,0 +1,40 @@
+program test;
+
+vars int : arreglo[5];
+
+function int : find(int num){
+    vars int : aux2;
+    vars bool : booleano;
+    booleano = true;
+    aux2 = 0;
+
+    while(booleano){
+        if(num == arreglo[aux2]){
+            booleano = false;
+        }
+        aux2 = aux2 + 1;
+    }
+    return(aux2);
+}
+
+main(){
+
+    vars int : aux;
+    vars int : encuentra;
+    vars int : encontro;
+    aux = 0;
+
+    # Tenemos un arreglo donde cada subindice es su valor multiplicado x 2 #
+
+    while(aux < 5){
+        arreglo[aux] = aux*2;
+        aux = aux + 1;
+    }
+
+    encuentra = 4;
+
+    encontro = 0;
+    encontro = find(encuentra);
+    write("Prueba de fuego");
+    write(encontro);
+}

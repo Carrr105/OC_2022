@@ -79,7 +79,7 @@ class CI:
                     print(end)
                     print(self.pointer_base+start+ end)
                     raise TypeError("stack overflow pointer !")
-            self.counter_global[count] += size
+            self.counter_pointer[count] += size
         elif mem_type == "local" :
             address = self.local_base + start + self.counter_local[count]
             self.counter_local[count] += size

@@ -1,0 +1,19 @@
+program test;
+
+main(){
+    vars int : prueba[5];
+    vars int : aux;
+    aux = 0;
+
+    while(aux < 5){
+        prueba[aux] = aux;
+        aux = aux + 1;
+    }
+
+    aux = 0;
+
+    while(aux < 5){
+        write(prueba[aux]);
+        aux = aux + 1;
+    }
+}

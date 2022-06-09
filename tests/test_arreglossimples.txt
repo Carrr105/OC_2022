@@ -1,11 +1,16 @@
 program test;
 
 main(){
-    vars int : prueba[3];
+    vars int : aux;
+    vars int : variable;
+    aux = 2 - 1;
+    variable = 0;
+    vars int : prueba[2];
     vars int : pruebaDos;
     prueba[0] = 2;
     pruebaDos = 2 * 2;
-    prueba[0] = 2;
-
+    prueba[aux] = pruebaDos;
+    variable = prueba[aux];
+    write(variable);
 
 }
