@@ -139,7 +139,7 @@ class DirFunc:
                                                                         'value' : None,
                                                                         'function' : str(isFunction),
                                                                         'dimensions' : [],
-                                                                        'paramcount' : str(paramcount)
+                                                                        'paramcount' : paramcount
                                                                         }
                 print("SSS")
                 print (self.function_dictionary[currentscope]["vars"][name])
@@ -157,7 +157,7 @@ class DirFunc:
                                                                     'value' : None,
                                                                     'function' : str(isFunction),
                                                                     'dimensions' : [],
-                                                                    'paramcount' : str(paramcount)
+                                                                    'paramcount' : paramcount
                                                                     }
             for i in range(len(dim_stack)):
                 self.function_dictionary["global"]["classes"][self.current_class]["vars"][name]["dimensions"].append(dim_stack[i])

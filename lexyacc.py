@@ -9,6 +9,7 @@ from DirFunc import DirFunc as df
 from CodigoIntermedio import CI as ci
 import re
 from six.moves import reduce
+import os
 
 df = df()
 ci = ci()
@@ -408,9 +409,14 @@ def p_param(p):
         else:
             address = ci.get_address(type_var, "local")
             if isParamFunc:
-                df.insert_var(scopestack[-1], p[1], type_var, address, [], paramcount, isFunction=False, isClass=isClass)
+                print("justener2")
+                print(p[1])
+                print(paramcount)
+                print(isClass)
+                df.insert_var(scopestack[-1], p[1], type_var, address, [], paramcount=paramcount, isFunction=False, isClass=isClass)
                 paramcount+=1
-            df.insert_var(scopestack[-1], p[1], type_var, address, [], 0, isFunction=False, isClass=isClass)
+            else:
+                df.insert_var(scopestack[-1], p[1], type_var, address, [], 0, isFunction=False, isClass=isClass)
             
             
         myvars = {}
@@ -1089,7 +1095,7 @@ parser = yacc.yacc()
 
 if __name__ == '__main__':
     try:
-        archivo = open('./tests/test_whilearray.txt','r')
+        archivo = open(str(sys.argv[1]),'r')
         info = archivo.read()
         lexer.input(info)
         #tokenize
@@ -1104,6 +1110,7 @@ if __name__ == '__main__':
             df.print_var()
             ci.print_quadruples()
             ci.new_obj_file(str(df.function_dictionary))
+            os.system('python3 virtualmachine.py')
         else:
             print("syntax error")
     except EOFError:

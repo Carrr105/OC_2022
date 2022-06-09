@@ -14,7 +14,9 @@ function int : find(int num){
         }
         aux2 = aux2 + 1;
     }
-    return(aux2);
+    aux2 = aux2 - 1;
+    write (aux2);
+    return (aux2) ;
 }
 
 main(){

@@ -13,6 +13,7 @@ dict_temp = {}
 dict_copy = {}
 dict_aux = {}
 dict_point = {}
+dict_array = {}
 list_aux = []
 cont = 0
 contador_guadalupano = 0
@@ -45,16 +46,25 @@ while True:
         function_stack.append(auxiliar_pair)
         dict_temp = dict(dict_aux)
         dict_aux.clear()
+        print("dictsub")
+        print (dict_temp)
         cont = era_jump
         for function, value in dict_temp.items():
             list_aux.append(value)
-        for function, value in dict_func[function_name]['vars'].items():
-            if (len(list_aux) != 0 ):
+        print("listaux")
+        print(list_aux)
+        for function, value in dict_func[function_name]["vars"].items():
+            if (len(list_aux) != 0 ) and value["paramcount"] !=0:
+                print("valnow3")
+                print(value["address"])
+                print(list_aux[contador_guadalupano])
+                dict_temp[value["address"]] = list_aux[contador_guadalupano]
                 value['value'] = list_aux[contador_guadalupano]
                 contador_guadalupano = contador_guadalupano + 1
             if contador_guadalupano == len(dict_func[function_name]['params']):
                 break
         list_aux.clear()
+        print("justgotout")
     
     #SI EL CUADRUPLO ES UN "*"
     elif data['Quadruples'][cont][1] == '*':
@@ -255,6 +265,8 @@ while True:
         else:
             if data['Quadruples'][cont][3] in dict_temp:
                 dict_aux[data['Quadruples'][cont][3]] = dict_temp[data['Quadruples'][cont][3]]
+                print("just inserted")
+                print(dict_aux)
                 #print("-->", dict_aux)
     
     # #SI EL CUADRUPLO ES UN "GOSUB"
@@ -356,7 +368,10 @@ while True:
                 print("-->", "dict_temp =", dict_point) 
                 print("-->", "dict_temp =", dict_temp)
             else:
-                dict_temp[dict_point[data['Quadruples'][cont][4]]] = dict_temp[data['Quadruples'][cont][3]]
+                #dict_temp[dict_point[data['Quadruples'][cont][4]]] = dict_temp[data['Quadruples'][cont][3]]
+                dict_array[dict_point[data['Quadruples'][cont][4]]] = dict_temp[data['Quadruples'][cont][3]]
+                print("asignado1")
+                print(dict_array)
         elif data['Quadruples'][cont][3] >= 40000:
             if dict_point[data['Quadruples'][cont][3]] >= 30000:
                 dict_temp[data['Quadruples'][cont][4]] = dict_ctes.get(dict_point[data['Quadruples'][cont][3]])
@@ -615,7 +630,16 @@ while True:
                         dict_temp[data['Quadruples'][cont][4]] = "true"
         else:
                 if data['Quadruples'][cont][3] >= 30000:
-                    if dict_temp[data['Quadruples'][cont][2]] == dict_ctes.get(data['Quadruples'][cont][3]):
+                    if data['Quadruples'][cont][3] >= 40000:
+                        print("holoo4")
+                        print(dict_array)
+                        print(dict_point)
+                        print(dict_temp)
+                        #print(dict_temp[data['Quadruples'][cont][2]])
+                        print (dict_array[dict_point[data['Quadruples'][cont][3]]])
+                        if dict_temp[data['Quadruples'][cont][2]] == dict_array[dict_point[data['Quadruples'][cont][3]]]:
+                            dict_temp[data['Quadruples'][cont][4]] = "true"
+                    elif dict_temp[data['Quadruples'][cont][2]] == dict_ctes.get(data['Quadruples'][cont][3]):
                         dict_temp[data['Quadruples'][cont][4]] = "true"
                 else:
                     if data['Quadruples'][cont][3] in dict_temp:
