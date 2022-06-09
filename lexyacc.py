@@ -724,7 +724,8 @@ def p_dims(p):
         ci.stOperators.append("+") # agrega simbolo igual de asignacion
         ci.stOperands.append(var["address"]) #  manda dir base
         ci.stTypes.append(var["type"])
-        ci.new_quadruple() # genera cuadruplo para sumar recorrido a direccion base
+        # pointer
+        ci.new_quadruple(isPointer = True) # genera cuadruplo para sumar recorrido a direccion base
         recorridodimensiones.clear()
         R = 1
 

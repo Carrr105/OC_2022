@@ -19,6 +19,7 @@ class CI:
         self.local_base = 10000
         self.temporal_base = 20000
         self.ctes_base = 30000
+        self.pointer_base = 40000
 
         self.char_start = 0
         self.int_start = 2500
@@ -29,6 +30,7 @@ class CI:
         self.main_goto_pos = None
         self.counter = 1
         self.counter_global = [0,0,0,0]
+        self.counter_pointer = [0,0,0,0]
         self.counter_local = [0,0,0,0]
         self.counter_ctes = [0,0,0,0]
         self.counter_temporal = [0,0,0,0]
@@ -67,6 +69,16 @@ class CI:
                     print(end)
                     print(self.global_base+start+ end)
                     raise TypeError("stack overflow global !")
+            self.counter_global[count] += size
+        elif mem_type == "pointer" :
+            address = self.pointer_base + start + self.counter_pointer[count]
+            if address + size > self.pointer_base + start+ end :
+                    print(address)
+                    print(size)
+                    print(start)
+                    print(end)
+                    print(self.pointer_base+start+ end)
+                    raise TypeError("stack overflow pointer !")
             self.counter_global[count] += size
         elif mem_type == "local" :
             address = self.local_base + start + self.counter_local[count]
@@ -110,8 +122,9 @@ class CI:
         # las constantes no se reinician porque son globales
         #self.counter_ctes =  [0,0,0,0]
         self.counter_temporal = [0,0,0,0]
+        #self.counter_pointer =  [0,0,0,0] por tiempo no se reinicia
     
-    def new_quadruple(self):
+    def new_quadruple(self, isPointer=False):
         print("stack of operators ")
         print (self.stOperators)
         print("stack of operands ")
@@ -134,7 +147,10 @@ class CI:
                 result = leftop
                 quadruple = Quadruple(self.counter, operator, None, rightop, result)
             else:
-                result = self.get_address(restype, "temporal")
+                if isPointer:
+                    result = self.get_address(restype, "pointer")
+                else:
+                    result = self.get_address(restype, "temporal")
                 quadruple = Quadruple(self.counter, operator, rightop, leftop, result)
                 self.stOperands.append(result) # generacion del temporal 
                 self.stTypes.append(restype)
