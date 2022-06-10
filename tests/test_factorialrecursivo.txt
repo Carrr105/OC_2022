@@ -1,0 +1,19 @@
+program test;
+
+function int : factorial(int n){
+   if(n == 1){
+      return 1;
+   }
+   else{
+      return (n * factorial(n - 1));
+   }
+}
+
+main(){
+    vars int : numero;
+    vars int : resultado;
+    numero = 5;
+    resultado = 0;
+    resultado = factorial(numero);
+    write(resultado);
+}

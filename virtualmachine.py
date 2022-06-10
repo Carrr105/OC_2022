@@ -318,9 +318,14 @@ while True:
     #SI EL CUADRUPLO ES UN "RETURN"
     elif data['Quadruples'][cont][3] == 'RETURN':
         #print("-->", "dict_tempppp =", dict_temp)
+        myaddresslist = []
+        myvaluelist = []
         if data['Quadruples'][cont][2] is not None:
             if data['Quadruples'][cont][2] >= 30000 and function_name != '':
+                print("dictfuncc")
                 dict_func[function_name]['value'] = dict_ctes[data['Quadruples'][cont][2]]
+                myaddresslist.append(data['Quadruples'][cont][4])
+                myvaluelist.append(dict_ctes[data['Quadruples'][cont][2]])
                 #print(dict_func['global']['vars'][function_name]['address'], "=" ,dict_ctes[data['Quadruples'][cont][2]])
                 #print(dict_func[function_name]['value'])
             elif data['Quadruples'][cont][2] in dict_temp and function_name != '':
@@ -332,9 +337,18 @@ while True:
                 # #print("do we are going to finish")
                 for function, value in dict_func['global']['vars'].items():
                     if value['address'] == data['Quadruples'][cont][4]:
+                        print("entreaqui")
                         value['value'] = dict_temp[data['Quadruples'][cont][2]]
+                        #dict_temp[data['Quadruples'][cont][4]] = dict_temp[data['Quadruples'][cont][2]]
+                        myaddresslist.append(data['Quadruples'][cont][4])
+                        myvaluelist.append(dict_temp[data['Quadruples'][cont][2]])
+                        print ("checkingg")
+                        print(data['Quadruples'][cont][4])
+                        print(data['Quadruples'][cont][2])
+                        print(dict_temp)
                         #print(value['address'], '=', value['value'])
                         #print("-->", "dict_temp =", dict_temp)
+                print (dict_func)
             #else:
                 #print("UNA FUNCION SE ASIGNO A OTRA FUNCION")
         if function_stack:
@@ -344,6 +358,11 @@ while True:
             dict_temp = auxiliar_pair[0]
             cont = auxiliar_pair[1] - 1
             #print(data['Quadruples'][cont])
+            if len(myaddresslist) != 0:
+                if len(myvaluelist) != 0:
+                    dict_temp[myaddresslist.pop()] = myvaluelist.pop()
+        print("newdictemp")
+        print(dict_temp)
 
     #SI EL CUADRUPLO ES UN "ENDFUNCTION"
     elif data['Quadruples'][cont][1] == 'ENDFUNC':

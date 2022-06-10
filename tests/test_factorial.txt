@@ -9,7 +9,7 @@ function int : factorialiterativo(int n){
         i = i + 1;
     }
     write ( resultado);
-    return 0;
+    return resultado;
 }
 
 
@@ -17,7 +17,7 @@ main(){
     vars int : myint;
     vars int : mymatrix[4][3];
     mymatrix [1][2] = 3;
-    myint = 0;
+    myint = 7;
     # myint = mymatrix[1][2]; #
     write("myint is ");
     write(myint);
