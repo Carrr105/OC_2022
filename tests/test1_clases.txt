@@ -1,0 +1,14 @@
+program clases;
+
+class MyClass{ 
+    # primero vars, despues funciones#
+    vars int : myclassvar, first;
+
+    function int : myclassfunction(){
+        first = 5 + 4;
+    }
+}
+
+main(){
+    vars MyClass : myownvar;
+}

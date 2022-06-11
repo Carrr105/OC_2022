@@ -1,0 +1,7 @@
+program insanedimensions;
+
+main(){
+    vars float : mysupervar[4][6][8][30];
+    mysupervar[2][4][3][20] = 71.3;
+    write(mysupervar[2][4][3][20]);
+}

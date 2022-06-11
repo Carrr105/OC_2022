@@ -1,0 +1,26 @@
+program fibonacci;
+
+function int : fibonacci(int n){
+    vars int : i, first, second, result;
+    i = 0;
+    first = 0;
+    second = 1;
+    while (i <= n + 1){
+        if ( i < 1){
+            result = i;
+        }
+        else{
+            result = first + second;
+            first = second;
+            second = result;
+        }
+        i = i + 1;
+    }
+    write(result - 1);
+}
+
+main(){
+    vars int : mynum, myresult;
+    mynum=7;
+    myresult = fibonacci(mynum);
+}

@@ -8,7 +8,6 @@ function int : factorialiterativo(int n){
         resultado = resultado * i;
         i = i + 1;
     }
-    write ( resultado);
     return resultado;
 }
 

@@ -1,0 +1,15 @@
+program fibonacci;
+
+function int : fibonacci(int n){
+   if(n < 2 ){
+      return n;
+   }
+      return ( fibonacci(n - 1) + fibonacci(n - 2));
+}
+
+main(){
+    vars int : mynum, result;
+    mynum=8;
+    result = fibonacci(mynum);
+    write(result);
+}

@@ -63,28 +63,28 @@ class CI:
         if mem_type == "global" :
             address = self.global_base + start + self.counter_global[count]
             if address + size > self.global_base + start+ end :
-                    print(address)
-                    print(size)
-                    print(start)
-                    print(end)
-                    print(self.global_base+start+ end)
+                    # print(address)
+                    # print(size)
+                    # print(start)
+                    # print(end)
+                    # print(self.global_base+start+ end)
                     raise TypeError("stack overflow global !")
             self.counter_global[count] += size
         elif mem_type == "pointer" :
             address = self.pointer_base + start + self.counter_pointer[count]
             if address + size > self.pointer_base + start+ end :
-                    print(address)
-                    print(size)
-                    print(start)
-                    print(end)
-                    print(self.pointer_base+start+ end)
+                    # print(address)
+                    # print(size)
+                    # print(start)
+                    # print(end)
+                    # print(self.pointer_base+start+ end)
                     raise TypeError("stack overflow pointer !")
             self.counter_pointer[count] += size
         elif mem_type == "local" :
             address = self.local_base + start + self.counter_local[count]
             self.counter_local[count] += size
             if address + size > self.local_base + start + end :
-                    print(self.local_base+start+ end)
+                    # print(self.local_base+start+ end)
                     raise TypeError("stack overflow local !")
         elif mem_type == "temporal" :
             address = self.temporal_base + start + self.counter_temporal[count]
@@ -93,15 +93,15 @@ class CI:
             self.counter_temporal[count] += size
         elif mem_type == "constants":
             inv_map = {v: k for k, v in self.ctes_table.items()}
-            print("inverted1")
-            print(inv_map)
+            # print("inverted1")
+            # print(inv_map)
             val = inv_map.get(value)
-            print("value_received")
-            print(value)
-            print("val4")
-            print(val)
-            print("now invmap")
-            print (inv_map)
+            # print("value_received")
+            # print(value)
+            # print("val4")
+            # print(val)
+            # print("now invmap")
+            # print (inv_map)
             if val != None:
                 address = val
             else:
@@ -109,7 +109,7 @@ class CI:
                 if address + size > self.ctes_base + start + end :
                     raise TypeError("stack overflow constants !")
                 if result_type=="bool" and address + size > 37502:
-                    print(address)
+                    # print(address)
                     raise TypeError("stack overflow, too many ctes bool !")
                 self.ctes_table[address] = value
                 self.counter_ctes[count] += size
@@ -125,12 +125,12 @@ class CI:
         #self.counter_pointer =  [0,0,0,0] por tiempo no se reinicia
     
     def new_quadruple(self, isPointer=False):
-        print("stack of operators ")
-        print (self.stOperators)
-        print("stack of operands ")
-        print (self.stOperands)
-        print("stack of types ")
-        print (self.stTypes)
+        # print("stack of operators ")
+        # print (self.stOperators)
+        # print("stack of operands ")
+        # print (self.stOperands)
+        # print("stack of types ")
+        # print (self.stTypes)
         operator = self.stOperators.pop()
         leftop = self.stOperands.pop()
         rightop = self.stOperands.pop()
@@ -142,7 +142,7 @@ class CI:
 
         if restype != "ERROR":
             if operator == "=":
-                print("igualandoo...")
+                # print("igualandoo...")
                 # no se deberia permitir asignar un valor float a una variable int
                 result = leftop
                 quadruple = Quadruple(self.counter, operator, None, rightop, result)
@@ -161,12 +161,12 @@ class CI:
             raise TypeError("Type mismatch!")
     
     def parche_guadalupano(self):
-        print("stack of operators ")
-        print (self.stOperators)
-        print("stack of operands ")
-        print (self.stOperands)
-        print("stack of types ")
-        print (self.stTypes)
+        # print("stack of operators ")
+        # print (self.stOperators)
+        # print("stack of operands ")
+        # print (self.stOperands)
+        # print("stack of types ")
+        # print (self.stTypes)
         operator = self.stOperators.pop()
         rightop = self.stOperands.pop()
         righttype = self.stTypes.pop()
@@ -202,11 +202,11 @@ class CI:
         self.counter += 1
 
     def print_quadruples(self):
-        print("...................")
-        print("printing quadruples")
+        # print("...................")
+        # print("printing quadruples")
         for quad in self.listQuadruples:
             print((quad.counter, quad.op, quad.op1, quad.op2, quad.res) )
-        print("...................")
+        # print("...................")
     
     def get_quadruples(self):
         return self.listQuadruples
@@ -218,30 +218,30 @@ class CI:
         self.counter += 1
     
     def fill_goto(self):
-        print("self counter is")
-        print(self.counter)
+        # print("self counter is")
+        # print(self.counter)
         self.listQuadruples[self.stJumps.pop()].updateresult(self.counter)
     
     def fill_goto_while(self):
-        print("self counter is")
-        print(self.counter)
+        # print("self counter is")
+        # print(self.counter)
         self.listQuadruples[len(self.listQuadruples)-1].updateresult(self.stJumps.pop())
     
     def fill_gotof(self):
-        print("self counter is")
-        print(self.counter)
+        # print("self counter is")
+        # print(self.counter)
         self.listQuadruples[self.stJumps.pop()-1].updateresult(self.counter)
     
     def fill_gotof_while(self):
-        print("self counter1 is")
-        print(self.counter)
-        print(self.stJumps)
+        # print("self counter1 is")
+        # print(self.counter)
+        # print(self.stJumps)
         self.listQuadruples[self.stJumps.pop()-1].updateresult(self.counter+1)
     
     def fill_gotoF_if(self):
-        print("self counter1 is")
-        print(self.counter)
-        print(self.stJumps)
+        # print("self counter1 is")
+        # print(self.counter)
+        # print(self.stJumps)
         self.listQuadruples[self.stJumps.pop()-1].updateresult(self.counter+1)
     
     def fill_main_goto(self):

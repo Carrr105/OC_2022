@@ -81,23 +81,23 @@ class DirFunc:
 
     def insert_param_types(self, currentscope, paramstack, isClass=False, name=""):
         if not isClass:
-            print("PARAMS ORDER1: ")
-            print(paramstack)
-            print("ordered too")
-            print(self.function_dictionary[currentscope])
+            # print("PARAMS ORDER1: ")
+            # print(paramstack)
+            # print("ordered too")
+            # print(self.function_dictionary[currentscope])
             for i in range(len(paramstack)):
                 self.function_dictionary[currentscope]["params"].append(paramstack[i])
-            print("nownow10")
-            print(self.function_dictionary[currentscope])
+            # print("nownow10")
+            # print(self.function_dictionary[currentscope])
         else:
-            print("isclass true")
-            print("PARAMS ORDER1: ")
-            print(paramstack)
-            print("ordered too")
+            # print("isclass true")
+            # print("PARAMS ORDER1: ")
+            # print(paramstack)
+            # print("ordered too")
             #print(self.function_dictionary["global"]["classes"][self.current_class]["functions"][self.current_scope])
             for i in range(len(paramstack)):
                 self.function_dictionary["global"]["classes"][self.current_class]["functions"][self.current_scope]["params"].append(paramstack[i])
-            print("nownow10")
+            # print("nownow10")
             #print(self.function_dictionary["global"]["classes"][self.current_class]["functions"][self.current_scope])
 
     ######### VAR TABLE
@@ -109,29 +109,29 @@ class DirFunc:
         # {'vars', 'void'}
         #print("dimztackuwu")
         #print(dim_stack)
-        print("valuess")
-        print(currentscope)
-        print(name)
-        print("pritnb")
-        print(isClass)
-        print("pritnbvar")
-        print(myvarss)
+        # print("valuess")
+        # print(currentscope)
+        # print(name)
+        # print("pritnb")
+        # print(isClass)
+        # print("pritnbvar")
+        # print(myvarss)
         self.curr_var_class = myvarss
         if not isClass:
             if type_ != "int" and type_ != "char" and type_ != "bool" and type_ != "float" and self.curr_var_class != {}:
-                print("masdebug7")
-                print(currentscope)
-                print(name)
-                print (isClass)
-                print (self.function_dictionary[currentscope]["vars"])
-                print(self.curr_var_class)
+                # print("masdebug7")
+                # print(currentscope)
+                # print(name)
+                # print (isClass)
+                # print (self.function_dictionary[currentscope]["vars"])
+                # print(self.curr_var_class)
                 self.function_dictionary[currentscope]["vars"][name] = {
                                                                         'type' : type_,
                                                                         'content' : []
                                                                         }
                 self.function_dictionary[currentscope]["vars"][name]["content"].append(myvarss)                                                 
-                print("adres1s")
-                print(address)
+                # print("adres1s")
+                # print(address)
             else:
                 self.function_dictionary[currentscope]["vars"][name] = {
                                                                         'type' : type_,
@@ -141,14 +141,14 @@ class DirFunc:
                                                                         'dimensions' : [],
                                                                         'paramcount' : paramcount
                                                                         }
-                print("SSS")
-                print (self.function_dictionary[currentscope]["vars"][name])
+                # print("SSS")
+                # print (self.function_dictionary[currentscope]["vars"][name])
                 for i in range(len(dim_stack)):
-                    print("apanding")
-                    print(dim_stack[i])
+                    # print("apanding")
+                    # print(dim_stack[i])
                     self.function_dictionary[currentscope]["vars"][name]["dimensions"].append(dim_stack[i])
-                print("UWU")
-                print (self.function_dictionary[currentscope]["vars"][name])
+                # print("UWU")
+                # print (self.function_dictionary[currentscope]["vars"][name])
     
         else:
             self.function_dictionary["global"]["classes"][self.current_class]["vars"][name] = {
@@ -189,20 +189,20 @@ class DirFunc:
         #print("current scope received is ")
         #print(self.scope)
     
-    def print_var(self):
-        print(self.var_dictionary)
+    # def print_var(self):
+    #     print(self.var_dictionary)
     
-    def print_functions(self):
-        print(self.function_dictionary)
+    # def print_functions(self):
+    #     print(self.function_dictionary)
     
-    def join_functdirectory_vartables(self, currscope):
-        print("helloo")
-        print(self.function_dictionary[currscope])
+    # def join_functdirectory_vartables(self, currscope):
+        # print("helloo")
+        # print(self.function_dictionary[currscope])
     
     def search(self, var_name, function=False):
-        print("wereceived")
-        print(var_name)
-        print (self.function_dictionary)
+        # print("wereceived")
+        # print(var_name)
+        # print (self.function_dictionary)
         if var_name in self.current_scope["vars"]:
             return self.current_scope["vars"][var_name]
         elif var_name in self.function_dictionary["global"]["vars"]:
@@ -218,9 +218,9 @@ class DirFunc:
         
     
     def search_class(self, class_name):
-        print("wereceived")
-        print(class_name)
-        print (self.function_dictionary)
+        # print("wereceived")
+        # print(class_name)
+        # print (self.function_dictionary)
         if class_name in self.function_dictionary["global"]["classes"]:
             return self.function_dictionary["global"]["classes"][class_name]
         else:

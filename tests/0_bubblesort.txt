@@ -1,0 +1,49 @@
+program test;
+
+vars int : array[6];
+
+function void : bubbleSort(int num){
+    vars int : aux;
+    vars int : aux2;
+    vars int : aux3;
+
+    vars int : array1;
+    vars int : array2;
+    vars int : array3;
+
+    num = num - 1;
+    aux = 0;
+    aux2 = 0;
+
+    while(aux < num){
+        while(aux2 < num) {
+            array1 = array[aux2];
+            array2 = array[aux2 + 1];
+            write("acomparar");
+            write(array1);
+            write(array2);
+            if(array1 > array2){
+                array3 = array1;
+                array[aux2] = array2;
+                array[aux2 + 1] = array3;
+            }
+            aux2 = aux2 + 1;
+            write("aux2is");
+            write(aux2);
+        }
+        aux2 = 0;
+        aux = aux + 1;
+    }
+}
+
+main(){
+    array[0] = 2;
+    array[1] = 5;
+    array[2] = 3;
+    array[3] = 1;
+    array[4] = 6;
+    array[5] = 9;
+
+    bubbleSort(6);
+    write(array[5]);
+}

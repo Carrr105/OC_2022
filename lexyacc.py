@@ -10,6 +10,7 @@ from CodigoIntermedio import CI as ci
 import re
 from six.moves import reduce
 import os
+import warnings
 
 df = df()
 ci = ci()
@@ -105,7 +106,7 @@ def t_CTEI(t):
 def t_CTEB(t):
     r'^(?i)(TRUE|FALSE)$'
     t.value = bool(t.value)
-    print("hi1")
+    # print("hi1")
     return t
 
 def t_CTEC(t):
@@ -169,12 +170,12 @@ def p_establishglobalscope(p):
     global scopestack
     scopestack.append("global")
     df.insert_function("global", "global")
-    df.print_functions()
+    # df.print_functions()
     globalname ="global"
-    print("global scope name is ")
-    print(globalname)
+    # print("global scope name is ")
+    # print(globalname)
     ci.gen_main_goto() # generacion del goto al main
-    print("just started bro")
+    # print("just started bro")
 
 def p_programaP(p):
     '''
@@ -198,8 +199,8 @@ def p_insert_class(p):
     '''
     global scopestack
     scopestack.append(p[-1])
-    print("heyboyy1")
-    print (p[-1])
+    # print("heyboyy1")
+    # print (p[-1])
     df.insert_class(p[-1])
     global isClass
     isClass=True
@@ -260,11 +261,11 @@ def p_savefuncscope(p):
     global scopestack
     global functype
     if not isClass:
-        print("entre2")
+        # print("entre2")
         scopestack.append(p[-1])
-        print("heyboyy1")
-        print (p[-1])
-        print (functype)
+        # print("heyboyy1")
+        # print (p[-1])
+        # print (functype)
         ci.reset_counters()
         df.insert_function(p[-1], functype, function="True", ip=ci.counter)
         if functype == 'int' or functype== 'float' or functype== 'bool' or functype== 'char':
@@ -272,8 +273,8 @@ def p_savefuncscope(p):
             df.insert_var("global",p[-1],functype,addr,isFunction=True)
         functype = ""
     else:
-        print("p1is")
-        print(p[-1])
+        # print("p1is")
+        # print(p[-1])
         df.insert_function(p[-1], functype, function="True", ip=ci.counter, isClass = isClass)
         if functype == 'int' or functype== 'float' or functype== 'bool' or functype== 'char':
             addr=ci.get_address(functype, "local")
@@ -296,11 +297,11 @@ def p_savetipo(p):
     global type_var
     type_var = p[-1]
     global paramstack
-    print("appending")
-    print(p[-1])
+    # print("appending")
+    # print(p[-1])
     paramstack.append(p[-1])
-    print("n0w")
-    print(paramstack)
+    # print("n0w")
+    # print(paramstack)
 
 def p_savesequence(p):
     '''
@@ -308,13 +309,13 @@ def p_savesequence(p):
     '''
     global paramstack
     global isClass
-    print("insertin3 sequence...")
-    print(paramstack)
-    print (scopestack[-1])
+    # print("insertin3 sequence...")
+    # print(paramstack)
+    # print (scopestack[-1])
     df.insert_param_types(scopestack[-1], paramstack, isClass=isClass)
     paramstack.clear()
-    print("func state")
-    print(df.function_dictionary)
+    # print("func state")
+    # print(df.function_dictionary)
 
 def p_return(p):
     '''
@@ -323,13 +324,13 @@ def p_return(p):
     '''
     if (df.current_name=="main"):
         raise TypeError("can't return inside main!")
-    print("l00king")
-    print(df.current_name)
+    # print("l00king")
+    # print(df.current_name)
     var = df.search(df.current_name, function=True)
-    print("wefound")
-    print(var)
+    # print("wefound")
+    # print(var)
     if var=="void":
-        print("hi")
+        # print("hi")
         ci.gen_empty_return(df.current_name)
     else:
         ci.gen_return(var["type"], var["address"])
@@ -351,15 +352,15 @@ def p_savetype(p):
     '''
     global type_var
     type_var = p[-1]
-    print("type_var is ")
-    print(type_var)
-    print("verifying...")
-    print (type_var)
-    print(type(type_var))
+    # print("type_var is ")
+    # print(type_var)
+    # print("verifying...")
+    # print (type_var)
+    # print(type(type_var))
     if type_var != "int" and type_var != "char" and type_var != "bool" and type_var != "float":
         verify = df.search_class(type_var)
-        print("verified")
-        print(verify)
+        # print("verified")
+        # print(verify)
 
 def p_param(p):
     '''
@@ -372,35 +373,35 @@ def p_param(p):
     global isClass
     global myvars
     global temporal
-    print("....currentscope")
-    print(df.current_scope)
-    print("....xd")
-    print(df.function_dictionary['global'])
+    # print("....currentscope")
+    # print(df.current_scope)
+    # print("....xd")
+    # print(df.function_dictionary['global'])
     if (len(p)==2):
         if df.current_scope is df.function_dictionary['global']:
             address = ci.get_address(type_var, "global")
             df.insert_var(scopestack[-1], p[1], type_var, address, [], 0, isFunction=False, isClass=isClass)
         elif type_var != "int" and type_var != "char" and type_var != "bool" and type_var != "float" and isClass == False:
             address = -1
-            print("l00k1")
-            print(type_var)
+            # print("l00k1")
+            # print(type_var)
             myvarfromclass = df.search_class(type_var)
             myvars = myvarfromclass["vars"]
-            print("beforecycle")
-            print(ci.counter_local)
-            print("letstry1")
-            print(df.current_name)
+            # print("beforecycle")
+            # print(ci.counter_local)
+            # print("letstry1")
+            # print(df.current_name)
             mylist = []
             for k,v in myvars.items():
                 mylist.append((k,v["type"],v["value"],ci.get_address(v["type"], "local")))
-                print(v)
-                print("info2")
-                print(k)
-                print(v["address"])
-            print("aftercycle")
-            print(ci.counter_local)
-            print("newmyvars")
-            print(myvars)
+                # print(v)
+                # print("info2")
+                # print(k)
+                # print(v["address"])
+            # print("aftercycle")
+            # print(ci.counter_local)
+            # print("newmyvars")
+            # print(myvars)
             if not isParamFunc:
                 df.insert_var(scopestack[-1], p[1], type_var, address, [], 0, isFunction=False, isClass=isClass, myvarss=mylist)
         elif isClass:
@@ -409,10 +410,10 @@ def p_param(p):
         else:
             address = ci.get_address(type_var, "local")
             if isParamFunc:
-                print("justener2")
-                print(p[1])
-                print(paramcount)
-                print(isClass)
+                # print("justener2")
+                # print(p[1])
+                # print(paramcount)
+                # print(isClass)
                 df.insert_var(scopestack[-1], p[1], type_var, address, [], paramcount=paramcount, isFunction=False, isClass=isClass)
                 paramcount+=1
             else:
@@ -422,25 +423,25 @@ def p_param(p):
         myvars = {}
     else:
         # guardar variable con direccion base y con el numero de dimensiones
-        print("hola")
-        print("saving as normal id for now")
-        print("dimstack1 received is")
+        # print("hola")
+        # print("saving as normal id for now")
+        # print("dimstack1 received is")
         global dimstack
-        print(dimstack)
+        # print(dimstack)
         # dimaux almacena los valores de las direcciones para calcular el size
         dimaux = []
         dct = dict(ci.ctes_table)
-        print("dimstack is")
-        print(dimstack)
+        # print("dimstack is")
+        # print(dimstack)
         for i in dimstack:
             val = dct.get(i)
-            print("dctok")
-            print(dct)
-            print("valok")
-            print(val)
+            # print("dctok")
+            # print(dct)
+            # print("valok")
+            # print(val)
             if val != None:
                 if isinstance(val, int) and val >= 0:
-                    print("entr3")
+                    # print("entr3")
                     dimaux.append(val)
                 else:
                     if i >= 20000 and i < 30000:
@@ -448,8 +449,8 @@ def p_param(p):
                     else:
                         raise TypeError("really...")
         #print(ci.ctes_table.values())
-        print("dimauxx")
-        print(dimaux)
+        # print("dimauxx")
+        # print(dimaux)
         # la dirección calculada es la base
         if df.current_scope is df.function_dictionary['global'] and not isClass:
             address = ci.get_address(type_var, "global", value=None, size = reduce(lambda x, y: x*y, dimaux))
@@ -462,10 +463,10 @@ def p_param(p):
             df.insert_var(scopestack[-1], p[1], type_var, address, [], paramcount, isFunction=False, isClass=isClass)
             paramcount+=1
         else:
-            print("dimztack")
-            print(dimstack)
-            print("dimauxxuwu")
-            print(dimaux)
+            # print("dimztack")
+            # print(dimstack)
+            # print("dimauxxuwu")
+            # print(dimaux)
             # se almacenan dimensiones directamente como valores por cuestion de tiempo
             df.insert_var(scopestack[-1], p[1], type_var, address, dimaux, 0, isFunction=False, isClass=isClass)
         dimstack.clear()
@@ -483,10 +484,10 @@ def p_saveone(p):
     '''
     global dimstack
     type_ = ci.stTypes.pop()
-    print("xdnt")
-    print(type_)
+    # print("xdnt")
+    # print(type_)
     if (type_ == "int" or type_ == "float"):
-        print("saving dimension1")
+        # print("saving dimension1")
         dimstack.append(ci.stOperands.pop())
     else:
         raise TypeError("dimension should be an int!")
@@ -532,8 +533,8 @@ def p_establishmainscope(p):
     global scopestack
     scopestack.append("main")
     df.insert_function("main", "void", function="False", ip=ci.counter)
-    df.print_functions()
-    print("main has been found")
+    # df.print_functions()
+    # print("main has been found")
     ci.reset_counters()
     ci.fill_main_goto()
 
@@ -541,6 +542,7 @@ def p_estatuto(p):
     '''
     estatuto : asignacion estatuto
         | llamada estatuto
+        | llamada SEMICOLON estatuto
         | lectura estatuto
         | escritura estatuto
         | repeticion estatuto
@@ -560,12 +562,16 @@ def p_llamada(p):
     llamada : ID gen_era OPENPARENTHESES param_call CLOSEPARENTHESES
     '''
     ci.gen_gosub(p[1])
-    var = df.search(p[1])
-    print(var)
-    ci.stOperands.append(var["address"])
-    ci.stTypes.append(var["type"]) #mexicanada, repetir el append para que no este vacio el stack
-    print("mystackuwu")
-    ci.stOperators.append("=")
+    var = df.search(p[1],function=True)
+    # print("okok")
+    # print(var)
+    # print(type(var))
+    if var != "void": 
+        # print("hola")
+        ci.stOperands.append(var["address"])
+        ci.stTypes.append(var["type"]) #mexicanada, repetir el append para que no este vacio el stack
+        # print("mystackuwu")
+        ci.stOperators.append("=")
     #ci.parche_guadalupano()
 
 
@@ -574,8 +580,8 @@ def p_gen_era(p):
     '''
     gen_era : 
     '''
-    print("p1ok")
-    print(p[-1])
+    # print("p1ok")
+    # print(p[-1])
     #var = df.search(p[-1])
     ci.gen_era(p[-1])
 
@@ -589,7 +595,7 @@ def p_printt(p):
     '''
     printt : 
     '''
-    print("finished..")
+    #print("finished..")
 
 def p_gen_param(p):
     '''
@@ -603,10 +609,10 @@ def p_lectura(p):
             | READ OPENPARENTHESES ID dims CLOSEPARENTHESES SEMICOLON
     '''
     if (len(p)==6):
-        print("var to look for")
-        print(p[3])
+        # print("var to look for")
+        # print(p[3])
         var = df.search(p[3]) 
-        print(var)
+        # print(var)
         if (var["function"]=="True"):
             raise TypeError("XD, no se puede asignar valor a una función")
         ci.stOperators.append(p[1])
@@ -615,14 +621,14 @@ def p_lectura(p):
         ci.gen_read()
     if (len(p)==7):
         var = df.search(p[3]) 
-        print(var)
+        # print(var)
         if (var["function"]=="True"):
             raise TypeError("XD, no se puede leer una funcion")
         ci.stOperators.append(p[1])
         global recorridodimensiones
         global R
-        print("R -1 =")
-        print(R - 1)
+        # print("R -1 =")
+        # print(R - 1)
         # dir base + recorrido
         ci.stOperands.append(var["address"] + (R - 1))
         ci.stTypes.append(var["type"])
@@ -642,14 +648,14 @@ def p_asignacion(p):
         | ID retrieve_var_dims dims EQUALS exp SEMICOLON
     '''
     p[0]=p[1]
-    print ("asignación encontrada")
+    # print ("asignación encontrada")
 
     if len(p) == 5:
-        print("var to look for")
-        print(p[1])
+        # print("var to look for")
+        # print(p[1])
         var = df.search(p[1]) 
         #print("vargot")
-        print(var)
+        # print(var)
         if (var["function"]=="True"):
             raise TypeError("no te pases de listo XD, se intentó asignar un valor a una función")
         ci.stOperators.append(p[2])
@@ -658,13 +664,13 @@ def p_asignacion(p):
         ci.new_quadruple()
     else:
         ci.stOperators.append("=") # agrega simbolo igual de asignacion
-        print ("stackz2")
-        print(ci.stOperands)
+        # print ("stackz2")
+        # print(ci.stOperands)
         ci.stOperands.reverse()
         #ci.stOperands.append(var["address"])
         var = df.search(p[1]) 
-        print("unuchan12")
-        print(var)
+        # print("unuchan12")
+        # print(var)
         ci.stTypes.append(var["type"])
         ci.new_quadruple()
         
@@ -677,21 +683,21 @@ def p_retrieve_var_dims(p):
     global current_var_name
     var = df.search(p[-1]) 
     currdimlist = var["dimensions"]
-    print("weretriv1")
-    print (currdimlist)
-    print(var["address"])
-    print("sapo3")
-    print(currdimlist)
-    print("lengthis")
-    print(currdimlist)
-    print("currstack")
-    print(ci.stOperands)
-    print(ci.stOperators)
-    print(ci.stTypes)
+    # print("weretriv1")
+    # print (currdimlist)
+    # print(var["address"])
+    # print("sapo3")
+    # print(currdimlist)
+    # print("lengthis")
+    # print(currdimlist)
+    # print("currstack")
+    # print(ci.stOperands)
+    # print(ci.stOperators)
+    # print(ci.stTypes)
     #currdimlist.reverse()
     current_var_name = p[-1]
-    print("currivar")
-    print(current_var_name)
+    # print("currivar")
+    # print(current_var_name)
 
 
 def p_dims(p):
@@ -707,25 +713,25 @@ def p_dims(p):
         global i_count
         i_count = 0
         global current_var_name
-        print("var with dimensions to look for")
-        print("vargot")
-        print("uptilnow1")
-        print(ci.stOperands)
-        print(ci.stTypes)
+        # print("var with dimensions to look for")
+        # print("vargot")
+        # print("uptilnow1")
+        # print(ci.stOperands)
+        # print(ci.stTypes)
         one_address = ci.get_address("int", "constants", 1)
         ci.stOperands.append(one_address)
         ci.stOperators.append("-")
         ci.stTypes.append("int")
         ci.new_quadruple()
         var = df.search(current_var_name) 
-        print("unuchan12")
-        print(var)
+        # print("unuchan12")
+        # print(var)
         if (var["function"]=="True"):
             raise TypeError("no te pases de listo XD, se intentó asignar un valor a una función")
         global recorridodimensiones
         global R
-        print("R - 1 =")
-        print(R - 1)
+        # print("R - 1 =")
+        # print(R - 1)
         # dir base + recorrido
         ci.stOperators.append("+") # agrega simbolo igual de asignacion
         ci.stOperands.append(var["address"]) #  manda dir base
@@ -744,13 +750,13 @@ def p_calculate(p):
     global isfirstdim
     global currdimlist
     global i_count
-    print("contt1")
-    print(i_count)
-    print("recivvv4")
-    print(currdimlist)
-    print(ci.stOperands)
-    print(ci.stOperators)
-    print(ci.stTypes)
+    # print("contt1")
+    # print(i_count)
+    # print("recivvv4")
+    # print(currdimlist)
+    # print(ci.stOperands)
+    # print(ci.stOperators)
+    # print(ci.stTypes)
     ci.stTypes.pop()
     #recorridodimensiones.append(ci.stOperands.pop())
     dim = ci.stOperands[-1]
@@ -758,9 +764,9 @@ def p_calculate(p):
     print(dim)
     dct = dict(ci.ctes_table)
     val = dct.get(dim)
-    print("dimbasado")
-    print("verf4")
-    print("stackverify")
+    # print("dimbasado")
+    # print("verf4")
+    # print("stackverify")
     #print(ci.stOperands.pop())
     #print(currdimlist[-1])
     #ci.stOperands.append(dim)
@@ -773,27 +779,27 @@ def p_calculate(p):
     ci.stTypes.append("int")
     ci.new_quadruple()
     if isfirstdim:
-        print("makinggg 1st verification")
-        print( ci.stOperands)
-        print(ci.stOperators)
-        print(ci.stTypes)
+        # print("makinggg 1st verification")
+        # print( ci.stOperands)
+        # print(ci.stOperators)
+        # print(ci.stTypes)
         R_address = ci.get_address("int", "constants", R)
         ci.stOperands.append(R_address)
         isfirstdim = False
-    else:
-        print("makinggg 3nd verification")
-        print( ci.stOperands)
-        print(ci.stOperators)
-        print(ci.stTypes)
-        print("makinggg 3ndn verification")
-        print( ci.stOperands)
-        print(ci.stOperators)
-        print(ci.stTypes)
-        print("tempr")
+    # else:
+        # print("makinggg 3nd verification")
+        # print( ci.stOperands)
+        # print(ci.stOperators)
+        # print(ci.stTypes)
+        # print("makinggg 3ndn verification")
+        # print( ci.stOperands)
+        # print(ci.stOperators)
+        # print(ci.stTypes)
+        # print("tempr")
     ci.stOperators.append("*")
     ci.stTypes.append("int")
     ci.new_quadruple()
-    print(val)
+    # print(val)
     i_count = i_count + 1
 
 
@@ -815,7 +821,7 @@ def p_writestring(p):
     '''
     writestring : CTESTRING
     '''
-    print ("CTE string found!")
+    # print ("CTE string found!")
     address = ci.get_address("char", "constants", p[1])
     ci.stTypes.append("char")
     ci.stOperands.append(address)
@@ -940,16 +946,16 @@ def p_iexp(p):
         #print("p[1]")
         #print(p[1])
         ci.stOperators.append(p[2])
-        print("p[2]")
-        print(p[2])
+        # print("p[2]")
+        # print(p[2])
         #ci.stOperands.append(p[3])
         #print("p[3]")
         #print(p[3])
         #ci.stTypes.append("int")
-        print("_____stacks___")
-        print(ci.stTypes)
-        print(ci.stOperands)
-        print(ci.stOperators)
+        # print("_____stacks___")
+        # print(ci.stTypes)
+        # print(ci.stOperands)
+        # print(ci.stOperators)
         ci.new_quadruple()
 
 def p_nexp(p):
@@ -967,16 +973,16 @@ def p_nexp(p):
         #print("p[1]")
         #print(p[1])
         ci.stOperators.append(p[2])
-        print("p[2]")
-        print(p[2])
+        # print("p[2]")
+        # print(p[2])
         #ci.stOperands.append(p[3])
         #print("p[3]")
         #print(p[3])
         #ci.stTypes.append("int")
-        print("_____stacks___")
-        print(ci.stTypes)
-        print(ci.stOperands)
-        print(ci.stOperators)
+        # print("_____stacks___")
+        # print(ci.stTypes)
+        # print(ci.stOperands)
+        # print(ci.stOperators)
         ci.new_quadruple()
 
 
@@ -991,16 +997,16 @@ def p_pexp(p):
         #print("p[1]")
         #print(p[1])
         ci.stOperators.append(p[2])
-        print("p[2]")
-        print(p[2])
+        # print("p[2]")
+        # print(p[2])
         #ci.stOperands.append(p[3])
         #print("p[3]")
         #print(p[3])
         #ci.stTypes.append("int")
-        print("_____stacks___")
-        print(ci.stTypes)
-        print(ci.stOperands)
-        print(ci.stOperators)
+        # print("_____stacks___")
+        # print(ci.stTypes)
+        # print(ci.stOperands)
+        # print(ci.stOperators)
         ci.new_quadruple()
         # en este momento se genera un temporal que se agrega al stack de 
         # operandos dentro del archivo de codigo intermedio
@@ -1017,16 +1023,16 @@ def p_termino(p):
         #print("p[1]")
         #print(p[1])
         ci.stOperators.append(p[2])
-        print("p[2]")
-        print(p[2])
+        # print("p[2]")
+        # print(p[2])
         #ci.stOperands.append(p[3])
         #print("p[3]")
         #print(p[3])
         #ci.stTypes.append("int")
-        print("_____stacks___")
-        print(ci.stTypes)
-        print(ci.stOperands)
-        print(ci.stOperators)
+        # print("_____stacks___")
+        # print(ci.stTypes)
+        # print(ci.stOperands)
+        # print(ci.stOperators)
         ci.new_quadruple()
         # en este momento se genera un temporal que se agrega al stack de 
         # operandos dentro del archivo de codigo intermedio
@@ -1047,34 +1053,34 @@ def p_factor(p):
         | ID retrieve_var_dims dims 
     '''
     if (len(p) == 2):
-        print("trying...")
-        print(p[1])
+        # print("trying...")
+        # print(p[1])
         if bool(re.match("-?([0-9])+\.([0-9])*", str(p[1]))):
-            print("CTEFf found!")
+            # print("CTEFf found!")
             #print(parser.token().type)
             address = ci.get_address("float", "constants", p[1])
             ci.stTypes.append("float")
             ci.stOperands.append(address)
         elif bool(re.match("-?\d+", str(p[1]))):
-            print("CTEI found!")
-            print("oloo1")
+            # print("CTEI found!")
+            # print("oloo1")
             address = ci.get_address("int", "constants", p[1])
             ci.stTypes.append("int")
             ci.stOperands.append(address)
         elif bool(re.match("^(?i)(TRUE|FALSE)$", str(p[1]))):
-            print("CTE BOOL found!")
-            print(str(p[1]))
+            # print("CTE BOOL found!")
+            # print(str(p[1]))
             address = ci.get_address("bool", "constants", p[1])
             ci.stTypes.append("bool")
             ci.stOperands.append(address)
         elif bool(re.match("[a-zA-Z][a-zA-Z_0-9]*", str(p[1]))):
-            print("ID found!")
+            # print("ID found!")
             #print(parser.token().type)
             var = df.search(p[1])
             ci.stTypes.append(var["type"])
             ci.stOperands.append(var["address"])
         elif bool(re.match('"(.?)"', str(p[1]))):
-            print ("CTE CHAR found!")
+            # print ("CTE CHAR found!")
             address = ci.get_address("char", "constants", p[1])
             ci.stTypes.append("char")
             ci.stOperands.append(address)
@@ -1088,10 +1094,11 @@ def p_empty(p):
     p[0] = None
 
 def p_error(p):
-   print("Syntax error in input!")
+    print("Syntax error in input!")
 
 
 parser = yacc.yacc()
+warnings.filterwarnings("ignore", category=DeprecationWarning)  # hay un warning de un regex bool
 
 if __name__ == '__main__':
     try:
@@ -1103,12 +1110,12 @@ if __name__ == '__main__':
             tok = lexer.token()
             if not tok: 
                 break      # No more input
-            print(tok)
+            # print(tok)
         archivo.close()
         if(yacc.parse(info, tracking=True) == 'PROGRAM COMPILED'):
-            print("success")
-            df.print_var()
-            ci.print_quadruples()
+            # print("success")
+            # df.print_var()
+            # ci.print_quadruples()
             ci.new_obj_file(str(df.function_dictionary))
             os.system('python3 virtualmachine.py')
         else:
