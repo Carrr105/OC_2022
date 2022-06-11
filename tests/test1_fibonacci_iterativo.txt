@@ -21,6 +21,6 @@ function int : fibonacci(int n){
 
 main(){
     vars int : mynum, myresult;
-    mynum=7;
+    mynum=10;
     myresult = fibonacci(mynum);
 }

@@ -12,7 +12,7 @@ function int : factorial(int n){
 main(){
     vars int : numero;
     vars int : resultado;
-    numero = 5;
+    numero = 6;
     resultado = 0;
     resultado = factorial(numero);
     write(resultado);

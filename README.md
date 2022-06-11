@@ -1,4 +1,4 @@
-# Lenguaje OC2022
+# Lenguaje OC_2022
 
 #### Proposito
 
@@ -119,15 +119,21 @@ main(){
 
 #### ¿Cómo ejecutar el proyecto?
 
-Para poder ejecutar el proyecto, es necesario tener nuestro **.txt** dentro de la carpeta de **test**, una vez habiendolo colocado ahi, iremos a nuestro archivo **lexyacc.py** y en la línea 1034 colocamos el nombre del archivo que queremos ejecutar. Esto justo despues de **/tests/** y antews de **.txt**
+Primero se deben instalar las librerías necesarias. Para esto primero debemos estar situados en la carpeta de este proyecto dentro de una terminal.
+
+Posteriormente se ejecuta el siguiente comando:
 
 ```
-archivo = open('./tests/test_funcionsimple.txt','r')
+python3 setup.py install
 ```
 
+Para poder ejecutar el proyecto, es necesario tener nuestro **.txt** dentro de la carpeta de **test**.
 
-Primero ejecutamos en comando **python3 lexyacc.py** y posteriormente el comando **python3 virtualmachine.py**
-***
+
+Ejecutamos el comando **python3 lexyacc.py** seguido de la ruta del archivo. Por ejemplo: 
+```
+python3 lexyacc.py ./tests/test1_find.txt
+```
 
 Equipo:
 

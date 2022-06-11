@@ -18,7 +18,5 @@ main(){
     mymatrix [1][2] = 3;
     myint = 7;
     # myint = mymatrix[1][2]; #
-    write("myint is ");
-    write(myint);
     write(factorialiterativo(myint));
 }

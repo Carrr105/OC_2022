@@ -760,8 +760,8 @@ def p_calculate(p):
     ci.stTypes.pop()
     #recorridodimensiones.append(ci.stOperands.pop())
     dim = ci.stOperands[-1]
-    print("dimiss1")
-    print(dim)
+    # print("dimiss1")
+    # print(dim)
     dct = dict(ci.ctes_table)
     val = dct.get(dim)
     # print("dimbasado")

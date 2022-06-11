@@ -15,7 +15,7 @@ function int : find(int num){
         aux2 = aux2 + 1;
     }
     aux2 = aux2 - 1;
-    write (aux2);
+    # write (aux2); #
     return (aux2) ;
 }
 
@@ -37,6 +37,6 @@ main(){
 
     encontro = 0;
     encontro = find(encuentra);
-    write("Prueba de fuego");
+    write("El indice es");
     write(encontro);
 }
